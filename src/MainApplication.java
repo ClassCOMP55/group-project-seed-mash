@@ -27,10 +27,12 @@ public class MainApplication extends GraphicsProgram{
 	}
 	
 	public void init() {
+        this.gw.setTitle("Trigonometry Jump");
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
 	
 	public void run() {
+
 		System.out.println("Lets' Begin!");
 		setupInteractions();
 		
