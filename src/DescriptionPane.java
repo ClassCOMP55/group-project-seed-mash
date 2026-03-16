@@ -3,7 +3,7 @@ import java.awt.event.MouseEvent;
 
 import acm.graphics.*;
 
-public class DescriptionPane extends GraphicsPane{
+public class DescriptionPane extends GraphicsPane {
 	public DescriptionPane(MainApplication mainScreen) {
 		this.mainScreen = mainScreen;
 	}

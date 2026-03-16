@@ -5,7 +5,7 @@ import acm.program.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class MainApplication extends GraphicsProgram{
+public class MainApplication extends GraphicsProgram {
 	//Settings
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;

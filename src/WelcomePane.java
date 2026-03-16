@@ -3,7 +3,7 @@ import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
 import acm.graphics.GObject;
 
-public class WelcomePane extends GraphicsPane{
+public class WelcomePane extends GraphicsPane {
 	public WelcomePane(MainApplication mainScreen) {
 		this.mainScreen = mainScreen;
 	}
