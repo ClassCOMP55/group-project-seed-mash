@@ -11,15 +11,39 @@ public class MainApplication extends GraphicsProgram {
 	public static final int WINDOW_HEIGHT = 600;
 	
 	//List of all the full screen panes
-	private WelcomePane welcomePane;
-	private DescriptionPane descriptionPane;
+	private StartPane startPane;
+	private LevelSelectPane levelSelectPane;
 	private GraphicsPane currentScreen;
-
+	
+	//Sound Values
+	int sfxVol = 100;
+	int musicVol = 100;
+		
 
 	public MainApplication() {
 		super();
 	}
 	
+	public int getSfxVol() {
+		return sfxVol;
+	}
+
+	public void setSfxVol(int sfxVol) {
+		this.sfxVol = sfxVol;
+	}
+
+	public int getMusicVol() {
+		return musicVol;
+	}
+
+	public void setMusicVol(int musicVol) {
+		this.musicVol = musicVol;
+	}
+	
+	public void quitGame() {
+		clear();
+	}
+
 	protected void setupInteractions() {
 		requestFocus();
 		addKeyListeners();
@@ -37,11 +61,11 @@ public class MainApplication extends GraphicsProgram {
 		setupInteractions();
 		
 		//Initialize all Panes
-		welcomePane = new WelcomePane(this);
-		descriptionPane = new DescriptionPane(this);
+		startPane = new StartPane(this);
+		levelSelectPane = new LevelSelectPane(this);
 
 		//TheDefaultPane
-		switchToScreen(welcomePane);
+		switchToScreen(startPane);
 	}
 	
 	public static void main(String[] args) {
@@ -49,12 +73,12 @@ public class MainApplication extends GraphicsProgram {
 
 	}
 	
-	public void switchToDescriptionScreen() {
-		switchToScreen(descriptionPane);
+	public void switchToLevelSelectScreen() {
+		switchToScreen(levelSelectPane);
 	}
 	
-	public void switchToWelcomeScreen() {
-		switchToScreen(welcomePane);
+	public void switchToStartScreen() {
+		switchToScreen(startPane);
 	}
 	
 	
