@@ -3,8 +3,8 @@ import java.awt.event.MouseEvent;
 
 import acm.graphics.*;
 
-public class DescriptionPane extends GraphicsPane{
-	public DescriptionPane(MainApplication mainScreen) {
+public class LevelSelectPane extends GraphicsPane{
+	public LevelSelectPane(MainApplication mainScreen) {
 		this.mainScreen = mainScreen;
 	}
 	
@@ -44,7 +44,7 @@ public class DescriptionPane extends GraphicsPane{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (mainScreen.getElementAtLocation(e.getX(), e.getY()) == contents.get(1)) {
-			mainScreen.switchToWelcomeScreen();
+			mainScreen.switchToStartScreen();
 		}
 	}
 
