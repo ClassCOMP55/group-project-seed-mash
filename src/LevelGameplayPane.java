@@ -1,0 +1,72 @@
+import acm.graphics.GImage;
+import acm.graphics.GLabel;
+import level.GameLevel;
+import level.ObstacleType;
+
+import java.awt.*;
+
+/**
+ * Graphics pane for actually playing the levels. Handles the rendering of the levels.
+ */
+public class LevelGameplayPane extends GraphicsPane {
+    public static final int ELEMENT_SCALING = 70; //how big (in pixels) obstacles are going to appear on screen
+    private GameLevel currentLevel;
+
+    @Override
+    public void showContent() {
+        this.addText();
+        this.renderLevel();
+    }
+
+    public LevelGameplayPane(MainApplication mainApplication) {
+        this.mainScreen = mainApplication;
+    }
+
+    public GameLevel getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(GameLevel currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
+    /**
+     * Test for level rendering
+     * @param args args
+     */
+    public static void main(String[] args) {
+        MainApplication app = new MainApplication();
+        app.start();
+        app.levelGameplayPane.setCurrentLevel(GameLevel.TEST_LEVEL);
+        app.switchToScreen(app.levelGameplayPane);
+    }
+
+    private void addText() {
+        GLabel text = new GLabel("Level gameplay", 100, 70);
+        text.setColor(Color.BLUE);
+        text.setFont("DialogInput-PLAIN-24");
+        text.setLocation((mainScreen.getWidth() - text.getWidth()) / 2, 70);
+//        GImage image = new GImage("obstacles/block.png", 100, 100);
+//        image.setSize(70, 70);
+//        contents.add(image);
+//        mainScreen.add(image);
+
+        contents.add(text);
+        mainScreen.add(text);
+    }
+    private void renderLevel() {
+        ObstacleType[][] geom = currentLevel.getGeometry();
+        for (int r = 0; r < geom.length; r++) {
+            for (int c = 0; c < geom[r].length; c++) {
+                if (geom[r][c] != null) {
+                    int x = 70*c;
+                    int y = 800-(ELEMENT_SCALING*(r+1));
+                    GImage toAdd = new GImage(geom[r][c].getImageFileURL(), x, y);
+                    toAdd.setSize(ELEMENT_SCALING, ELEMENT_SCALING);
+                    contents.add(toAdd);
+                    mainScreen.add(toAdd);
+                }
+            }
+        }
+    }
+}

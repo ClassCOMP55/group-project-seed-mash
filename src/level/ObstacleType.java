@@ -31,6 +31,11 @@ public enum ObstacleType {
         charRepresentation = charRep;
     }
 
+    @Override
+    public String toString() {
+        return getCharRepresentation() + "";
+    }
+
     /**
      * Used in the level creation process to turn arranged strings into level geometry.
      * @param c Character (potentially) representing an ObstacleType

@@ -13,6 +13,7 @@ public class MainApplication extends GraphicsProgram {
 	//List of all the full screen panes
 	private StartPane startPane;
 	private LevelSelectPane levelSelectPane;
+    public LevelGameplayPane levelGameplayPane;
 	private GraphicsPane currentScreen;
 	
 	//Sound Values
@@ -52,6 +53,7 @@ public class MainApplication extends GraphicsProgram {
 	
 	public void init() {
         this.gw.setTitle("Trigonometry Jump");
+        this.gw.setLocation(350,150);
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
 	
@@ -63,14 +65,13 @@ public class MainApplication extends GraphicsProgram {
 		//Initialize all Panes
 		startPane = new StartPane(this);
 		levelSelectPane = new LevelSelectPane(this);
-
+        levelGameplayPane = new LevelGameplayPane(this);
 		//TheDefaultPane
 		switchToScreen(startPane);
 	}
 	
 	public static void main(String[] args) {
 		new MainApplication().start();
-
 	}
 	
 	public void switchToLevelSelectScreen() {
