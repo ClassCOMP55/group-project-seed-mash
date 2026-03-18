@@ -1,13 +1,14 @@
 package level;
 
 /**
- * All the types of static objects that can appear in a level. - Sean Y.
+ * All the types of static objects that can appear in a level.
  * <ul>
  * <li> <b>Block</b>: Basic square, foundation of the level. Can be traversed upon.</li>
  * <li> <b>Platform</b>: Same as a Block, but visually occupies less space.</li>
  * <li> <b>Up-Spike</b>: A spike facing upwards. Game over if the player touches the spike.</li>
  * <li> <b>Down-Spike</b>: A spike facing downwards. Game over if the player touches the spike.</li>
  * </ul>
+ * - Sean Y.
  */
 public enum ObstacleType {
     BLOCK("obstacles/block.png", 'B'),

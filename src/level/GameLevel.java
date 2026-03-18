@@ -6,4 +6,5 @@ package level;
  * and all additional effects unique to that level alone (color, play speed, etc.) - Sean Y.
  */
 public class GameLevel {
+
 }
