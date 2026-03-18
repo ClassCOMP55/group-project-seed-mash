@@ -1,16 +1,20 @@
 import acm.graphics.GImage;
+import acm.graphics.GImageTools;
 import acm.graphics.GLabel;
 import level.GameLevel;
+import level.LevelColorFilter;
 import level.ObstacleType;
 
 import java.awt.*;
+import java.awt.image.FilteredImageSource;
 
 /**
  * Graphics pane for actually playing the levels. Handles the rendering of the levels.
  */
 public class LevelGameplayPane extends GraphicsPane {
-    public static final int ELEMENT_SCALING = 70; //how big (in pixels) obstacles are going to appear on screen
+    public static final int ELEMENT_SCALING = 80; //how big (in pixels) obstacles are going to appear on screen
     private GameLevel currentLevel;
+    private static LevelColorFilter colorFilter;
 
     @Override
     public void showContent() {
@@ -19,6 +23,7 @@ public class LevelGameplayPane extends GraphicsPane {
     }
 
     public LevelGameplayPane(MainApplication mainApplication) {
+        colorFilter = new LevelColorFilter();
         this.mainScreen = mainApplication;
     }
 
@@ -28,6 +33,7 @@ public class LevelGameplayPane extends GraphicsPane {
 
     public void setCurrentLevel(GameLevel currentLevel) {
         this.currentLevel = currentLevel;
+        colorFilter.setLevel(currentLevel);
     }
 
     /**
@@ -59,9 +65,11 @@ public class LevelGameplayPane extends GraphicsPane {
         for (int r = 0; r < geom.length; r++) {
             for (int c = 0; c < geom[r].length; c++) {
                 if (geom[r][c] != null) {
-                    int x = 70*c;
-                    int y = 800-(ELEMENT_SCALING*(r+1));
-                    GImage toAdd = new GImage(geom[r][c].getImageFileURL(), x, y);
+                    int x = ELEMENT_SCALING*c;
+                    int y = 800-(ELEMENT_SCALING*r);
+                    Image img = GImageTools.loadImage(geom[r][c].getImageFileURL());
+                    img = GImageTools.getImageObserver().createImage(new FilteredImageSource(img.getSource(), colorFilter));
+                    GImage toAdd = new GImage(img, x, y);
                     toAdd.setSize(ELEMENT_SCALING, ELEMENT_SCALING);
                     contents.add(toAdd);
                     mainScreen.add(toAdd);
