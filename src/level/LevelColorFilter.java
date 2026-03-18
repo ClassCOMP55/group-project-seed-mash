@@ -2,6 +2,9 @@ package level;
 
 import java.awt.image.RGBImageFilter;
 
+/**
+ * Image color filter used to make levels have a certain color scheme (which is defined with the GameLevel object). - Sean Y.
+ */
 public class LevelColorFilter extends RGBImageFilter {
     private GameLevel level;
     public LevelColorFilter() {

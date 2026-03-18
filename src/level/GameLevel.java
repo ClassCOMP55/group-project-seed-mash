@@ -65,6 +65,12 @@ public class GameLevel {
      //                 ^
      //       ^     BBBBBBBB
      //BBBBBBBBBBBBBBBBBBBBB
+
+    /**
+     * Creates a 2D array of {@link ObstacleType}s from an array of Strings for use as level geometry
+     * @param strings String array to translate into ObstacleTypes
+     * @return Level geometry in the form of a 2D array of ObstacleTypes
+     */
     public static ObstacleType[][] geomFromString(String[] strings) {
         ObstacleType[][] arr = new ObstacleType[strings.length][strings[0].length()];
         for (int r = 0; r < strings.length; r++) {
@@ -76,12 +82,13 @@ public class GameLevel {
         return arr;
     }
     public static final String[] TEST_GEOM = {
+            "BBB   BBB                                     ",
+            "B       B                                     ",
+            "BBB    BB                                     ",
+            "B B     B                                     ",
+            "BBB     B                                     ",
             "                                              ",
-            "       BBB                                    ",
-            "       vvv                                    ",
-            " ----                                         ",
-            "       ^^^BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     };
-    public static final GameLevel TEST_LEVEL = new GameLevel("Test Level", "", Color.GREEN, 60, geomFromString(TEST_GEOM));
+
+    public static final GameLevel TEST_LEVEL = new GameLevel("Test Level", "", Color.MAGENTA, 60, geomFromString(TEST_GEOM));
 }

@@ -7,6 +7,7 @@ import level.ObstacleType;
 
 import java.awt.*;
 import java.awt.image.FilteredImageSource;
+import java.util.HashMap;
 
 /**
  * Graphics pane for actually playing the levels. Handles the rendering of the levels.
@@ -15,6 +16,13 @@ public class LevelGameplayPane extends GraphicsPane {
     public static final int ELEMENT_SCALING = 80; //how big (in pixels) obstacles are going to appear on screen
     private GameLevel currentLevel;
     private static LevelColorFilter colorFilter;
+
+    /**
+     * When a GameLevel is loaded into LevelGameplayPane via {@link #setCurrentLevel(GameLevel)}, the images of the obstacles
+     * are automatically colored (according to the GameLevel's color scheme) and stored
+     * here to be referenced statically when the level is being rendered.
+     */
+    static HashMap<ObstacleType, Image> obstacleImageCache = new HashMap<>();
 
     @Override
     public void showContent() {
@@ -34,6 +42,11 @@ public class LevelGameplayPane extends GraphicsPane {
     public void setCurrentLevel(GameLevel currentLevel) {
         this.currentLevel = currentLevel;
         colorFilter.setLevel(currentLevel);
+        for (ObstacleType obstacle: ObstacleType.values()) {
+            Image img = GImageTools.loadImage(obstacle.getImageFileURL());
+            img = GImageTools.getImageObserver().createImage(new FilteredImageSource(img.getSource(), colorFilter));
+            obstacleImageCache.put(obstacle, img);
+        }
     }
 
     /**
@@ -64,12 +77,10 @@ public class LevelGameplayPane extends GraphicsPane {
         ObstacleType[][] geom = currentLevel.getGeometry();
         for (int r = 0; r < geom.length; r++) {
             for (int c = 0; c < geom[r].length; c++) {
-                if (geom[r][c] != null) {
+                if (geom[r][c] != null) { //do not render anything for empty spaces
                     int x = ELEMENT_SCALING*c;
                     int y = 800-(ELEMENT_SCALING*r);
-                    Image img = GImageTools.loadImage(geom[r][c].getImageFileURL());
-                    img = GImageTools.getImageObserver().createImage(new FilteredImageSource(img.getSource(), colorFilter));
-                    GImage toAdd = new GImage(img, x, y);
+                    GImage toAdd = new GImage(obstacleImageCache.get(geom[r][c]), x, y);
                     toAdd.setSize(ELEMENT_SCALING, ELEMENT_SCALING);
                     contents.add(toAdd);
                     mainScreen.add(toAdd);
