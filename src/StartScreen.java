@@ -34,14 +34,12 @@ public class StartScreen extends GraphicsProgram{
 	
 	public void run() {
 		requestFocus();
+		addMouseListeners();
 		openSettingsMenu();
-		
-		
 	}
 	
 	
-	public void openSettingsMenu() {
-		
+	public void openSettingsMenu() { //Use this to open settings
 		GRect topBar = new GRect(150, 100, 500, 50);
 		topBar.setFillColor(Color.green);
 		topBar.setFilled(true);
@@ -62,6 +60,21 @@ public class StartScreen extends GraphicsProgram{
 		
 		for (GObject x : settingsMenu) {
 			add(x);
+		}
+	}
+	
+	public void closeSettingsMenu() { //Use this to close settings
+		for (GObject x : settingsMenu) {
+			remove(x);
+		}
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) { //For close button
+		if(e != null) {
+			if (getElementAt(e.getX(), e.getY()) == closeButton) {
+				closeSettingsMenu();
+			}
 		}
 	}
 	
