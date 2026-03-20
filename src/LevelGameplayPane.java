@@ -6,6 +6,7 @@ import level.LevelColorFilter;
 import level.ObstacleType;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.FilteredImageSource;
 import java.util.HashMap;
 
@@ -28,6 +29,12 @@ public class LevelGameplayPane extends GraphicsPane {
     public void showContent() {
         this.addText();
         this.renderLevel();
+    }
+
+    @Override
+    public void hideContent() {
+        contents.clear();
+        mainScreen.clear();
     }
 
     public LevelGameplayPane(MainApplication mainApplication) {
@@ -77,6 +84,7 @@ public class LevelGameplayPane extends GraphicsPane {
 
     private void renderLevel() {
         //TODO: stitch together one big image from level geometry? have to see if rendering all of the obstacles each run() call
+        this.hideContent();
         ObstacleType[][] geom = currentLevel.getGeometry();
         for (int r = 0; r < geom.length; r++) {
             for (int c = 0; c < geom[r].length; c++) {
@@ -91,5 +99,13 @@ public class LevelGameplayPane extends GraphicsPane {
                 }
             }
         }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == 27) { //27 = escape key
+            mainScreen.switchToLevelSelectScreen();
+        }
+        super.keyPressed(e);
     }
 }
