@@ -1,4 +1,9 @@
+import java.awt.Color;
+import java.awt.event.MouseEvent;
 
-public class SettingPane {
+import acm.graphics.*;
 
+
+public class SettingPane extends GraphicsPane{
+	
 }
