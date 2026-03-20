@@ -12,6 +12,11 @@ public class StartScreen extends GraphicsProgram{
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
 	public static final int ScaleWidth = 300;
+	GOval musicSet;
+	GOval sfxSet;
+	GRect musicScale;
+	private GObject toDrag;
+	private int lastX;
 	
 	public StartScreen() {
 		mainApp = new MainApplication();
@@ -65,7 +70,7 @@ public class StartScreen extends GraphicsProgram{
 		closeButton.scale(0.22);
 		settingsMenu.add(closeButton);
 		
-		GRect musicScale = new GRect(250, 250, ScaleWidth, 25);
+		musicScale = new GRect(250, 250, ScaleWidth, 25);
 		musicScale.setFillColor(new Color(19, 117, 203));
 		musicScale.setFilled(true);
 		settingsMenu.add(musicScale);
@@ -83,7 +88,9 @@ public class StartScreen extends GraphicsProgram{
 		sfxLabel.scale(2);
 		settingsMenu.add(sfxLabel);
 		
-		GOval musicSet = new GOval((ScaleWidth/100)*getMusicVol(), 345, 35, 35);
+		musicSet = new GOval((ScaleWidth/100)*getMusicVol(), 345, 35, 35);
+		musicSet.setFillColor(new Color(50, 159, 255));
+		musicSet.setFilled(true);
 		settingsMenu.add(musicSet);
 		
 		for (GObject x : settingsMenu) {
@@ -109,6 +116,46 @@ public class StartScreen extends GraphicsProgram{
 		}
 	}
 	
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if(e != null) {
+			if (getElementAt(e.getX(), e.getY()) == musicSet) {
+				int deltaX = e.getX() - lastX;
+				double max = (musicScale.getX() + ScaleWidth - 17.5);
+				double min = musicScale.getX() - 17.5;
+				if (toDrag != null) {
+					if (deltaX >= 0) {
+						if (musicSet.getX() >= max) {
+							toDrag.move(0, 0);
+						} else {
+							toDrag.move(deltaX, 0);
+						}
+					} else {
+						if (musicSet.getX() <= min) {
+							toDrag.move(0, 0);
+						} else {
+							toDrag.move(deltaX, 0);
+						}
+					}
+					 
+					
+				}
+				lastX = e.getX();
+				
+			}
+		}
+	}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (e != null) {
+			if (getElementAt(e.getX(), e.getY()) == musicSet) {
+				toDrag = getElementAt(e.getX(), e.getY());
+			}
+		}
+		
+		lastX = e.getX();
+	}
 	
 	
 	public static void main(String[] args) {
