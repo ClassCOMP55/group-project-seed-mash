@@ -3,13 +3,14 @@ import acm.graphics.GWindow;
 import acm.program.*;
 
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class MainApplication extends GraphicsProgram {
 	//Settings
-	public static final int WINDOW_WIDTH = 800;
-	public static final int WINDOW_HEIGHT = 600;
+	public static final int WINDOW_WIDTH = 1920;
+	public static final int WINDOW_HEIGHT = 1080;
 	
 	//List of all the full screen panes
 	private StartPane startPane;
@@ -57,6 +58,7 @@ public class MainApplication extends GraphicsProgram {
 	
 	public void init() {
         this.gw.setTitle("Trigonometry Jump");
+        this.gw.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
 	
