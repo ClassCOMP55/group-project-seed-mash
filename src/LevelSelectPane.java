@@ -2,31 +2,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import acm.graphics.*;
+import level.GameLevel;
 
 public class LevelSelectPane extends GraphicsPane {
 
-	private static class LevelData {
-		String name;
-		int difficulty;
-		int stars;
-		boolean completed;
-		Color color;
-
-		LevelData(String name, int difficulty, int stars, Color color) {
-			this.name = name;
-			this.difficulty = difficulty;
-			this.stars = stars;
-			this.completed = false;
-			this.color = color;
-		}
-	}
-
-	private LevelData[] levels;
+    private final GameLevel[] levels = {GameLevel.TEST_LEVEL, GameLevel.TEST_LEVEL_2};
 	private GImage backButton;
 	private GImage leftArrow;
 	private GImage rightArrow;
 	private GRect playButton;
 	private GLabel playButtonText;
+
+    private int currentSelection = 0;
 
 	public LevelSelectPane(MainApplication mainScreen) {
 		this.mainScreen = mainScreen;
@@ -118,11 +105,14 @@ public class LevelSelectPane extends GraphicsPane {
 			System.out.println("Back button clicked!");
 			mainScreen.switchToStartScreen();
 		} else if (clicked == leftArrow) {
-			System.out.println("Left arrow clicked!");
+            currentSelection = Math.floorMod(currentSelection-1,2);
+            System.out.println("current selection " + currentSelection);
 		} else if (clicked == rightArrow) {
-			System.out.println("Right arrow clicked!");
+            currentSelection = Math.floorMod(currentSelection+1,2);
+            System.out.println("current selection " + currentSelection);
 		} else if (clicked == playButton || clicked == playButtonText) {
 			System.out.println("Play button clicked!");
+            mainScreen.levelGameplayPane.setCurrentLevel(levels[currentSelection]);
 			mainScreen.switchToGameplayScreen();
 		}
 	}

@@ -6,6 +6,7 @@ import level.LevelColorFilter;
 import level.ObstacleType;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.FilteredImageSource;
 import java.util.HashMap;
 
@@ -22,7 +23,7 @@ public class LevelGameplayPane extends GraphicsPane {
      * are automatically colored (according to the GameLevel's color scheme) and stored
      * here to be referenced statically when the level is being rendered.
      */
-    static HashMap<ObstacleType, Image> obstacleImageCache = new HashMap<>();
+    private static final HashMap<ObstacleType, Image> obstacleImageCache = new HashMap<>();
 
     @Override
     public void showContent() {
@@ -30,9 +31,16 @@ public class LevelGameplayPane extends GraphicsPane {
         this.renderLevel();
     }
 
+    @Override
+    public void hideContent() {
+        contents.clear();
+        mainScreen.clear();
+    }
+
     public LevelGameplayPane(MainApplication mainApplication) {
         colorFilter = new LevelColorFilter();
         this.mainScreen = mainApplication;
+        this.setCurrentLevel(GameLevel.TEST_LEVEL);
     }
 
     public GameLevel getCurrentLevel() {
@@ -51,7 +59,6 @@ public class LevelGameplayPane extends GraphicsPane {
 
     /**
      * Test for level rendering
-     * @param args args
      */
     public static void main(String[] args) {
         MainApplication app = new MainApplication();
@@ -73,13 +80,18 @@ public class LevelGameplayPane extends GraphicsPane {
         contents.add(text);
         mainScreen.add(text);
     }
+
+
     private void renderLevel() {
+        //TODO: stitch together one big image from level geometry? have to see if rendering all of the obstacles each run() call
+        this.hideContent();
         ObstacleType[][] geom = currentLevel.getGeometry();
         for (int r = 0; r < geom.length; r++) {
             for (int c = 0; c < geom[r].length; c++) {
                 if (geom[r][c] != null) { //do not render anything for empty spaces
                     int x = ELEMENT_SCALING*c;
-                    int y = 800-(ELEMENT_SCALING*r);
+//                    System.out.println("Height: " + mainScreen.getWindow().getHeight());
+                    int y = mainScreen.getWindow().getHeight()- (ELEMENT_SCALING*(r+1)) - 37; //bottom of level will always be aligned with bottom of window, 37 accounts for top toolbar height i guess
                     GImage toAdd = new GImage(obstacleImageCache.get(geom[r][c]), x, y);
                     toAdd.setSize(ELEMENT_SCALING, ELEMENT_SCALING);
                     contents.add(toAdd);
@@ -87,5 +99,13 @@ public class LevelGameplayPane extends GraphicsPane {
                 }
             }
         }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == 27) { //27 = escape key
+            mainScreen.switchToLevelSelectScreen();
+        }
+        super.keyPressed(e);
     }
 }
