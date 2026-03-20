@@ -137,7 +137,6 @@ public class StartScreen extends GraphicsProgram{
 							toDrag.move(deltaX, 0);
 						}
 					}
-					 //a
 					
 				}
 				lastX = e.getX();
