@@ -2,7 +2,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import acm.graphics.*;
-public class LevelSelectPane extends GraphicsPane{
+
+public class LevelSelectPane extends GraphicsPane {
 
 	private static class LevelData {
 		String name;
@@ -24,6 +25,8 @@ public class LevelSelectPane extends GraphicsPane{
 	private GImage backButton;
 	private GImage leftArrow;
 	private GImage rightArrow;
+	private GRect playButton;
+	private GLabel playButtonText;
 
 	public LevelSelectPane(MainApplication mainScreen) {
 		this.mainScreen = mainScreen;
@@ -33,6 +36,7 @@ public class LevelSelectPane extends GraphicsPane{
 	public void showContent() {
 		addBackground();
 		addTitle();
+		addPlayButton();
 		addBackButton();
 		addLeftArrow();
 		addRightArrow();
@@ -64,6 +68,24 @@ public class LevelSelectPane extends GraphicsPane{
 		mainScreen.add(title);
 	}
 
+	private void addPlayButton() {
+		playButton = new GRect(200, 100);
+		playButton.setFilled(true);
+		playButton.setColor(new Color(46, 204, 113));
+		playButton.setLocation((mainScreen.getWidth() - 200) / 2, 250);
+		
+		contents.add(playButton);
+		mainScreen.add(playButton);
+		
+		playButtonText = new GLabel("PLAY");
+		playButtonText.setFont(new Font("Arial", Font.BOLD, 32));
+		playButtonText.setColor(Color.WHITE);
+		playButtonText.setLocation((mainScreen.getWidth() - playButtonText.getWidth()) / 2, 315);
+		
+		contents.add(playButtonText);
+		mainScreen.add(playButtonText);
+	}
+
 	private void addBackButton() {
 		backButton = new GImage("back.jpg");
 		backButton.scale(0.3, 0.3);
@@ -87,7 +109,7 @@ public class LevelSelectPane extends GraphicsPane{
 		contents.add(rightArrow);
 		mainScreen.add(rightArrow);
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		GObject clicked = mainScreen.getElementAtLocation(e.getX(), e.getY());
@@ -99,6 +121,9 @@ public class LevelSelectPane extends GraphicsPane{
 			System.out.println("Left arrow clicked!");
 		} else if (clicked == rightArrow) {
 			System.out.println("Right arrow clicked!");
+		} else if (clicked == playButton || clicked == playButtonText) {
+			System.out.println("Play button clicked!");
+			mainScreen.switchToGameplayScreen();
 		}
 	}
 }
