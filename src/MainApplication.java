@@ -17,27 +17,27 @@ public class MainApplication extends GraphicsProgram {
 	private GraphicsPane currentScreen;
 	
 	//Sound Values
-	int sfxVol = 100;
-	int musicVol = 100;
+	double sfxVol = 100;
+	double musicVol = 100;
 		
 
 	public MainApplication() {
 		super();
 	}
 	
-	public int getSfxVol() {
+	public double getSfxVol() {
 		return sfxVol;
 	}
 
-	public void setSfxVol(int sfxVol) {
+	public void setSfxVol(double sfxVol) {
 		this.sfxVol = sfxVol;
 	}
 
-	public int getMusicVol() {
+	public double getMusicVol() {
 		return musicVol;
 	}
 
-	public void setMusicVol(int musicVol) {
+	public void setMusicVol(double musicVol) {
 		this.musicVol = musicVol;
 	}
 	
