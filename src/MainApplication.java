@@ -7,12 +7,13 @@ import java.awt.event.MouseEvent;
 
 public class MainApplication extends GraphicsProgram {
 	//Settings
-	public static final int WINDOW_WIDTH = 800;
-	public static final int WINDOW_HEIGHT = 600;
+	public static final int WINDOW_WIDTH = 1920;
+	public static final int WINDOW_HEIGHT = 1080;
 	
 	//List of all the full screen panes
 	private StartPane startPane;
 	private LevelSelectPane levelSelectPane;
+    public LevelGameplayPane levelGameplayPane;
 	private GraphicsPane currentScreen;
 	
 	//Sound Values
@@ -63,14 +64,13 @@ public class MainApplication extends GraphicsProgram {
 		//Initialize all Panes
 		startPane = new StartPane(this);
 		levelSelectPane = new LevelSelectPane(this);
-
+        levelGameplayPane = new LevelGameplayPane(this);
 		//TheDefaultPane
 		switchToScreen(startPane);
 	}
 	
 	public static void main(String[] args) {
 		new MainApplication().start();
-
 	}
 	
 	public void switchToLevelSelectScreen() {

@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.awt.event.MouseEvent;
 
 import acm.graphics.GImage;
