@@ -9,26 +9,34 @@ import java.awt.*;
  */
 public class GameLevel {
     private final String levelName;
+    //TODO: use GridPos -> ObstacleType map?
     private final ObstacleType[][] geometry;
     private final String soundtrackURL;
     private float completionPercent = 0;
     private final Color colorScheme;
     private final int runtime;
+    private final int difficulty;
+    private final int stars;
+    private boolean completed = false;
 
     /**
      *
-     * @param levelName Name of the level in plain text
+     * @param levelName     Name of the level in plain text
      * @param soundtrackURL File path to the .mp3 soundtrack of the level
-     * @param color Color of the level (changes how the obstacles and background looks)
-     * @param runtime Runtime of the level in seconds
-     * @param geom Level geometry
+     * @param color         Color of the level (changes how the obstacles and background looks)
+     * @param runtime       Runtime of the level in seconds
+     * @param geom          Level geometry
+     * @param difficulty    Difficulty of the level
+     * @param stars         Number of stars for the level
      */
-    public GameLevel(String levelName, String soundtrackURL, Color color, int runtime, ObstacleType[][] geom) {
+    public GameLevel(String levelName, String soundtrackURL, Color color, int runtime, ObstacleType[][] geom, int difficulty, int stars) {
         this.levelName = levelName;
         this.soundtrackURL = soundtrackURL;
         this.colorScheme = color;
         this.runtime = runtime;
         this.geometry = geom;
+        this.difficulty = difficulty;
+        this.stars = stars;
     }
 
     public String getLevelName() {
@@ -58,13 +66,6 @@ public class GameLevel {
     public int getRuntime() {
         return runtime;
     }
-     //
-     //
-     //
-     //
-     //                 ^
-     //       ^     BBBBBBBB
-     //BBBBBBBBBBBBBBBBBBBBB
 
     /**
      * Creates a 2D array of {@link ObstacleType}s from an array of Strings for use as level geometry
@@ -82,13 +83,66 @@ public class GameLevel {
         return arr;
     }
     public static final String[] TEST_GEOM = {
-            "BBB   BBB                                     ",
-            "B       B                                     ",
-            "BBB    BB                                     ",
-            "B B     B                                     ",
-            "BBB     B                                     ",
             "                                              ",
+            "                                              ",
+            "                                              ",
+            "                                              ",
+            "                                              ",
+            "                                              ",
+            " B                                            ",
+            "BB                                            ",
+            " B     ^^^                                    ",
+            " B     BBBBBB                                 ",
+            "BBB   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     };
 
-    public static final GameLevel TEST_LEVEL = new GameLevel("Test Level", "", Color.MAGENTA, 60, geomFromString(TEST_GEOM));
+
+    public static final String[] TEST_GEOM_2 = {
+            "                                              ",
+            "                                              ",
+            "                                              ",
+            "                                              ",
+            "                                              ",
+            "                                              ",
+            "BBB                                           ",
+            "  B                                           ",
+            "BBB    ^^^                                    ",
+            "B      BBBBBB                                 ",
+            "BBB   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+    };
+
+    public static final GameLevel TEST_LEVEL = new GameLevel(
+            "Test Level 1",
+            "",
+            Color.MAGENTA,
+            60,
+            geomFromString(TEST_GEOM),
+            1,
+            5
+    );
+
+    public static final GameLevel TEST_LEVEL_2 = new GameLevel(
+            "Test Level 2",
+            "",
+            Color.green,
+            60,
+            geomFromString(TEST_GEOM_2),
+            3,
+            1
+    );
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public int getStars() {
+        return stars;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+    public void setCompleted() {
+        this.completed = true;
+    }
 }

@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import acm.graphics.*;
+import level.GameLevel;
 
 public class LevelSelectPane extends GraphicsPane {
 
@@ -21,7 +22,7 @@ public class LevelSelectPane extends GraphicsPane {
 		}
 	}
 
-	private LevelData[] levels;
+	private GameLevel[] levels = {GameLevel.TEST_LEVEL};
 	private GImage backButton;
 	private GImage leftArrow;
 	private GImage rightArrow;
