@@ -15,6 +15,7 @@ public class StartScreen extends GraphicsProgram{
 	GOval musicSet;
 	GOval sfxSet;
 	GRect musicScale;
+	GRect sfxScale;
 	private GObject toDrag;
 	private int lastX;
 	
@@ -79,7 +80,7 @@ public class StartScreen extends GraphicsProgram{
 		musicLabel.scale(2);
 		settingsMenu.add(musicLabel);
 		
-		GRect sfxScale = new GRect(250, 350, ScaleWidth, 25);
+		sfxScale = new GRect(250, 350, ScaleWidth, 25);
 		sfxScale.setFillColor(new Color(19, 117, 203));
 		sfxScale.setFilled(true);
 		settingsMenu.add(sfxScale);
@@ -88,10 +89,15 @@ public class StartScreen extends GraphicsProgram{
 		sfxLabel.scale(2);
 		settingsMenu.add(sfxLabel);
 		
-		musicSet = new GOval((ScaleWidth/100)*getMusicVol(), 345, 35, 35);
+		musicSet = new GOval(musicScale.getX() + (ScaleWidth/100)*getMusicVol() - 17.5, 245, 35, 35);
 		musicSet.setFillColor(new Color(50, 159, 255));
 		musicSet.setFilled(true);
 		settingsMenu.add(musicSet);
+		
+		sfxSet = new GOval((sfxScale.getX() + (ScaleWidth/100)*getSfxVol() - 17.5), 345, 35, 35);
+		sfxSet.setFillColor(new Color(50, 159, 255));
+		sfxSet.setFilled(true);
+		settingsMenu.add(sfxSet);
 		
 		for (GObject x : settingsMenu) {
 			add(x);
@@ -109,7 +115,8 @@ public class StartScreen extends GraphicsProgram{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) { //For close button
-		if(e != null) {
+		GObject x = getElementAt(e.getX(), e.getY());
+		if(x != null) {
 			if (getElementAt(e.getX(), e.getY()) == closeButton) {
 				closeSettingsMenu();
 			}
@@ -118,20 +125,21 @@ public class StartScreen extends GraphicsProgram{
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if(e != null) {
-			if (getElementAt(e.getX(), e.getY()) == musicSet) {
+		GObject temp = getElementAt(e.getX(), e.getY());
+		if(temp != null) {
+			if (temp == musicSet || temp == sfxSet) {
 				int deltaX = e.getX() - lastX;
 				double max = (musicScale.getX() + ScaleWidth - 17.5);
 				double min = musicScale.getX() - 17.5;
 				if (toDrag != null) {
 					if (deltaX >= 0) {
-						if (musicSet.getX() >= max) {
+						if (temp.getX() >= max) {
 							toDrag.move(0, 0);
 						} else {
 							toDrag.move(deltaX, 0);
 						}
 					} else {
-						if (musicSet.getX() <= min) {
+						if (temp.getX() <= min) {
 							toDrag.move(0, 0);
 						} else {
 							toDrag.move(deltaX, 0);
@@ -142,13 +150,29 @@ public class StartScreen extends GraphicsProgram{
 				lastX = e.getX();
 				
 			}
-		}
+			
+		} 
+	}
+	
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
+		double setValue = (musicSet.getX() + 17.5 - 250) / 3;
+		if (setValue > 100) { setValue = 100; }
+		else if (setValue < 0) {setValue = 0; }
+		mainApp.setMusicVol(setValue);
+		
+		setValue = (sfxSet.getX() + 17.5 - 250) / 3;
+		if (setValue > 100) { setValue = 100; }
+		else if (setValue < 0) {setValue = 0; }
+		mainApp.setSfxVol(setValue);
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (e != null) {
-			if (getElementAt(e.getX(), e.getY()) == musicSet) {
+		GObject x = getElementAt(e.getX(), e.getY());
+		if (x != null) {
+			if (x == musicSet || x == sfxSet) {
 				toDrag = getElementAt(e.getX(), e.getY());
 			}
 		}
