@@ -129,9 +129,9 @@ public class GameLevel {
             "Test Level 2",
             "",
             new LevelColor.Scheme(
-                    Color.BLUE,
-                    Color.CYAN,
-                    Color.WHITE
+                    new Color(255, 100, 10),
+                    Color.WHITE,
+                    new Color(50, 0, 0)
             ),
             60,
             geomFromString(TEST_GEOM_2),

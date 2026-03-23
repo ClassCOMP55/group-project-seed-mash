@@ -32,10 +32,10 @@ public class LevelGameplayPane extends GraphicsPane {
     }
 
     private void renderBackground() {
-        Image img = GImageTools.loadImage("shoebill.jpg");
+        Image img = GImageTools.loadImage("background.png");
         img = GImageTools.getImageObserver().createImage(new FilteredImageSource(img.getSource(), colorFilter));
         GImage toAdd = new GImage(img, 0, 0);
-        toAdd.setSize(1920,1080);
+        toAdd.setSize(mainScreen.getWidth(), mainScreen.getHeight());
         contents.add(toAdd);
         mainScreen.add(toAdd);
     }

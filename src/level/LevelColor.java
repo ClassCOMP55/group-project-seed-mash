@@ -15,19 +15,16 @@ public class LevelColor extends RGBImageFilter {
     @Override
     public int filterRGB(int x, int y, int rgb) { //TODO: primary, secondary, and tertiary colors using color masks
 //        System.out.println(new Color(rgb));
-        int red = new Color(rgb).getRed();
-        int green = new Color(rgb).getGreen();
-        int blue = new Color(rgb).getBlue();
+        int alpha = (rgb & 0xff000000) >> 24;
+        int red   = (rgb & 0x00ff0000) >> 16;
+        int green = (rgb & 0x0000ff00) >> 8;
+        int blue  = (rgb & 0x000000ff);
 
-        float redPercent = red / 255f;
-        float greenPercent = green / 255f;
-        float bluePercent = blue / 255f;
-        int alpha = rgb >> 24;
-        int newRed = (int) average(level.getColorScheme().primary.getRed() * redPercent, level.getColorScheme().secondary.getRed() * greenPercent, level.getColorScheme().tertiary.getRed() * bluePercent, redPercent, greenPercent, bluePercent);
+        int newRed = (int) average(level.getColorScheme().primary.getRed(), level.getColorScheme().secondary.getRed(), level.getColorScheme().tertiary.getRed(), red, green, blue);
 
-        int newGreen = (int) average(level.getColorScheme().primary.getGreen() * redPercent, level.getColorScheme().secondary.getGreen() * greenPercent, level.getColorScheme().tertiary.getGreen() * bluePercent, redPercent, greenPercent, bluePercent);
+        int newGreen = (int) average(level.getColorScheme().primary.getGreen(), level.getColorScheme().secondary.getGreen(), level.getColorScheme().tertiary.getGreen(), red, green, blue);
 
-        int newBlue = (int) average(level.getColorScheme().primary.getBlue() * redPercent, level.getColorScheme().secondary.getBlue() * greenPercent, level.getColorScheme().tertiary.getBlue() * bluePercent, redPercent, greenPercent, bluePercent);
+        int newBlue = (int) average(level.getColorScheme().primary.getBlue(), level.getColorScheme().secondary.getBlue(), level.getColorScheme().tertiary.getBlue(), red, green, blue);
         return alpha << 24 | newRed << 16 | newGreen << 8 | newBlue;
     }
 
