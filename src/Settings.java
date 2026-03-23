@@ -5,7 +5,7 @@ import acm.util.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class StartScreen extends GraphicsProgram{
+public class Settings extends GraphicsProgram{
 	MainApplication mainApp;
 	ArrayList<GObject> settingsMenu = new ArrayList<GObject>();
 	GImage closeButton;
@@ -19,14 +19,14 @@ public class StartScreen extends GraphicsProgram{
 	private GObject toDrag;
 	private int lastX;
 	
-	public StartScreen() {
+	public Settings() {
 		mainApp = new MainApplication();
 	}
 	
-	public StartScreen(MainApplication mainApp) {
+	public Settings(MainApplication mainApp) {
 		this.mainApp = mainApp;
 	}
-	
+	//a
 	public double getMusicVol() {
 		return mainApp.getMusicVol();
 	}
@@ -182,6 +182,6 @@ public class StartScreen extends GraphicsProgram{
 	
 	
 	public static void main(String[] args) {
-		new StartScreen().start();
+		new Settings().start();
 	}
 }
