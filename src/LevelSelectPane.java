@@ -141,9 +141,11 @@ public class LevelSelectPane extends GraphicsPane {
 			mainScreen.switchToStartScreen();
 		} else if (clicked == leftArrow) {
             incrementSelection(-1);
+            drawLevelInfo();
 //            System.out.println("current selection " + currentSelection);
 		} else if (clicked == rightArrow) {
             incrementSelection(1);
+            drawLevelInfo();
 //            System.out.println("current selection " + currentSelection);
 		} else if (clicked == playButton || clicked == playButtonText) {
 //			System.out.println("Play button clicked!");
