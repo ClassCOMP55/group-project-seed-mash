@@ -8,15 +8,11 @@ import java.awt.image.RGBImageFilter;
 public class LevelColorFilter extends RGBImageFilter {
     private GameLevel level;
     public LevelColorFilter() {
-        this.canFilterIndexColorModel = true;
+        this.canFilterIndexColorModel = true; //indicates that color doesn't depend on pixel location
     }
     @Override
-    public int filterRGB(int x, int y, int rgb) {
+    public int filterRGB(int x, int y, int rgb) { //TODO: primary, secondary, and tertiary colors using color masks
         return level.getColorScheme().getRGB() & rgb;
-    }
-
-    public GameLevel getLevel() {
-        return level;
     }
 
     public void setLevel(GameLevel level) {

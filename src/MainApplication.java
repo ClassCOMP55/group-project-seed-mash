@@ -1,7 +1,9 @@
 import acm.graphics.GObject;
+import acm.graphics.GWindow;
 import acm.program.*;
 
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -17,27 +19,27 @@ public class MainApplication extends GraphicsProgram {
 	private GraphicsPane currentScreen;
 	
 	//Sound Values
-	int sfxVol = 100;
-	int musicVol = 100;
+	double sfxVol = 100;
+	double musicVol = 100;
 		
 
 	public MainApplication() {
 		super();
 	}
 	
-	public int getSfxVol() {
+	public double getSfxVol() {
 		return sfxVol;
 	}
 
-	public void setSfxVol(int sfxVol) {
+	public void setSfxVol(double sfxVol) {
 		this.sfxVol = sfxVol;
 	}
 
-	public int getMusicVol() {
+	public double getMusicVol() {
 		return musicVol;
 	}
 
-	public void setMusicVol(int musicVol) {
+	public void setMusicVol(double musicVol) {
 		this.musicVol = musicVol;
 	}
 	
@@ -45,6 +47,9 @@ public class MainApplication extends GraphicsProgram {
 		clear();
 	}
 
+    public GWindow getWindow() {
+        return gw;
+    }
 	protected void setupInteractions() {
 		requestFocus();
 		addKeyListeners();
@@ -53,6 +58,7 @@ public class MainApplication extends GraphicsProgram {
 	
 	public void init() {
         this.gw.setTitle("Trigonometry Jump");
+        this.gw.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
 	
@@ -80,6 +86,10 @@ public class MainApplication extends GraphicsProgram {
 	public void switchToStartScreen() {
 		switchToScreen(startPane);
 	}
+
+    public void switchToGameplayScreen() {
+        switchToScreen(levelGameplayPane);
+    }
 	
 	public void switchToGameplayScreen() {
 		switchToScreen(levelGameplayPane);
