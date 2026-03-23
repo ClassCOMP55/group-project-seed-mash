@@ -109,6 +109,10 @@ public class LevelSelectPane extends GraphicsPane {
 		contents.add(rightArrow);
 		mainScreen.add(rightArrow);
 	}
+	
+	private void addtitle() {
+		
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

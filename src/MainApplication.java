@@ -81,6 +81,9 @@ public class MainApplication extends GraphicsProgram {
 		switchToScreen(startPane);
 	}
 	
+	public void switchToGameplayScreen() {
+		switchToScreen(levelGameplayPane);
+	}
 	
 	protected void switchToScreen(GraphicsPane newScreen) {
 		if(currentScreen != null) {
