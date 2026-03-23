@@ -100,6 +100,9 @@ public class LevelGameplayPane extends GraphicsPane {
             }
         }
     }
+    public void progressBar() {
+
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
