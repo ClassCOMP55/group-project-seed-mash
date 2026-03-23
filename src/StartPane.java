@@ -16,6 +16,7 @@ public class StartPane extends GraphicsPane{
 		addBackground();
 		addText();
 		addDescriptionButton();
+		addSettingButton();
 	}
 
 	@Override
@@ -55,6 +56,15 @@ public class StartPane extends GraphicsPane{
 
 	}
 	
+	
+	private void addSettingButton() {
+		GImage Setting = new GImage("2747966-200__1_-removebg-preview.png",200,400);
+		Setting.scale(0.5, 0.5);
+		Setting.setLocation((mainScreen.getWidth() - Setting.getWidth()) - 50, 50);
+		
+		contents.add(Setting);
+		mainScreen.add(Setting);
+	}
 
 	
 
@@ -63,6 +73,8 @@ public class StartPane extends GraphicsPane{
 	public void mouseClicked(MouseEvent e) {
 		if (mainScreen.getElementAtLocation(e.getX(), e.getY()) == contents.get(1)) {
 			mainScreen.switchToLevelSelectScreen();
+		}else{
+			mainScreen.switchToSettings();
 		}
 	}
 

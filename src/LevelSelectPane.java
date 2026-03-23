@@ -27,6 +27,7 @@ public class LevelSelectPane extends GraphicsPane {
 		addBackButton();
 		addLeftArrow();
 		addRightArrow();
+		addProgressBar();
 	}
 
 	@Override
@@ -97,7 +98,8 @@ public class LevelSelectPane extends GraphicsPane {
 		mainScreen.add(rightArrow);
 	}
 	
-	private void addtitle() {
+	
+	private void addProgressBar() {
 		
 	}
 
