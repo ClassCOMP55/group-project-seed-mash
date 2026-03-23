@@ -96,8 +96,8 @@ public class LevelSelectPane extends GraphicsPane {
     }
 
 	private void addBackButton() {
-		backButton = new GImage("back.jpg");
-		backButton.scale(0.3, 0.3);
+		backButton = new GImage("close.png");
+		backButton.scale(0.5, 0.5);
 		backButton.setLocation(50, 50);
 		contents.add(backButton);
 		mainScreen.add(backButton);
