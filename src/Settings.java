@@ -26,7 +26,7 @@ public class Settings extends GraphicsProgram{
 	public Settings(MainApplication mainApp) {
 		this.mainApp = mainApp;
 	}
-	
+	//a
 	public double getMusicVol() {
 		return mainApp.getMusicVol();
 	}
