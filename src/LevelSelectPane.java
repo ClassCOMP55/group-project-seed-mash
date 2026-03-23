@@ -93,6 +93,19 @@ public class LevelSelectPane extends GraphicsPane {
         levelInfoName.setLocation((mainScreen.getWidth() - levelInfoName.getWidth()) / 2, 210);
         contents.add(levelInfoName);
         mainScreen.add(levelInfoName);
+        
+        int levelDifficulty = level.getDifficulty();
+        GImage levelDiffIcon = new GImage("Difficulty1.png", levelInfoName.getX() - 60, levelInfoName.getY() - 40);
+        if (levelDifficulty == 2) {
+        	levelDiffIcon.setImage("Difficulty2.png");
+        } else if (levelDifficulty == 3) {
+        	levelDiffIcon.setImage("Difficulty3.png");
+        } else if (levelDifficulty == 4) {
+        	levelDiffIcon.setImage("Difficulty4.png");
+        }
+        levelDiffIcon.scale(0.1);
+        contents.add(levelDiffIcon);
+        mainScreen.add(levelDiffIcon);
     }
 
 	private void addBackButton() {
