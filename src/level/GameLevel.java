@@ -13,7 +13,7 @@ public class GameLevel {
     private final ObstacleType[][] geometry;
     private final String soundtrackURL;
     private float completionPercent = 0;
-    private final Color colorScheme;
+    private final LevelColor.Scheme colorScheme;
     private final int runtime;
     private final int difficulty;
     private final int stars;
@@ -29,7 +29,7 @@ public class GameLevel {
      * @param difficulty    Difficulty of the level
      * @param stars         Number of stars for the level
      */
-    public GameLevel(String levelName, String soundtrackURL, Color color, int runtime, ObstacleType[][] geom, int difficulty, int stars) {
+    public GameLevel(String levelName, String soundtrackURL, LevelColor.Scheme color, int runtime, ObstacleType[][] geom, int difficulty, int stars) {
         this.levelName = levelName;
         this.soundtrackURL = soundtrackURL;
         this.colorScheme = color;
@@ -59,7 +59,7 @@ public class GameLevel {
         this.completionPercent = completionPercent;
     }
 
-    public Color getColorScheme() {
+    public LevelColor.Scheme getColorScheme() {
         return colorScheme;
     }
 
@@ -114,7 +114,11 @@ public class GameLevel {
     public static final GameLevel TEST_LEVEL = new GameLevel(
             "Test Level 1",
             "",
-            Color.MAGENTA,
+            new LevelColor.Scheme(
+                    Color.BLUE,
+                    Color.WHITE,
+                    Color.BLACK
+            ),
             60,
             geomFromString(TEST_GEOM),
             1,
@@ -124,7 +128,11 @@ public class GameLevel {
     public static final GameLevel TEST_LEVEL_2 = new GameLevel(
             "Test Level 2",
             "",
-            Color.green,
+            new LevelColor.Scheme(
+                    Color.BLUE,
+                    Color.CYAN,
+                    Color.WHITE
+            ),
             60,
             geomFromString(TEST_GEOM_2),
             3,
