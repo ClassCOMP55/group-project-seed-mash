@@ -2,7 +2,7 @@ import acm.graphics.GImage;
 import acm.graphics.GImageTools;
 import acm.graphics.GLabel;
 import level.GameLevel;
-import level.LevelColorFilter;
+import level.LevelColor;
 import level.ObstacleType;
 
 import java.awt.*;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class LevelGameplayPane extends GraphicsPane {
     public static final int ELEMENT_SCALING = 80; //how big (in pixels) obstacles are going to appear on screen
     private GameLevel currentLevel;
-    private static LevelColorFilter colorFilter;
+    private static LevelColor colorFilter;
 
     /**
      * When a GameLevel is loaded into LevelGameplayPane via {@link #setCurrentLevel(GameLevel)}, the images of the obstacles
@@ -31,6 +31,15 @@ public class LevelGameplayPane extends GraphicsPane {
         this.renderLevel();
     }
 
+    private void renderBackground() {
+        Image img = GImageTools.loadImage("background.png");
+        img = GImageTools.getImageObserver().createImage(new FilteredImageSource(img.getSource(), colorFilter));
+        GImage toAdd = new GImage(img, 0, 0);
+        toAdd.setSize(mainScreen.getWidth(), mainScreen.getHeight());
+        contents.add(toAdd);
+        mainScreen.add(toAdd);
+    }
+
     @Override
     public void hideContent() {
         contents.clear();
@@ -38,7 +47,7 @@ public class LevelGameplayPane extends GraphicsPane {
     }
 
     public LevelGameplayPane(MainApplication mainApplication) {
-        colorFilter = new LevelColorFilter();
+        colorFilter = new LevelColor();
         this.mainScreen = mainApplication;
         this.setCurrentLevel(GameLevel.TEST_LEVEL);
     }
@@ -85,6 +94,7 @@ public class LevelGameplayPane extends GraphicsPane {
     private void renderLevel() {
         //TODO: stitch together one big image from level geometry? have to see if rendering all of the obstacles each run() call
         this.hideContent();
+        renderBackground();
         ObstacleType[][] geom = currentLevel.getGeometry();
         for (int r = 0; r < geom.length; r++) {
             for (int c = 0; c < geom[r].length; c++) {
