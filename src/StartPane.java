@@ -53,8 +53,8 @@ public class StartPane extends GraphicsPane{
 
 	
 	private void addDescriptionButton() {
-		descriptionButton = new GImage("more.jpeg", 200, 400);
-		descriptionButton.scale(0.3, 0.3);
+		descriptionButton = new GImage("images-removebg-preview.png", 200, 400);
+		descriptionButton.scale(0.8, 0.8);
 		descriptionButton.setLocation((mainScreen.getWidth() - descriptionButton.getWidth())/ 2, 400);
 		
 		contents.add(descriptionButton);
