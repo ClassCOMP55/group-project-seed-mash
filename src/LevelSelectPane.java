@@ -101,6 +101,20 @@ public class LevelSelectPane extends GraphicsPane {
         levelDiffIcon.scale(0.1);
         contents.add(levelDiffIcon);
         mainScreen.add(levelDiffIcon);
+        
+        int timeMin = level.getRuntime() / 60;
+        int timeSec = level.getRuntime() % 60;
+        GLabel runTimeLabel;
+        if (timeSec < 10) {
+        	runTimeLabel = new GLabel(timeMin + ":0" + timeSec, 300, 150);
+        } else {
+        	runTimeLabel = new GLabel(timeMin + ":" + timeSec, 300, 150);
+        }
+        runTimeLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        runTimeLabel.setColor(Color.WHITE);
+        runTimeLabel.setLocation((mainScreen.getWidth() - levelInfoName.getHeight()) / 2, 250);
+        contents.add(runTimeLabel);
+        mainScreen.add(runTimeLabel);
     }
 
 	private void addBackButton() {
