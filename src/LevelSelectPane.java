@@ -23,12 +23,11 @@ public class LevelSelectPane extends GraphicsPane {
 	public void showContent() {
 		addBackground();
 		addTitle();
+		drawLevelInfo();
 		addBackButton();
 		addLeftArrow();
 		addRightArrow();
 		addProgressBar();
-
-        addPlayButton();
 	}
 
 	@Override
@@ -74,6 +73,7 @@ public class LevelSelectPane extends GraphicsPane {
 		contents.add(playButtonText);
 		mainScreen.add(playButtonText);
 	}
+
     private void drawLevelInfo() {
         GameLevel level = levels[currentSelection];
         GRect levelInfoBox = new GRect(300, 150, mainScreen.getWidth() - 600, 500);
@@ -101,9 +101,24 @@ public class LevelSelectPane extends GraphicsPane {
         levelDiffIcon.scale(0.1);
         contents.add(levelDiffIcon);
         mainScreen.add(levelDiffIcon);
+        
+        int timeMin = level.getRuntime() / 60;
+        int timeSec = level.getRuntime() % 60;
+        GLabel runTimeLabel;
+        if (timeSec < 10) { //to create time format if below 10 secondss
+        	runTimeLabel = new GLabel(timeMin + ":0" + timeSec, 300, 150);
+        } else {
+        	runTimeLabel = new GLabel(timeMin + ":" + timeSec, 300, 150);
+        }
+        runTimeLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        runTimeLabel.setColor(Color.WHITE);
+        runTimeLabel.setLocation((mainScreen.getWidth() - levelInfoName.getHeight()) / 2, 250);
+        contents.add(runTimeLabel);
+        mainScreen.add(runTimeLabel);
     }
 
 	private void addBackButton() {
+
 		backButton = new GImage("close.png");
 		backButton.scale(0.5, 0.5);
 		backButton.setLocation(50, 50);
@@ -140,24 +155,22 @@ public class LevelSelectPane extends GraphicsPane {
 			System.out.println("Back button clicked!");
 			mainScreen.switchToStartScreen();
 		} else if (clicked == leftArrow) {
+            System.out.println("current selection " + currentSelection);
             incrementSelection(-1);
             drawLevelInfo();
-//            System.out.println("current selection " + currentSelection);
+
 		} else if (clicked == rightArrow) {
+            System.out.println("current selection " + currentSelection);
             incrementSelection(1);
             drawLevelInfo();
-//            System.out.println("current selection " + currentSelection);
+
 		} else if (clicked == playButton || clicked == playButtonText) {
 			System.out.println("Play button clicked!");
-            startLevel(levels[currentSelection]);
+            mainScreen.levelGameplayPane.setCurrentLevel(levels[currentSelection]);
+			mainScreen.switchToGameplayScreen();
 		}
 	}
     private void incrementSelection(int amt) {
         currentSelection = Math.floorMod(currentSelection + amt, levels.length);
-    }
-    private void startLevel(GameLevel level) {
-        mainScreen.levelGameplayPane.setCurrentLevel(level);
-        mainScreen.levelGameplayPane.startGame();
-        mainScreen.switchToGameplayScreen();
     }
 }

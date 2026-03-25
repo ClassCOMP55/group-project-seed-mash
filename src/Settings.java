@@ -26,7 +26,7 @@ public class Settings extends GraphicsProgram{
 	public Settings(MainApplication mainApp) {
 		this.mainApp = mainApp;
 	}
-	//a
+	
 	public double getMusicVol() {
 		return mainApp.getMusicVol();
 	}
@@ -41,12 +41,10 @@ public class Settings extends GraphicsProgram{
 	}
 	
 	public void init() {
-		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-		requestFocus();
+		
 	}
 	
 	public void run() {
-		requestFocus();
 		addMouseListeners();
 		openSettingsMenu();
 	}
