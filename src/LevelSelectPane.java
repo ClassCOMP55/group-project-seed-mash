@@ -141,13 +141,11 @@ public class LevelSelectPane extends GraphicsPane {
 			System.out.println("Back button clicked!");
 			mainScreen.switchToStartScreen();
 		} else if (clicked == leftArrow) {
-            //currentSelection = Math.floorMod(currentSelection-1,2);
             System.out.println("current selection " + currentSelection);
             incrementSelection(-1);
             drawLevelInfo();
 
 		} else if (clicked == rightArrow) {
-            //currentSelection = Math.floorMod(currentSelection+1,2);
             System.out.println("current selection " + currentSelection);
             incrementSelection(1);
             drawLevelInfo();
