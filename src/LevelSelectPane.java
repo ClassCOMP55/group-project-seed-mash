@@ -143,12 +143,12 @@ public class LevelSelectPane extends GraphicsPane {
 		} else if (clicked == leftArrow) {
             currentSelection = Math.floorMod(currentSelection-1,2);
             System.out.println("current selection " + currentSelection);
-            //incrementSelection(-1);
+            incrementSelection(-1);
             drawLevelInfo();
 		} else if (clicked == rightArrow) {
             currentSelection = Math.floorMod(currentSelection+1,2);
             System.out.println("current selection " + currentSelection);
-            //incrementSelection(1);
+            incrementSelection(1);
             drawLevelInfo();
 		} else if (clicked == playButton || clicked == playButtonText) {
 			System.out.println("Play button clicked!");
