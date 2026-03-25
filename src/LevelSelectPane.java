@@ -73,8 +73,6 @@ public class LevelSelectPane extends GraphicsPane {
 		contents.add(playButtonText);
 		mainScreen.add(playButtonText);
 	}
-<<<<<<< HEAD
-=======
     private void drawLevelInfo() {
         GameLevel level = levels[currentSelection];
         GRect levelInfoBox = new GRect(300, 150, mainScreen.getWidth() - 600, 500);
@@ -103,18 +101,11 @@ public class LevelSelectPane extends GraphicsPane {
         contents.add(levelDiffIcon);
         mainScreen.add(levelDiffIcon);
     }
->>>>>>> branch 'main' of https://github.com/ClassCOMP55/group-project-seed-mash.git
 
 	private void addBackButton() {
-<<<<<<< HEAD
-		backButton = new GImage("back.jpg");
-		backButton.scale(0.3, 0.3);
-		backButton.setLocation((mainScreen.getWidth() - backButton.getWidth())/ 2, 500);
-=======
 		backButton = new GImage("close.png");
 		backButton.scale(0.5, 0.5);
 		backButton.setLocation(50, 50);
->>>>>>> branch 'main' of https://github.com/ClassCOMP55/group-project-seed-mash.git
 		contents.add(backButton);
 		mainScreen.add(backButton);
 	}
@@ -148,27 +139,20 @@ public class LevelSelectPane extends GraphicsPane {
 			System.out.println("Back button clicked!");
 			mainScreen.switchToStartScreen();
 		} else if (clicked == leftArrow) {
-<<<<<<< HEAD
-            currentSelection = Math.floorMod(currentSelection-1,2);
-            System.out.println("current selection " + currentSelection);
-=======
             incrementSelection(-1);
             drawLevelInfo();
 //            System.out.println("current selection " + currentSelection);
->>>>>>> branch 'main' of https://github.com/ClassCOMP55/group-project-seed-mash.git
 		} else if (clicked == rightArrow) {
-<<<<<<< HEAD
-            currentSelection = Math.floorMod(currentSelection+1,2);
-            System.out.println("current selection " + currentSelection);
-=======
             incrementSelection(1);
             drawLevelInfo();
 //            System.out.println("current selection " + currentSelection);
->>>>>>> branch 'main' of https://github.com/ClassCOMP55/group-project-seed-mash.git
 		} else if (clicked == playButton || clicked == playButtonText) {
 			System.out.println("Play button clicked!");
             mainScreen.levelGameplayPane.setCurrentLevel(levels[currentSelection]);
 			mainScreen.switchToGameplayScreen();
 		}
 	}
+    private void incrementSelection(int amt) {
+        currentSelection = Math.floorMod(currentSelection + amt, levels.length);
+    }
 }

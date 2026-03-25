@@ -57,6 +57,7 @@ public class LevelGameplayPane extends GraphicsPane {
     }
 
     public void setCurrentLevel(GameLevel currentLevel) {
+        if (this.currentLevel != null && this.currentLevel.equals(currentLevel)) return;
         this.currentLevel = currentLevel;
         colorFilter.setLevel(currentLevel);
         for (ObstacleType obstacle: ObstacleType.values()) {
