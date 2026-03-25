@@ -98,7 +98,7 @@ public class Settings extends GraphicsProgram{
 		sfxSet.setFillColor(new Color(50, 159, 255));
 		sfxSet.setFilled(true);
 		settingsMenu.add(sfxSet);
-		
+				
 		for (GObject x : settingsMenu) {
 			add(x);
 		}
@@ -160,7 +160,7 @@ public class Settings extends GraphicsProgram{
 		double setValue = (musicSet.getX() + 17.5 - 250) / 3;
 		if (setValue > 100) { setValue = 100; }
 		else if (setValue < 0) {setValue = 0; }
-		mainApp.setMusicVol(setValue);
+		mainApp.setMusicVol(setValue);	
 		
 		setValue = (sfxSet.getX() + 17.5 - 250) / 3;
 		if (setValue > 100) { setValue = 100; }

@@ -41,6 +41,7 @@ public class MainApplication extends GraphicsProgram {
 
 	public void setMusicVol(double musicVol) {
 		this.musicVol = musicVol;
+		AudioPlayer.getInstance().setVolume((float) musicVol / 100.0f);
 	}
 	
 	public void quitGame() {
@@ -73,6 +74,9 @@ public class MainApplication extends GraphicsProgram {
         levelGameplayPane = new LevelGameplayPane(this);
 		//TheDefaultPane
 		switchToScreen(startPane);
+		
+		//Start Background Music
+		AudioPlayer.getInstance().playSound("Media", "sunflower-seed-wav");
 	}
 	
 	public static void main(String[] args) {
