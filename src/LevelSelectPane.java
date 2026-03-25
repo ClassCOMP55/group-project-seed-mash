@@ -105,7 +105,7 @@ public class LevelSelectPane extends GraphicsPane {
         int timeMin = level.getRuntime() / 60;
         int timeSec = level.getRuntime() % 60;
         GLabel runTimeLabel;
-        if (timeSec < 10) { //to create time format if below 10 seconds
+        if (timeSec < 10) { //to create time format if below 10 secondss
         	runTimeLabel = new GLabel(timeMin + ":0" + timeSec, 300, 150);
         } else {
         	runTimeLabel = new GLabel(timeMin + ":" + timeSec, 300, 150);
