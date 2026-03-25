@@ -7,10 +7,16 @@ import acm.graphics.*;
 
 
 public class StartPane extends GraphicsPane{
+	
+	private MainApplication mainScreen;
+	private GImage settingButton;
+	private GImage descriptionButton;
+	
 	public StartPane(MainApplication mainScreen) {
 		this.mainScreen = mainScreen;
 	}
 	
+
 	@Override
 	public void showContent() {
 		addBackground();
@@ -47,23 +53,23 @@ public class StartPane extends GraphicsPane{
 
 	
 	private void addDescriptionButton() {
-		GImage moreButton = new GImage("more.jpeg", 200, 400);
-		moreButton.scale(0.3, 0.3);
-		moreButton.setLocation((mainScreen.getWidth() - moreButton.getWidth())/ 2, 400);
+		descriptionButton = new GImage("more.jpeg", 200, 400);
+		descriptionButton.scale(0.3, 0.3);
+		descriptionButton.setLocation((mainScreen.getWidth() - descriptionButton.getWidth())/ 2, 400);
 		
-		contents.add(moreButton);
-		mainScreen.add(moreButton);
+		contents.add(descriptionButton);
+		mainScreen.add(descriptionButton);
 
 	}
 	
 	
 	private void addSettingButton() {
-		GImage Setting = new GImage("2747966-200__1_-removebg-preview.png",200,400);
-		Setting.scale(0.5, 0.5);
-		Setting.setLocation((mainScreen.getWidth() - Setting.getWidth()) - 50, 50);
+		settingButton = new GImage("2747966-200__1_-removebg-preview.png",200,400);
+		settingButton.scale(0.5, 0.5);
+		settingButton.setLocation((mainScreen.getWidth() - settingButton.getWidth()) - 50, 50);
 		
-		contents.add(Setting);
-		mainScreen.add(Setting);
+		contents.add(settingButton);
+		mainScreen.add(settingButton);
 	}
 
 	
@@ -71,11 +77,12 @@ public class StartPane extends GraphicsPane{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (mainScreen.getElementAtLocation(e.getX(), e.getY()) == contents.get(1)) {
+		GObject clicked = mainScreen.getElementAtLocation(e.getX(), e.getY());
+		
+		if (clicked == descriptionButton) {
 			mainScreen.switchToLevelSelectScreen();
-		}else{
+		} else if (clicked == settingButton) {
 			mainScreen.switchToSettings();
 		}
 	}
-
 }
