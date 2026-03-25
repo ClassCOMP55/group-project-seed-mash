@@ -11,22 +11,23 @@ public class MainApplication extends GraphicsProgram {
 	//Settings
 	public static final int WINDOW_WIDTH = 1920;
 	public static final int WINDOW_HEIGHT = 1080;
-	
+
 	//List of all the full screen panes
 	private StartPane startPane;
 	private LevelSelectPane levelSelectPane;
-    public LevelGameplayPane levelGameplayPane;
+	public LevelGameplayPane levelGameplayPane;
 	private GraphicsPane currentScreen;
-	
+	private Settings settings;
+
 	//Sound Values
 	double sfxVol = 100;
 	double musicVol = 100;
-		
+
 
 	public MainApplication() {
 		super();
 	}
-	
+
 	public double getSfxVol() {
 		return sfxVol;
 	}
@@ -43,59 +44,65 @@ public class MainApplication extends GraphicsProgram {
 		this.musicVol = musicVol;
 		AudioPlayer.getInstance().setVolume((float) musicVol / 100.0f);
 	}
-	
+
 	public void quitGame() {
 		clear();
 	}
 
-    public GWindow getWindow() {
-        return gw;
-    }
+	public GWindow getWindow() {
+		return gw;
+	}
+	
 	protected void setupInteractions() {
 		requestFocus();
 		addKeyListeners();
 		addMouseListeners();
 	}
-	
+
 	public void init() {
-        this.gw.setTitle("Trigonometry Jump");
-        this.gw.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.gw.setTitle("Trigonometry Jump");
+		this.gw.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
-	
+
 	public void run() {
 
 		System.out.println("Lets' Begin!");
 		setupInteractions();
-		
+
 		//Initialize all Panes
 		startPane = new StartPane(this);
 		levelSelectPane = new LevelSelectPane(this);
-        levelGameplayPane = new LevelGameplayPane(this);
+		levelGameplayPane = new LevelGameplayPane(this);
+		settings = new Settings(this);
+		
 		//TheDefaultPane
 		switchToScreen(startPane);
 		
 		//Start Background Music
 		AudioPlayer.getInstance().playSound("Media", "sunflower-seed-wav");
 	}
-	
+
 	public static void main(String[] args) {
 		new MainApplication().start();
 	}
-	
+
 	public void switchToLevelSelectScreen() {
 		switchToScreen(levelSelectPane);
 	}
-	
+
 	public void switchToStartScreen() {
 		switchToScreen(startPane);
 	}
 
-    public void switchToGameplayScreen() {
-        switchToScreen(levelGameplayPane);
-    }
+	public void switchToGameplayScreen() {
+		switchToScreen(levelGameplayPane);
+	}
 	
-	
+	public void switchToSettings(){
+		settings.start();
+	}
+
 	protected void switchToScreen(GraphicsPane newScreen) {
 		if(currentScreen != null) {
 			currentScreen.hideContent();
@@ -103,60 +110,60 @@ public class MainApplication extends GraphicsProgram {
 		newScreen.showContent();
 		currentScreen = newScreen;
 	}
-	
+
 	public GObject getElementAtLocation(double x, double y) {
 		return getElementAt(x, y);
 	}
-	
+
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if(currentScreen != null) {
 			currentScreen.mousePressed(e);
 		}
 	}
-	
+
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if(currentScreen != null) {
 			currentScreen.mouseReleased(e);
 		}
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(currentScreen != null) {
 			currentScreen.mouseClicked(e);
 		}
 	}
-	
+
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if(currentScreen != null) {
 			currentScreen.mouseDragged(e);
 		}
 	}
-	
+
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		if(currentScreen != null) {
 			currentScreen.mouseMoved(e);
 		}
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(currentScreen != null) {
 			currentScreen.keyPressed(e);
 		}
 	}
-	
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(currentScreen != null) {
 			currentScreen.keyReleased(e);
 		}
 	}
-	
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		if(currentScreen != null) {
