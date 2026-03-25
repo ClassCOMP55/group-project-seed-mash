@@ -23,11 +23,12 @@ public class LevelSelectPane extends GraphicsPane {
 	public void showContent() {
 		addBackground();
 		addTitle();
-		addPlayButton();
 		addBackButton();
 		addLeftArrow();
 		addRightArrow();
 		addProgressBar();
+
+        addPlayButton();
 	}
 
 	@Override
@@ -148,11 +149,15 @@ public class LevelSelectPane extends GraphicsPane {
 //            System.out.println("current selection " + currentSelection);
 		} else if (clicked == playButton || clicked == playButtonText) {
 			System.out.println("Play button clicked!");
-            mainScreen.levelGameplayPane.setCurrentLevel(levels[currentSelection]);
-			mainScreen.switchToGameplayScreen();
+            startLevel(levels[currentSelection]);
 		}
 	}
     private void incrementSelection(int amt) {
         currentSelection = Math.floorMod(currentSelection + amt, levels.length);
+    }
+    private void startLevel(GameLevel level) {
+        mainScreen.levelGameplayPane.setCurrentLevel(level);
+        mainScreen.levelGameplayPane.startGame();
+        mainScreen.switchToGameplayScreen();
     }
 }

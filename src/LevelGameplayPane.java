@@ -2,7 +2,7 @@ import acm.graphics.GImage;
 import acm.graphics.GImageTools;
 import acm.graphics.GLabel;
 import level.GameLevel;
-import level.LevelColor;
+import level.LevelStitcher;
 import level.ObstacleType;
 
 import java.awt.*;
@@ -16,25 +16,30 @@ import java.util.HashMap;
 public class LevelGameplayPane extends GraphicsPane {
     public static final int ELEMENT_SCALING = 80; //how big (in pixels) obstacles are going to appear on screen
     private GameLevel currentLevel;
-    private static LevelColor colorFilter;
+    private static LevelStitcher stitcher;
+    private int progress = 0;
 
-    /**
-     * When a GameLevel is loaded into LevelGameplayPane via {@link #setCurrentLevel(GameLevel)}, the images of the obstacles
-     * are automatically colored (according to the GameLevel's color scheme) and stored
-     * here to be referenced statically when the level is being rendered.
-     */
-    private static final HashMap<ObstacleType, Image> obstacleImageCache = new HashMap<>();
+
+
+    public void startGame() {
+        progress = 0;
+        while (progress < this.currentLevel.getRuntime()*1000) {
+            System.out.println("progress: " + progress);
+            renderLevel(progress);
+            progress++;
+        }
+    }
 
     @Override
     public void showContent() {
         this.addText();
-        this.renderLevel();
+        this.renderLevel(progress);
     }
 
-    private void renderBackground() {
+    private void renderBackground(int prog) {
         Image img = GImageTools.loadImage("background.png");
-        img = GImageTools.getImageObserver().createImage(new FilteredImageSource(img.getSource(), colorFilter));
-        GImage toAdd = new GImage(img, 0, 0);
+        img = GImageTools.getImageObserver().createImage(new FilteredImageSource(img.getSource(), stitcher.getColorFilter()));
+        GImage toAdd = new GImage(img, -prog/2f, 0);
         toAdd.setSize(mainScreen.getWidth(), mainScreen.getHeight());
         contents.add(toAdd);
         mainScreen.add(toAdd);
@@ -47,7 +52,7 @@ public class LevelGameplayPane extends GraphicsPane {
     }
 
     public LevelGameplayPane(MainApplication mainApplication) {
-        colorFilter = new LevelColor();
+        stitcher = new LevelStitcher();
         this.mainScreen = mainApplication;
         this.setCurrentLevel(GameLevel.TEST_LEVEL);
     }
@@ -59,12 +64,7 @@ public class LevelGameplayPane extends GraphicsPane {
     public void setCurrentLevel(GameLevel currentLevel) {
         if (this.currentLevel != null && this.currentLevel.equals(currentLevel)) return;
         this.currentLevel = currentLevel;
-        colorFilter.setLevel(currentLevel);
-        for (ObstacleType obstacle: ObstacleType.values()) {
-            Image img = GImageTools.loadImage(obstacle.getImageFileURL());
-            img = GImageTools.getImageObserver().createImage(new FilteredImageSource(img.getSource(), colorFilter));
-            obstacleImageCache.put(obstacle, img);
-        }
+        stitcher.setLevel(currentLevel);
     }
 
     /**
@@ -75,6 +75,7 @@ public class LevelGameplayPane extends GraphicsPane {
         app.start();
         app.levelGameplayPane.setCurrentLevel(GameLevel.TEST_LEVEL);
         app.switchToScreen(app.levelGameplayPane);
+        app.levelGameplayPane.startGame();
     }
 
     private void addText() {
@@ -92,24 +93,10 @@ public class LevelGameplayPane extends GraphicsPane {
     }
 
 
-    private void renderLevel() {
+    private void renderLevel(int prog) {
         //TODO: stitch together one big image from level geometry? have to see if rendering all of the obstacles each run() call
         this.hideContent();
-        renderBackground();
-        ObstacleType[][] geom = currentLevel.getGeometry();
-        for (int r = 0; r < geom.length; r++) {
-            for (int c = 0; c < geom[r].length; c++) {
-                if (geom[r][c] != null) { //do not render anything for empty spaces
-                    int x = ELEMENT_SCALING*c;
-//                    System.out.println("Height: " + mainScreen.getWindow().getHeight());
-                    int y = mainScreen.getWindow().getHeight()- (ELEMENT_SCALING*(r+1)) - 37; //bottom of level will always be aligned with bottom of window, 37 accounts for top toolbar height i guess
-                    GImage toAdd = new GImage(obstacleImageCache.get(geom[r][c]), x, y);
-                    toAdd.setSize(ELEMENT_SCALING, ELEMENT_SCALING);
-                    contents.add(toAdd);
-                    mainScreen.add(toAdd);
-                }
-            }
-        }
+        renderBackground(prog);
     }
     public void progressBar() {
 

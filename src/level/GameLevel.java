@@ -13,7 +13,7 @@ public class GameLevel {
     private final ObstacleType[][] geometry;
     private final String soundtrackURL;
     private float completionPercent = 0;
-    private final LevelColor.Scheme colorScheme;
+    private final LevelStitcher.ColorScheme colorScheme;
     private final int runtime;
     private final int difficulty;
     private final int stars;
@@ -29,7 +29,7 @@ public class GameLevel {
      * @param difficulty    Difficulty of the level
      * @param stars         Number of stars for the level
      */
-    public GameLevel(String levelName, String soundtrackURL, LevelColor.Scheme color, int runtime, ObstacleType[][] geom, int difficulty, int stars) {
+    public GameLevel(String levelName, String soundtrackURL, LevelStitcher.ColorScheme color, int runtime, ObstacleType[][] geom, int difficulty, int stars) {
         this.levelName = levelName;
         this.soundtrackURL = soundtrackURL;
         this.colorScheme = color;
@@ -59,7 +59,7 @@ public class GameLevel {
         this.completionPercent = completionPercent;
     }
 
-    public LevelColor.Scheme getColorScheme() {
+    public LevelStitcher.ColorScheme getColorScheme() {
         return colorScheme;
     }
 
@@ -83,17 +83,17 @@ public class GameLevel {
         return arr;
     }
     public static final String[] TEST_GEOM = {
-            "                                              ",
-            "                                              ",
-            "                                              ",
-            "                                              ",
-            "                                              ",
-            "                                              ",
-            " B                                            ",
-            "BB                                            ",
-            " B     ^^^                                    ",
-            " B     BBBBBB                                 ",
-            "BBB   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+            "                                                                                             ",
+            "                                                                                             ",
+            "                                                                                             ",
+            "                                                                                             ",
+            "                                                                                             ",
+            "                                                                       B B                   ",
+            "                                                                       B B                   ",
+            "                                                                       BBB                   ",
+            "                                                                       B B                   ",
+            "            ^                                                          B B                   ",
+            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB      BBBBBBBBBBBBBBBBB",
     };
 
 
@@ -114,7 +114,7 @@ public class GameLevel {
     public static final GameLevel TEST_LEVEL = new GameLevel(
             "Test Level 1",
             "",
-            new LevelColor.Scheme(
+            new LevelStitcher.ColorScheme(
                     Color.BLUE,
                     Color.WHITE,
                     Color.BLACK
@@ -128,7 +128,7 @@ public class GameLevel {
     public static final GameLevel TEST_LEVEL_2 = new GameLevel(
             "Test Level 2",
             "",
-            new LevelColor.Scheme(
+            new LevelStitcher.ColorScheme(
                     new Color(255, 100, 10),
                     Color.WHITE,
                     new Color(50, 0, 0)

@@ -77,6 +77,7 @@ public class MainApplication extends GraphicsProgram {
 		
 		//TheDefaultPane
 		switchToScreen(startPane);
+
 	}
 
 	public static void main(String[] args) {
