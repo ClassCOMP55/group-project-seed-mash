@@ -74,41 +74,25 @@ public class LevelSelectPane extends GraphicsPane {
 		mainScreen.add(title);
 	}
 
-	private void addPlayButton() {
-		playButton = new GRect(200, 100);
-		playButton.setFilled(true);
-		playButton.setColor(new Color(46, 204, 113));
-		playButton.setLocation((mainScreen.getWidth() - 200) / 2, 250);
-		
-		contents.add(playButton);
-		mainScreen.add(playButton);
-		
-		playButtonText = new GLabel("PLAY");
-		playButtonText.setFont(new Font("Arial", Font.BOLD, 32));
-		playButtonText.setColor(Color.WHITE);
-		playButtonText.setLocation((mainScreen.getWidth() - playButtonText.getWidth()) / 2, 315);
-		
-		contents.add(playButtonText);
-		mainScreen.add(playButtonText);
-	}
-
     private void drawLevelInfo() {
         GameLevel level = levels[currentSelection];
-        GRect levelInfoBox = new GRect(300, 150, mainScreen.getWidth() - 600, 500);
-        levelInfoBox.setFilled(true);
-        levelInfoBox.setColor(new Color(46, 204, 113));
-        contents.add(levelInfoBox);
-        mainScreen.add(levelInfoBox);
+        playButton = new GRect(300, 150, mainScreen.getWidth() - 600, 300);
+        playButton.setFilled(true);
+        playButton.setColor(new Color(46, 204, 113));
+        contents.add(playButton);
+        mainScreen.add(playButton);
 
-        GLabel levelInfoName = new GLabel(level.getLevelName(), 300, 150);
-        levelInfoName.setFont(new Font("Arial", Font.BOLD, 36));
-        levelInfoName.setColor(Color.WHITE);
-        levelInfoName.setLocation((mainScreen.getWidth() - levelInfoName.getWidth()) / 2, 210);
-        contents.add(levelInfoName);
-        mainScreen.add(levelInfoName);
+        playButtonText = new GLabel(level.getLevelName(), 0, 0);
+        playButtonText.setFont(new Font("Arial", Font.BOLD, 36));
+        playButtonText.setColor(Color.WHITE);
+        playButtonText.scale(2);
+        playButtonText.setLocation((playButton.getWidth()/2) - (playButtonText.getWidth() / 2) + playButton.getX(),
+        		(playButton.getHeight()/2) - (playButtonText.getHeight()/2) + playButton.getY() + 50);
+        contents.add(playButtonText);
+        mainScreen.add(playButtonText);
         
         int levelDifficulty = level.getDifficulty();
-        GImage levelDiffIcon = new GImage("Difficulty1.png", levelInfoName.getX() - 60, levelInfoName.getY() - 40);
+        GImage levelDiffIcon = new GImage("Difficulty1.png", playButtonText.getX() - playButton.getX(), playButtonText.getY() - 80);
         if (levelDifficulty == 2) {
         	levelDiffIcon.setImage("Difficulty2.png");
         } else if (levelDifficulty == 3) {
@@ -116,7 +100,8 @@ public class LevelSelectPane extends GraphicsPane {
         } else if (levelDifficulty == 4) {
         	levelDiffIcon.setImage("Difficulty4.png");
         }
-        levelDiffIcon.scale(0.1);
+        levelDiffIcon.scale(0.2);
+        levelDiffIcon.setLocation(playButtonText.getX() - playButton.getX() / 2, playButtonText.getY() - 80);
         contents.add(levelDiffIcon);
         mainScreen.add(levelDiffIcon);
         
@@ -130,7 +115,7 @@ public class LevelSelectPane extends GraphicsPane {
         }
         runTimeLabel.setFont(new Font("Arial", Font.BOLD, 36));
         runTimeLabel.setColor(Color.WHITE);
-        runTimeLabel.setLocation((mainScreen.getWidth() - levelInfoName.getHeight()) / 2, 250);
+        runTimeLabel.setLocation((mainScreen.getWidth() - playButtonText.getHeight()) / 2, playButtonText.getY() + 75);
         contents.add(runTimeLabel);
         mainScreen.add(runTimeLabel);
     }
@@ -147,7 +132,7 @@ public class LevelSelectPane extends GraphicsPane {
 	private void addLeftArrow() {
 		leftArrow = new GImage("Left_arrow.png");
 		leftArrow.scale(0.3, 0.3);
-		leftArrow.setLocation(50, 500);
+		leftArrow.setLocation(50, 400);
 		contents.add(leftArrow);
 		mainScreen.add(leftArrow);
 	}
@@ -155,7 +140,7 @@ public class LevelSelectPane extends GraphicsPane {
 	private void addRightArrow() {
 		rightArrow = new GImage("Right_arrow.png");
 		rightArrow.scale(0.3, 0.3);
-		rightArrow.setLocation(mainScreen.getWidth() - rightArrow.getWidth() - 50, 500);
+		rightArrow.setLocation(mainScreen.getWidth() - rightArrow.getWidth() - 50, 400);
 		contents.add(rightArrow);
 		mainScreen.add(rightArrow);
 	}
