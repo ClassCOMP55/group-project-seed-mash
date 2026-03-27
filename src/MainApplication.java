@@ -18,6 +18,7 @@ public class MainApplication extends GraphicsProgram {
 	public LevelGameplayPane levelGameplayPane;
 	private GraphicsPane currentScreen;
 	private Settings settings;
+	private boolean settingsOpen = false;
 
 	//Sound Values
 	double sfxVol = 100;
@@ -42,6 +43,7 @@ public class MainApplication extends GraphicsProgram {
 
 	public void setMusicVol(double musicVol) {
 		this.musicVol = musicVol;
+		AudioPlayer.getInstance().setVolume((float) musicVol / 100.0f);
 	}
 
 	public void quitGame() {
@@ -50,6 +52,15 @@ public class MainApplication extends GraphicsProgram {
 
 	public GWindow getWindow() {
 		return gw;
+	}
+	
+	public void setSettingsOpen(boolean open) {
+		this.settingsOpen = open;
+	}
+	
+	public void switchToSettings() {
+		settingsOpen = true;
+		settings.openSettingsMenu();
 	}
 	
 	protected void setupInteractions() {
@@ -77,6 +88,9 @@ public class MainApplication extends GraphicsProgram {
 		
 		//TheDefaultPane
 		switchToScreen(startPane);
+	    
+		//play the background music
+	    AudioPlayer.getInstance().playSound("Media", "sunflower-seed-wav");
 
 	}
 
@@ -95,10 +109,6 @@ public class MainApplication extends GraphicsProgram {
 	public void switchToGameplayScreen() {
 		switchToScreen(levelGameplayPane);
 	}
-	
-	public void switchToSettings(){
-		settings.start();
-	}
 
 	protected void switchToScreen(GraphicsPane newScreen) {
 		if(currentScreen != null) {
@@ -114,29 +124,41 @@ public class MainApplication extends GraphicsProgram {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(currentScreen != null) {
+		if (settingsOpen) {
+	        settings.mousePressed(e);
+	    } 
+		else if (currentScreen != null) {
 			currentScreen.mousePressed(e);
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if(currentScreen != null) {
+		if(settingsOpen) {
+			settings.mouseReleased(e);
+		}
+		else if(currentScreen != null) {
 			currentScreen.mouseReleased(e);
 		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(currentScreen != null) {
-			currentScreen.mouseClicked(e);
+		if (settingsOpen) {
+			settings.mouseClicked(e); 
+		}
+	    else if(currentScreen != null) {
+	    	currentScreen.mouseClicked(e);
 		}
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if(currentScreen != null) {
-			currentScreen.mouseDragged(e);
+		 if (settingsOpen) { 
+			 settings.mouseDragged(e); 
+		 }
+		 else if(currentScreen != null) {
+			 currentScreen.mouseDragged(e);
 		}
 	}
 

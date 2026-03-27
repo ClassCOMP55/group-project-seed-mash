@@ -39,7 +39,7 @@ public class Settings extends GraphicsProgram{
 	public void setSfxVol(int sfxVol) {
 		mainApp.setSfxVol(sfxVol);
 	}
-	
+		
 	public void init() {
 		
 	}
@@ -98,24 +98,27 @@ public class Settings extends GraphicsProgram{
 		settingsMenu.add(sfxSet);
 		
 		for (GObject x : settingsMenu) {
-			add(x);
+			mainApp.add(x);
 		}
+		
+//		mainApp.addMouseListeners(this);
 	}
 	
 	public void closeSettingsMenu() { //Use this to close settings
 		for (GObject x : settingsMenu) {
-			remove(x);
+			mainApp.remove(x);
 		}
 		settingsMenu.clear();
+		mainApp.setSettingsOpen(false);
 	}
 	
 	
 	
 	@Override
 	public void mouseClicked(MouseEvent e) { //For close button
-		GObject x = getElementAt(e.getX(), e.getY());
+		GObject x = mainApp.getElementAtLocation(e.getX(), e.getY());
 		if(x != null) {
-			if (getElementAt(e.getX(), e.getY()) == closeButton) {
+			if (mainApp.getElementAtLocation(e.getX(), e.getY()) == closeButton) {
 				closeSettingsMenu();
 			}
 		}
@@ -123,7 +126,7 @@ public class Settings extends GraphicsProgram{
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		GObject temp = getElementAt(e.getX(), e.getY());
+		GObject temp = mainApp.getElementAtLocation(e.getX(), e.getY());
 		if(temp != null) {
 			if (temp == musicSet || temp == sfxSet) {
 				int deltaX = e.getX() - lastX;
@@ -168,10 +171,10 @@ public class Settings extends GraphicsProgram{
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		GObject x = getElementAt(e.getX(), e.getY());
+		GObject x = mainApp.getElementAtLocation(e.getX(), e.getY());
 		if (x != null) {
 			if (x == musicSet || x == sfxSet) {
-				toDrag = getElementAt(e.getX(), e.getY());
+				toDrag = x;
 			}
 		}
 		
