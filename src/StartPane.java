@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
 import acm.graphics.GObject;
 import acm.graphics.*;
+import acm.util.MediaTools;
+
 
 
 public class StartPane extends GraphicsPane{
@@ -11,10 +13,23 @@ public class StartPane extends GraphicsPane{
 	private MainApplication mainScreen;
 	private GImage settingButton;
 	private GImage descriptionButton;
+    private AudioPlayer backgroundMusic;
+
 	
 	public StartPane(MainApplication mainScreen) {
 		this.mainScreen = mainScreen;
 	}
+	
+	private void playMusic() {
+        backgroundMusic = AudioPlayer.getInstance();
+        backgroundMusic.playSound("Media/", "sunflower-seed-wav");
+    }
+
+    private void stopMusic() {
+        if (backgroundMusic != null) {
+            backgroundMusic.stopSound("Media/", "sunflower-seed-wav");
+        }
+    }
 	
 
 	@Override
@@ -23,10 +38,13 @@ public class StartPane extends GraphicsPane{
 		addText();
 		addDescriptionButton();
 		addSettingButton();
+		playMusic();
+
 	}
 
 	@Override
 	public void hideContent() {
+		stopMusic();
 		for(GObject item : contents) {
 			mainScreen.remove(item);
 		}

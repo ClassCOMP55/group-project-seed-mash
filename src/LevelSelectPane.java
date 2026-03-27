@@ -3,6 +3,8 @@ import java.awt.Font;
 import java.awt.event.MouseEvent;
 import acm.graphics.*;
 import level.GameLevel;
+import acm.util.MediaTools;
+
 
 public class LevelSelectPane extends GraphicsPane {
 
@@ -12,12 +14,26 @@ public class LevelSelectPane extends GraphicsPane {
 	private GImage rightArrow;
 	private GRect playButton;
 	private GLabel playButtonText;
+    private AudioPlayer backgroundMusic;
+
+	
 
     private int currentSelection = 0;
 
 	public LevelSelectPane(MainApplication mainScreen) {
 		this.mainScreen = mainScreen;
 	}
+	
+	private void playMusic() {
+        backgroundMusic = AudioPlayer.getInstance();
+        backgroundMusic.playSound("Media/", "sunflower-seed-wav");
+    }
+
+    private void stopMusic() {
+        if (backgroundMusic != null) {
+            backgroundMusic.stopSound("Media/", "sunflower-seed-wav");
+        }
+    }
 
 	@Override
 	public void showContent() {
@@ -28,10 +44,12 @@ public class LevelSelectPane extends GraphicsPane {
 		addLeftArrow();
 		addRightArrow();
 		addProgressBar();
+		playMusic();
 	}
 
 	@Override
 	public void hideContent() {
+		stopMusic();
 		for(GObject item : contents) {
 			mainScreen.remove(item);
 		}
