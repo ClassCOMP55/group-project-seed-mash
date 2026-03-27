@@ -98,6 +98,7 @@ public class Settings extends GraphicsProgram{
 		settingsMenu.add(sfxSet);
 		
 		for (GObject x : settingsMenu) {
+			x.setLocation(x.getX()+1920/5, x.getY()+1080/10);
 			mainApp.add(x);
 		}
 		
@@ -179,10 +180,5 @@ public class Settings extends GraphicsProgram{
 		}
 		
 		lastX = e.getX();
-	}
-	
-	
-	public static void main(String[] args) {
-		new Settings().start();
 	}
 }
