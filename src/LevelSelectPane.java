@@ -119,9 +119,15 @@ public class LevelSelectPane extends GraphicsPane {
         contents.add(runTimeLabel);
         mainScreen.add(runTimeLabel);
         
-        GRect progressLabel = new GRect(playButton.getX() + 50, runTimeLabel.getY() + 10, 500, 50);
+        GRect progressLabel = new GRect(playButton.getX() + 225, runTimeLabel.getY() + 10, 500, 50);
         contents.add(progressLabel);
         mainScreen.add(progressLabel);
+        
+        GRect progress = new GRect(playButton.getX() + 225, runTimeLabel.getY() + 10, level.getCompletionPercent()*5, 50);
+        progress.setFilled(true);
+        progress.setFillColor(Color.blue);
+        contents.add(progress);
+        mainScreen.add(progress);
     }
 
 	private void addBackButton() {
