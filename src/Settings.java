@@ -87,18 +87,18 @@ public class Settings extends GraphicsProgram{
 		sfxLabel.scale(2);
 		settingsMenu.add(sfxLabel);
 		
-		musicSet = new GOval(musicScale.getX() + (ScaleWidth/100)*getMusicVol() - 17.5, 245, 35, 35);
+		musicSet = new GOval(musicScale.getX() + (ScaleWidth/100.0)*getMusicVol() - 17.5, 245, 35, 35);
 		musicSet.setFillColor(new Color(50, 159, 255));
 		musicSet.setFilled(true);
 		settingsMenu.add(musicSet);
 		
-		sfxSet = new GOval((sfxScale.getX() + (ScaleWidth/100)*getSfxVol() - 17.5), 345, 35, 35);
+		sfxSet = new GOval((sfxScale.getX() + (ScaleWidth/100.0)*getSfxVol() - 17.5), 345, 35, 35);
 		sfxSet.setFillColor(new Color(50, 159, 255));
 		sfxSet.setFilled(true);
 		settingsMenu.add(sfxSet);
 		
 		for (GObject x : settingsMenu) {
-			x.setLocation(x.getX()+1920/5, x.getY()+1080/10);
+			x.setLocation(x.getX() + (mainApp.getWidth()/2 - 400), x.getY() + (mainApp.getHeight()/2 - 300));
 			mainApp.add(x);
 		}
 		
@@ -111,9 +111,7 @@ public class Settings extends GraphicsProgram{
 		}
 		settingsMenu.clear();
 		mainApp.setSettingsOpen(false);
-	}
-	
-	
+	}	
 	
 	@Override
 	public void mouseClicked(MouseEvent e) { //For close button
@@ -158,16 +156,18 @@ public class Settings extends GraphicsProgram{
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		
-		double setValue = (musicSet.getX() + 17.5 - 250) / 3;
-		if (setValue > 100) { setValue = 100; }
-		else if (setValue < 0) {setValue = 0; }
-		mainApp.setMusicVol(setValue);
-		
-		setValue = (sfxSet.getX() + 17.5 - 250) / 3;
-		if (setValue > 100) { setValue = 100; }
-		else if (setValue < 0) {setValue = 0; }
-		mainApp.setSfxVol(setValue);
+		if (toDrag != null) {
+	        double setValue = (musicSet.getX() + 17.5 - musicScale.getX()) / (ScaleWidth / 100.0);
+	        if (setValue > 100) { setValue = 100; }
+	        else if (setValue < 0) { setValue = 0; }
+	        mainApp.setMusicVol(setValue);
+
+	        setValue = (sfxSet.getX() + 17.5 - sfxScale.getX()) / (ScaleWidth / 100.0);
+	        if (setValue > 100) { setValue = 100; }
+	        else if (setValue < 0) { setValue = 0; }
+	        mainApp.setSfxVol(setValue);
+		}
+		toDrag = null;
 	}
 	
 	@Override
