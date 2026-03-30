@@ -98,17 +98,17 @@ public class GameLevel {
 
 
     public static final String[] TEST_GEOM_2 = {
-            "                                              ",
-            "                                              ",
-            "                                              ",
-            "                                              ",
-            "                                              ",
-            "                                              ",
-            "BBB                                           ",
-            "  B                                           ",
-            "BBB    ^^^                                    ",
-            "B      BBBBBB                                 ",
-            "BBB   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+            "                                                                                             ",
+            "                                                                                             ",
+            "                                                                                             ",
+            "                                                                                             ",
+            "                                                                                             ",
+            "                   BBB                                                 B B                   ",
+            "                    B                                                  B B                   ",
+            "                    B                                                  BBB                   ",
+            "                    B                                                  B B                   ",
+            "            ^      BB                                                  B B                   ",
+            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB      BBBBBBBBBBBBBBBBB",
     };
 
     public static final GameLevel TEST_LEVEL = new GameLevel(
