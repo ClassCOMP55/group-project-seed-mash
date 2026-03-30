@@ -12,19 +12,27 @@ public class LevelGameplayPane extends GraphicsPane {
     public static final int ELEMENT_SCALING = 80; //how big (in pixels) obstacles are going to appear on screen
     private GameLevel currentLevel;
     private static LevelStitcher stitcher;
-    private long startMillis = System.currentTimeMillis();
+    private long startMillis = 0;
     private GImage levelImage;
+    private GImage backgroundImage;
+    private GImage backgroundImage2; //in order to have it scroll
 
 
 
     public void startGame() {
-        while (true)
-        renderLevel();
+        System.out.println("game start");
+        startMillis = System.currentTimeMillis();
+        renderLevel(System.currentTimeMillis() - startMillis);
+        while (System.currentTimeMillis() - startMillis < 180000) {
+//            System.out.println("mis " + (System.currentTimeMillis()-startMillis));
+            renderLevel(System.currentTimeMillis() - startMillis);
+        }
+
     }
 
     @Override
     public void showContent() {
-        this.renderLevel();
+        this.renderLevel(0);
     }
 
 
@@ -38,7 +46,6 @@ public class LevelGameplayPane extends GraphicsPane {
         stitcher = new LevelStitcher();
         this.mainScreen = mainApplication;
         this.setCurrentLevel(GameLevel.TEST_LEVEL);
-
     }
 
     public GameLevel getCurrentLevel() {
@@ -46,10 +53,21 @@ public class LevelGameplayPane extends GraphicsPane {
     }
 
     public void setCurrentLevel(GameLevel currentLevel) {
+        System.out.println("setting level to " + currentLevel.getLevelName());
         if (this.currentLevel != null && this.currentLevel.equals(currentLevel)) return;
+
         this.currentLevel = currentLevel;
         levelImage = new GImage("export/" + currentLevel.getLevelName() + "/level.png");
+        backgroundImage = new GImage("export/" + currentLevel.getLevelName() + "/background.png");
+        backgroundImage2 = new GImage("export/" + currentLevel.getLevelName() + "/background.png");
         stitcher.setLevel(currentLevel);
+
+        contents.add(backgroundImage);
+        mainScreen.add(backgroundImage);
+        contents.add(backgroundImage2);
+        mainScreen.add(backgroundImage2);
+        contents.add(levelImage);
+        mainScreen.add(levelImage);
     }
 
     /**
@@ -63,15 +81,13 @@ public class LevelGameplayPane extends GraphicsPane {
         app.levelGameplayPane.startGame();
     }
 
-
-
-    private void renderLevel() {
+    private void renderLevel(long delta) {
 //        this.hideContent();
 //        renderBackground(prog);
-        System.out.println(System.currentTimeMillis() - startMillis);
-        levelImage.setLocation(-(System.currentTimeMillis() - startMillis)/2d, -250);
-        contents.add(levelImage);
-        mainScreen.add(levelImage);
+        levelImage.setLocation(-(delta)/2d, -250);
+        backgroundImage.setLocation((-(delta)/4d)%backgroundImage.getWidth(), 0);
+        backgroundImage2.setLocation(backgroundImage.getX() + backgroundImage.getWidth(), 0);
+
     }
     public void progressBar() {
 

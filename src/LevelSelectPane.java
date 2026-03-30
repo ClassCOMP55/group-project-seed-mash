@@ -157,7 +157,6 @@ public class LevelSelectPane extends GraphicsPane {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		GObject clicked = mainScreen.getElementAtLocation(e.getX(), e.getY());
-
 		if (clicked == backButton) {
 			System.out.println("Back button clicked!");
 			mainScreen.switchToStartScreen();
@@ -165,18 +164,17 @@ public class LevelSelectPane extends GraphicsPane {
             System.out.println("current selection " + currentSelection);
             incrementSelection(-1);
             drawLevelInfo();
-
 		} else if (clicked == rightArrow) {
             System.out.println("current selection " + currentSelection);
             incrementSelection(1);
             drawLevelInfo();
-
 		} else if (clicked == playButton || clicked == playButtonText) {
 			System.out.println("Play button clicked!");
             mainScreen.levelGameplayPane.setCurrentLevel(levels[currentSelection]);
 			mainScreen.switchToGameplayScreen();
 		}
 	}
+
     private void incrementSelection(int amt) {
         currentSelection = Math.floorMod(currentSelection + amt, levels.length);
     }

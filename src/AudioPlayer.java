@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class AudioPlayer {
 
-    private ArrayList<Clip> players = new ArrayList<>();
+    private final ArrayList<Clip> players = new ArrayList<>();
     private static AudioPlayer somePlayer;
 
     private AudioPlayer() {}
