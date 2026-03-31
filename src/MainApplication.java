@@ -23,7 +23,13 @@ public class MainApplication extends GraphicsProgram {
 	//Sound Values
 	double sfxVol = 100;
 	double musicVol = 100;
+    private boolean endGame = false;
+    private long startMillis = 0;
+    private long prevMillis = 0;
 
+    public long getDelta() {
+        return System.currentTimeMillis() - startMillis;
+    }
 
 	public MainApplication() {
 		super();
@@ -76,7 +82,6 @@ public class MainApplication extends GraphicsProgram {
 	}
 
 	public void run() {
-
 		System.out.println("Lets' Begin!");
 		setupInteractions();
 
@@ -92,6 +97,16 @@ public class MainApplication extends GraphicsProgram {
 		//play the background music
 	    AudioPlayer.getInstance().playSound("Media", "sunflower-seed-wav");
 
+        startMillis = System.currentTimeMillis();
+        do {
+            System.out.print(" \b"); //<-- this line makes the moving level work for some reason
+            if (getDelta() != prevMillis && getDelta()%16==0) {
+                if (currentScreen.equals(levelGameplayPane)) {
+                    levelGameplayPane.tick(getDelta());
+                }
+                prevMillis = getDelta();
+            }
+        } while (!endGame);
 	}
 
 	public static void main(String[] args) {
@@ -147,7 +162,7 @@ public class MainApplication extends GraphicsProgram {
 		if (settingsOpen) {
 			settings.mouseClicked(e); 
 		}
-	    else if(currentScreen != null) {
+	    else if (currentScreen != null) {
 	    	currentScreen.mouseClicked(e);
 		}
 	}

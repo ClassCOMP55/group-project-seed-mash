@@ -12,23 +12,10 @@ public class LevelGameplayPane extends GraphicsPane {
     public static final int ELEMENT_SCALING = 80; //how big (in pixels) obstacles are going to appear on screen
     private GameLevel currentLevel;
     private static LevelStitcher stitcher;
-    private long startMillis = 0;
     private GImage levelImage;
     private GImage backgroundImage;
     private GImage backgroundImage2; //in order to have it scroll
 
-
-
-    public void startGame() {
-        System.out.println("game start");
-        startMillis = System.currentTimeMillis();
-        renderLevel(System.currentTimeMillis() - startMillis);
-        while (System.currentTimeMillis() - startMillis < 180000) {
-//            System.out.println("mis " + (System.currentTimeMillis()-startMillis));
-            renderLevel(System.currentTimeMillis() - startMillis);
-        }
-
-    }
 
     @Override
     public void showContent() {
@@ -78,7 +65,6 @@ public class LevelGameplayPane extends GraphicsPane {
         app.start();
         app.levelGameplayPane.setCurrentLevel(GameLevel.TEST_LEVEL_2);
         app.switchToScreen(app.levelGameplayPane);
-        app.levelGameplayPane.startGame();
     }
 
     private void renderLevel(long delta) {
@@ -89,8 +75,14 @@ public class LevelGameplayPane extends GraphicsPane {
         backgroundImage2.setLocation(backgroundImage.getX() + backgroundImage.getWidth(), 0);
 
     }
-    public void progressBar() {
 
+    /**
+     * Code that runs while the game is active
+     * @param delta Time since game start in milliseconds
+     */
+    public void tick(long delta) {
+        System.out.println("tick " + delta);
+        renderLevel(delta);
     }
 
     @Override
