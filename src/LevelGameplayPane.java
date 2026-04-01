@@ -1,14 +1,9 @@
 import acm.graphics.GImage;
-import acm.graphics.GImageTools;
-import acm.graphics.GLabel;
 import level.GameLevel;
 import level.LevelStitcher;
-import level.ObstacleType;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.image.FilteredImageSource;
-import java.util.HashMap;
 
 /**
  * Graphics pane for actually playing the levels. Handles the rendering of the levels.
@@ -17,33 +12,16 @@ public class LevelGameplayPane extends GraphicsPane {
     public static final int ELEMENT_SCALING = 80; //how big (in pixels) obstacles are going to appear on screen
     private GameLevel currentLevel;
     private static LevelStitcher stitcher;
-    private int progress = 0;
+    private GImage levelImage;
+    private GImage backgroundImage;
+    private GImage backgroundImage2; //in order to have it scroll
 
-
-
-    public void startGame() {
-        progress = 0;
-        while (progress < this.currentLevel.getRuntime()*1000) {
-            System.out.println("progress: " + progress);
-            renderLevel(progress);
-            progress++;
-        }
-    }
 
     @Override
     public void showContent() {
-        this.addText();
-        this.renderLevel(progress);
+        this.renderLevel(0);
     }
 
-    private void renderBackground(int prog) {
-        Image img = GImageTools.loadImage("background.png");
-        img = GImageTools.getImageObserver().createImage(new FilteredImageSource(img.getSource(), stitcher.getColorFilter()));
-        GImage toAdd = new GImage(img, -prog/2f, 0);
-        toAdd.setSize(mainScreen.getWidth(), mainScreen.getHeight());
-        contents.add(toAdd);
-        mainScreen.add(toAdd);
-    }
 
     @Override
     public void hideContent() {
@@ -62,9 +40,21 @@ public class LevelGameplayPane extends GraphicsPane {
     }
 
     public void setCurrentLevel(GameLevel currentLevel) {
+        System.out.println("setting level to " + currentLevel.getLevelName());
         if (this.currentLevel != null && this.currentLevel.equals(currentLevel)) return;
+
         this.currentLevel = currentLevel;
+        levelImage = new GImage("export/" + currentLevel.getLevelName() + "/level.png");
+        backgroundImage = new GImage("export/" + currentLevel.getLevelName() + "/background.png");
+        backgroundImage2 = new GImage("export/" + currentLevel.getLevelName() + "/background.png");
         stitcher.setLevel(currentLevel);
+
+        contents.add(backgroundImage);
+        mainScreen.add(backgroundImage);
+        contents.add(backgroundImage2);
+        mainScreen.add(backgroundImage2);
+        contents.add(levelImage);
+        mainScreen.add(levelImage);
     }
 
     /**
@@ -73,33 +63,26 @@ public class LevelGameplayPane extends GraphicsPane {
     public static void main(String[] args) {
         MainApplication app = new MainApplication();
         app.start();
-        app.levelGameplayPane.setCurrentLevel(GameLevel.TEST_LEVEL);
+        app.levelGameplayPane.setCurrentLevel(GameLevel.TEST_LEVEL_2);
         app.switchToScreen(app.levelGameplayPane);
-        app.levelGameplayPane.startGame();
     }
 
-    private void addText() {
-        GLabel text = new GLabel("Level gameplay", 100, 70);
-        text.setColor(Color.BLUE);
-        text.setFont("DialogInput-PLAIN-24");
-        text.setLocation((mainScreen.getWidth() - text.getWidth()) / 2, 70);
-//        GImage image = new GImage("obstacles/block.png", 100, 100);
-//        image.setSize(70, 70);
-//        contents.add(image);
-//        mainScreen.add(image);
+    private void renderLevel(long delta) {
+//        this.hideContent();
+//        renderBackground(prog);
+        levelImage.setLocation(-(delta)/2d, -250);
+        backgroundImage.setLocation((-(delta)/4d)%backgroundImage.getWidth(), 0);
+        backgroundImage2.setLocation(backgroundImage.getX() + backgroundImage.getWidth(), 0);
 
-        contents.add(text);
-        mainScreen.add(text);
     }
 
-
-    private void renderLevel(int prog) {
-        //TODO: stitch together one big image from level geometry? have to see if rendering all of the obstacles each run() call
-        this.hideContent();
-        renderBackground(prog);
-    }
-    public void progressBar() {
-
+    /**
+     * Code that runs while the game is active
+     * @param delta Time since game start in milliseconds
+     */
+    public void tick(long delta) {
+        System.out.println("tick " + delta);
+        renderLevel(delta);
     }
 
     @Override
