@@ -91,7 +91,7 @@ public class MainApplication extends GraphicsProgram {
 	    
 		//play the background music
 	    AudioPlayer.getInstance().playSound("Media", "sunflower-seed-wav");
-
+ 
 	}
 
 	public static void main(String[] args) {
