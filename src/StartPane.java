@@ -38,6 +38,7 @@ public class StartPane extends GraphicsPane{
 		addText();
 		addDescriptionButton();
 		addSettingButton();
+        System.out.println("show content");
 		playMusic();
 
 	}

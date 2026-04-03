@@ -27,6 +27,12 @@ public class MainApplication extends GraphicsProgram {
     private long startMillis = 0;
     private long prevMillis = 0;
 
+    public void setStartMillis(long startMillis) {
+        this.startMillis = startMillis;
+    }
+    public long getStartMillis() {
+        return startMillis;
+    }
     public long getDelta() {
         return System.currentTimeMillis() - startMillis;
     }
@@ -77,7 +83,7 @@ public class MainApplication extends GraphicsProgram {
 
 	public void init() {
 		this.gw.setTitle("Trigonometry Jump");
-		this.gw.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//		this.gw.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
 
@@ -93,14 +99,11 @@ public class MainApplication extends GraphicsProgram {
 		
 		//TheDefaultPane
 		switchToScreen(startPane);
-	    
-		//play the background music
-	    AudioPlayer.getInstance().playSound("Media", "sunflower-seed-wav");
 
         startMillis = System.currentTimeMillis();
         do {
             System.out.print(" \b"); //<-- this line makes the moving level work for some reason
-            if (getDelta() != prevMillis && getDelta()%16==0) {
+            if (getDelta() != prevMillis && getDelta() % 8 == 0) { //limit frames to 125 per second
                 if (currentScreen.equals(levelGameplayPane)) {
                     levelGameplayPane.tick(getDelta());
                 }

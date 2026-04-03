@@ -16,9 +16,7 @@ public class LevelSelectPane extends GraphicsPane {
 	private GLabel playButtonText;
     private AudioPlayer backgroundMusic;
 
-	
-
-    private int currentSelection = 0;
+    private int currentSelection = 1;
 
 	public LevelSelectPane(MainApplication mainScreen) {
 		this.mainScreen = mainScreen;
@@ -104,7 +102,7 @@ public class LevelSelectPane extends GraphicsPane {
         levelDiffIcon.setLocation(playButtonText.getX() - playButton.getX() / 2, playButtonText.getY() - 80);
         contents.add(levelDiffIcon);
         mainScreen.add(levelDiffIcon);
-        
+
         int timeMin = level.getRuntime() / 60;
         int timeSec = level.getRuntime() % 60;
         GLabel runTimeLabel;
@@ -175,9 +173,11 @@ public class LevelSelectPane extends GraphicsPane {
             incrementSelection(1);
             drawLevelInfo();
 		} else if (clicked == playButton || clicked == playButtonText) {
-			System.out.println("Play button clicked!");
+//			System.out.println("Play button clicked!");
             mainScreen.levelGameplayPane.setCurrentLevel(levels[currentSelection]);
+//            System.out.println("Play button clicked 2!");
 			mainScreen.switchToGameplayScreen();
+//            System.out.println("Play button clicked 3!");
 		}
 	}
 

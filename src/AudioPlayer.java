@@ -1,6 +1,7 @@
 import javax.sound.sampled.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class AudioPlayer {
 
@@ -31,6 +32,7 @@ public class AudioPlayer {
     }
 
     public void playSound(String folder, String name) {
+        System.out.println("play sound " + name);
         Clip clip = createMediaPlayer(folder, name);
         if (clip != null) {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -39,8 +41,8 @@ public class AudioPlayer {
     }
 
     public void stopSound(String folder, String name) {
-        for (Clip clip : players) {
-            clip.stop();
+        for (Clip player : players) {
+            player.stop();
         }
     }
 
