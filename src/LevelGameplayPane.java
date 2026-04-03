@@ -28,6 +28,14 @@ public class LevelGameplayPane extends GraphicsPane {
         contents.clear();
         mainScreen.clear();
     }
+    
+    public GImage getBackgroundImage() {
+    	return backgroundImage;
+    }
+    
+    public GImage getBackgroundImage2() {
+    	return backgroundImage2;
+    }
 
     public LevelGameplayPane(MainApplication mainApplication) {
         stitcher = new LevelStitcher();
