@@ -3,9 +3,12 @@ import acm.graphics.GWindow;
 import acm.program.*;
 
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class MainApplication extends GraphicsProgram {
 	//Settings
@@ -83,6 +86,11 @@ public class MainApplication extends GraphicsProgram {
 
 	public void init() {
 		this.gw.setTitle("Trigonometry Jump");
+        try {
+            this.gw.setIconImage(ImageIO.read(new File("Media/Character Sprite (1).png")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 //		this.gw.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
