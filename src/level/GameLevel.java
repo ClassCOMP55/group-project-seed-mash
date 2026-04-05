@@ -153,4 +153,17 @@ public class GameLevel {
     public void setCompleted() {
         this.completed = true;
     }
+    
+    public void printGeom() {
+    	for(int i = geometry.length-1; i >= 0; i--) {
+			for(int j = 0; j < geometry[0].length; j++) {
+				if (geometry[i][j] == null) {
+					System.out.print(" ");
+				} else {
+					System.out.print(geometry[i][j]);
+				}
+			}
+			System.out.println();
+		}
+    }
 }
