@@ -20,9 +20,9 @@ public class LevelGameplayPane extends GraphicsPane {
     private GImage backgroundImage;
     private GImage backgroundImage2; //in order to have it scroll
 
-    private GRect progressBarBackground;
-    private GRect progressBar;
-    private GLabel progressBarPercentage;
+    private final GRect progressBarBackground;
+    private final GRect progressBar;
+    private final GLabel progressBarPercentage;
 
     @Override
     public void showContent() {
