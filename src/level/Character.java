@@ -63,7 +63,7 @@ public class Character {
             }
         }
 
-        this.xPos = 0;
+        this.xPos = 3;
         this.yPos = startY;
     }
 
@@ -93,7 +93,7 @@ public class Character {
         if (dead) return;
 
         // --- Apply gravity ---
-        yVel -= GRAVITY * deltaSeconds * (xPos >= geometry[0].length ? -0.7 : 1);
+        yVel -= GRAVITY * deltaSeconds * (xPos >= geometry[0].length ? -0.17 : 1);
 
         // --- Calculate new position ---
         double newX = xPos + xVel * deltaSeconds;
