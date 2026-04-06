@@ -276,7 +276,14 @@ public class StartPane extends GraphicsPane{
         settingsBtnBg.setFillColor(THEME_TEAL);
         settingsBtnBg.setColor(THEME_TEAL);
         contents.add(settingsBtnBg);
-        mainScreen.add(settingsBtnBg);        
+        mainScreen.add(settingsBtnBg);    
+        
+        settingsHighlight = new GRect(btnX, btnY, btnW, PX);
+        settingsHighlight.setFilled(true);
+        settingsHighlight.setFillColor(THEME_TEAL_LIGHT);
+        settingsHighlight.setColor(THEME_TEAL_LIGHT);
+        contents.add(settingsHighlight);
+        mainScreen.add(settingsHighlight);
     }
 	
 	
