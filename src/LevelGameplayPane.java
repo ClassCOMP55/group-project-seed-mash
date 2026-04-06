@@ -143,6 +143,12 @@ public class LevelGameplayPane extends GraphicsPane {
         float completion = Math.min(1f, (float) player.getXPos() / (float) currentLevel.getGeometry()[0].length);
         progressBar.setSize(1100 * completion, progressBar.getHeight());
         progressBarPercentage.setLabel((int) (completion * 100) + "%");
+
+        // Save best completion to the level so LevelSelectPane shows it
+        float completionPercent = completion * 100;
+        if (completionPercent > currentLevel.getCompletionPercent()) {
+            currentLevel.setCompletionPercent(completionPercent);
+        }
     }
 
     /**
