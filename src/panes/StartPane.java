@@ -83,6 +83,7 @@ public class StartPane extends GraphicsPane{
 		addSettingButton();
 		drawLine();
 		playButton();
+		settingButton();
         System.out.println("show content");
 
 	}
@@ -262,6 +263,13 @@ public class StartPane extends GraphicsPane{
         shadow.setColor(new Color(0, 0, 0, 60));
         contents.add(shadow);
         mainScreen.add(shadow);
+        
+        settingsBtnBorder = new GRect(btnX - PX / 2, btnY - PX / 2, btnW + PX, btnH + PX);
+        settingsBtnBorder.setFilled(true);
+        settingsBtnBorder.setFillColor(THEME_TEAL_DARK);
+        settingsBtnBorder.setColor(THEME_TEAL_DARK);
+        contents.add(settingsBtnBorder);
+        mainScreen.add(settingsBtnBorder);
         
     }
 	
