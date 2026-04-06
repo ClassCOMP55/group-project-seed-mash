@@ -76,8 +76,8 @@ public class StartPane extends GraphicsPane{
 	@Override
 	public void showContent() {
 		drawBackground();
-
-
+		drawGround();
+		drawTitle();
 		addDescriptionButton();
 		addSettingButton();
         System.out.println("show content");
@@ -106,6 +106,63 @@ public class StartPane extends GraphicsPane{
             contents.add(band);
             mainScreen.add(band);
         }
+    }
+	
+	private void drawGround() {
+        double groundY = mainScreen.getHeight() - 160;
+        double w = mainScreen.getWidth();
+        int blockSize = PX * 5;
+ 
+        // Top row - theme blue surface blocks
+        for (int x = 0; x < w; x += blockSize) {
+            GRect surface = new GRect(x, groundY, blockSize, blockSize);
+            surface.setFilled(true);
+            surface.setFillColor((x / blockSize) % 2 == 0 ? THEME_BLUE : THEME_BLUE_DARK);
+            surface.setColor(THEME_BLUE_DARK);
+            contents.add(surface);
+            mainScreen.add(surface);
+ 
+            // Teal highlight strip on top edge
+            GRect highlight = new GRect(x, groundY, blockSize, PX);
+            highlight.setFilled(true);
+            highlight.setFillColor(THEME_TEAL);
+            highlight.setColor(THEME_TEAL);
+            contents.add(highlight);
+            mainScreen.add(highlight);
+        }
+ 
+        // Deeper rows
+        Color[] depthColors = {GROUND_TOP, GROUND_MID, GROUND_BOTTOM};
+        Color[] depthAltColors = {THEME_BLUE_DARKER, GROUND_TOP, GROUND_MID};
+        for (int row = 1; row <= 3; row++) {
+            for (int x = 0; x < w; x += blockSize) {
+                GRect block = new GRect(x, groundY + row * blockSize, blockSize, blockSize);
+                block.setFilled(true);
+                Color c = ((x / blockSize) + row) % 2 == 0 ? depthColors[row - 1] : depthAltColors[row - 1];
+                block.setFillColor(c);
+                block.setColor(GROUND_DEEP);
+                contents.add(block);
+                mainScreen.add(block);
+            }
+        }
+    }
+	
+	private void drawTitle() {
+        // Shadow in darkest blue
+        GLabel shadow = new GLabel("TRIGONOMETRY JUMP");
+        shadow.setFont(new Font("Courier New", Font.BOLD, 90));
+        shadow.setColor(THEME_BLUE_DARKEST);
+        shadow.setLocation((mainScreen.getWidth() - shadow.getWidth()) / 2 + 4, 254);
+        contents.add(shadow);
+        mainScreen.add(shadow);
+ 
+        // Main title in white
+        GLabel title = new GLabel("TRIGONOMETRY JUMP");
+        title.setFont(new Font("Courier New", Font.BOLD, 90));
+        title.setColor(TEXT_WHITE);
+        title.setLocation((mainScreen.getWidth() - title.getWidth()) / 2, 250);
+        contents.add(title);
+        mainScreen.add(title);
     }
 	
     private int lerp(int a, int b, int step, int total) {
