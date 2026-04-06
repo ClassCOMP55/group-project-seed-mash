@@ -1,4 +1,7 @@
+package panes;
+
 import acm.program.GraphicsProgram;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 

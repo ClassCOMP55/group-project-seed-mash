@@ -1,3 +1,5 @@
+package panes;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
@@ -8,7 +10,7 @@ import level.GameLevel;
 
 public class LevelSelectPane extends GraphicsPane {
 
-    private final GameLevel[] levels = {GameLevel.TEST_LEVEL, GameLevel.TEST_LEVEL_2};
+    public static final GameLevel[] levels = {GameLevel.TEST_LEVEL, GameLevel.TEST_LEVEL_2};
     private GImage backButton;
     private GImage leftArrow;
     private GImage rightArrow;

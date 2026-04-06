@@ -1,7 +1,9 @@
+package sfx;
+
 import acm.graphics.*;
 import java.util.*;
 import acm.program.*;
-import acm.util.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -61,7 +63,7 @@ public class Settings extends GraphicsProgram{
 		body.setFilled(true);
 		settingsMenu.add(body);
 		
-		GLabel title = new GLabel("Settings", 330, 135);
+		GLabel title = new GLabel("sfx.Settings", 330, 135);
 		title.scale(3);
 		settingsMenu.add(title);
 		

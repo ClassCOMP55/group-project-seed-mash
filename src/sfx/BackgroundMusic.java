@@ -1,3 +1,5 @@
+package sfx;
+
 public class BackgroundMusic {
     public static void main(String[] args) {
         AudioPlayer.getInstance().playSound("Media", "sunflower-seed-wav");

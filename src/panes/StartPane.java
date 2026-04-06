@@ -1,14 +1,14 @@
+package panes;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
 import acm.graphics.GImage;
 import acm.graphics.GObject;
 import acm.graphics.*;
-import acm.util.MediaTools;
 
 
-
-public class StartPane extends GraphicsPane{
+public class StartPane extends GraphicsPane {
 	
 	private MainApplication mainScreen;
 	private GImage settingButton;
@@ -24,7 +24,7 @@ public class StartPane extends GraphicsPane{
     private GRect settingsHighlight;
     
     // ─── Original Theme Colors ───
-    // From StartPane / LevelSelectPane background
+    // From panes.StartPane / panes.LevelSelectPane background
     private static final Color THEME_BLUE = new Color(0, 102, 204);
     // Darker shades for depth
     private static final Color THEME_BLUE_DARK = new Color(0, 70, 150);
@@ -34,20 +34,20 @@ public class StartPane extends GraphicsPane{
     private static final Color THEME_BLUE_LIGHT = new Color(40, 140, 230);
     private static final Color THEME_BLUE_LIGHTEST = new Color(80, 170, 255);
  
-    // From LevelSelectPane play button
+    // From panes.LevelSelectPane play button
     private static final Color THEME_GREEN = new Color(46, 204, 113);
     private static final Color THEME_GREEN_LIGHT = new Color(80, 230, 140);
     private static final Color THEME_GREEN_DARK = new Color(30, 150, 80);
     private static final Color THEME_GREEN_DARKEST = new Color(20, 110, 60);
  
-    // From Settings menu body
+    // From sfx.Settings menu body
     private static final Color THEME_TEAL = new Color(54, 212, 201);
     private static final Color THEME_TEAL_LIGHT = new Color(90, 235, 225);
     private static final Color THEME_TEAL_DARK = new Color(35, 160, 150);
  
-    // From Settings slider
+    // From sfx.Settings slider
     private static final Color THEME_SLIDER_BLUE = new Color(19, 117, 203);
-    // From Settings knob
+    // From sfx.Settings knob
     private static final Color THEME_KNOB_BLUE = new Color(50, 159, 255);
  
     // Neutral colors

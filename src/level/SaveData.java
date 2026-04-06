@@ -1,6 +1,7 @@
+package level;
+
 import java.io.*;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Handles saving and loading level progress data to/from a file.

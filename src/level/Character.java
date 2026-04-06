@@ -201,7 +201,7 @@ public class Character {
      */
     private double getScreenYFromGrid(double gridY) {
         // The level image is 1080px tall, bottom of grid (row 0) aligns with bottom of screen
-        return 1080 - ((gridY + 1) * elementScaling) - 250; // -250 matches the level image offset in LevelGameplayPane
+        return 1080 - ((gridY + 1) * elementScaling) - 250; // -250 matches the level image offset in panes.LevelGameplayPane
     }
 
     private void die() {

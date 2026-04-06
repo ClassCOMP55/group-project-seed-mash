@@ -1,6 +1,11 @@
+package panes;
+
 import acm.graphics.GObject;
 import acm.graphics.GWindow;
 import acm.program.*;
+import level.SaveData;
+import sfx.AudioPlayer;
+import sfx.Settings;
 
 
 import javax.imageio.ImageIO;
@@ -13,7 +18,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class MainApplication extends GraphicsProgram {
-	//Settings
+	//sfx.Settings
 	public static final int WINDOW_WIDTH = 1920;
 	public static final int WINDOW_HEIGHT = 1080;
 	private static final int TICK_INTERVAL_MS = 8; // ~125 FPS

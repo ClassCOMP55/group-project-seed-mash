@@ -1,3 +1,5 @@
+package panes;
+
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GRect;
@@ -144,7 +146,7 @@ public class LevelGameplayPane extends GraphicsPane {
         progressBar.setSize(1100 * completion, progressBar.getHeight());
         progressBarPercentage.setLabel((int) (completion * 100) + "%");
 
-        // Save best completion to the level so LevelSelectPane shows it
+        // Save best completion to the level so panes.LevelSelectPane shows it
         float completionPercent = completion * 100;
         if (completionPercent > currentLevel.getCompletionPercent()) {
             currentLevel.setCompletionPercent(completionPercent);
@@ -153,7 +155,7 @@ public class LevelGameplayPane extends GraphicsPane {
 
     /**
      * Code that runs while the game is active.
-     * @param delta Time since game start in milliseconds (from MainApplication)
+     * @param delta Time since game start in milliseconds (from panes.MainApplication)
      */
     public void tick(long delta) {
         if (currentLevel == null) return;

@@ -1,7 +1,8 @@
+package sfx;
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class AudioPlayer {
 
