@@ -134,6 +134,8 @@ public class MainApplication extends GraphicsProgram {
 		settings = new Settings(this);
 		
 		//TheDefaultPane
+		
+		
 		switchToStartScreen();
 
 		startMillis = System.currentTimeMillis();
