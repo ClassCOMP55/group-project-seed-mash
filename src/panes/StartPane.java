@@ -271,6 +271,12 @@ public class StartPane extends GraphicsPane{
         contents.add(settingsBtnBorder);
         mainScreen.add(settingsBtnBorder);
         
+        settingsBtnBg = new GRect(btnX, btnY, btnW, btnH);
+        settingsBtnBg.setFilled(true);
+        settingsBtnBg.setFillColor(THEME_TEAL);
+        settingsBtnBg.setColor(THEME_TEAL);
+        contents.add(settingsBtnBg);
+        mainScreen.add(settingsBtnBg);        
     }
 	
 	
