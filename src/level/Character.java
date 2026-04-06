@@ -93,7 +93,7 @@ public class Character {
         if (dead) return;
 
         // --- Apply gravity ---
-        yVel -= GRAVITY * deltaSeconds;
+        yVel -= GRAVITY * deltaSeconds * (xPos >= geometry[0].length ? -0.7 : 1);
 
         // --- Calculate new position ---
         double newX = xPos + xVel * deltaSeconds;

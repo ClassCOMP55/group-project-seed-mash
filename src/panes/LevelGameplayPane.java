@@ -37,6 +37,9 @@ public class LevelGameplayPane extends GraphicsPane {
     // Death menu
     private DeathMenuPane deathMenu;
     private boolean showingDeathScreen = false;
+    private CompletionPane completionMenu;
+    private boolean showingCompletionScreen = false;
+    boolean isProgressSaved = false;
 
     @Override
     public void showContent() {
@@ -49,6 +52,10 @@ public class LevelGameplayPane extends GraphicsPane {
             deathMenu.hide();
         }
         showingDeathScreen = false;
+        if (completionMenu != null && completionMenu.isVisible()) {
+            completionMenu.hide();
+        }
+        showingCompletionScreen = false;
         paused = false;
         contents.clear();
         mainScreen.clear();
@@ -77,6 +84,7 @@ public class LevelGameplayPane extends GraphicsPane {
         progressBarPercentage.setColor(Color.WHITE);
         this.mainScreen = mainApplication;
         this.deathMenu = new DeathMenuPane(mainApplication);
+        this.completionMenu = new CompletionPane(mainApplication);
     }
 
     public GameLevel getCurrentLevel() {
@@ -175,9 +183,12 @@ public class LevelGameplayPane extends GraphicsPane {
             player.tick(dtSeconds);
 
             // Check for death
-            if (player.isDead()) {
+            if (player.isDead() && !showingCompletionScreen) {
                 showDeathScreen();
                 return;
+            }
+            if (this.player.getXPos() > this.currentLevel.getGeometry()[0].length && !showingDeathScreen) {
+                showCompletion();
             }
         }
 
@@ -190,13 +201,30 @@ public class LevelGameplayPane extends GraphicsPane {
     private void showDeathScreen() {
         showingDeathScreen = true;
         paused = true;
-        
-        SaveData.save(new level.GameLevel[]{
-                level.GameLevel.TEST_LEVEL,
-                level.GameLevel.TEST_LEVEL_2
+
+        if (!isProgressSaved) {
+            SaveData.save(new level.GameLevel[]{
+                    level.GameLevel.TEST_LEVEL,
+                    level.GameLevel.TEST_LEVEL_2
             });
+            isProgressSaved = true;
+        }
         deathMenu.show();
     }
+
+    private void showCompletion() {
+        showingCompletionScreen = true;
+
+        if (!isProgressSaved) {
+            SaveData.save(new level.GameLevel[]{
+                    level.GameLevel.TEST_LEVEL,
+                    level.GameLevel.TEST_LEVEL_2
+            });
+            isProgressSaved = true;
+        }
+        completionMenu.show();
+    }
+
 
     /**
      * Restarts the current level.
@@ -204,6 +232,10 @@ public class LevelGameplayPane extends GraphicsPane {
     private void restartLevel() {
         deathMenu.hide();
         showingDeathScreen = false;
+
+        completionMenu.hide();
+        showingCompletionScreen = false;
+        isProgressSaved = false;
         paused = false;
 
         // Remove old sprite
@@ -229,12 +261,14 @@ public class LevelGameplayPane extends GraphicsPane {
     private void goToLevelSelect() {
         deathMenu.hide();
         showingDeathScreen = false;
+        completionMenu.hide();
+        showingCompletionScreen = false;
         paused = false;
         mainScreen.switchToLevelSelectScreen();
     }
 
     public void pauseUnpause() {
-        if (showingDeathScreen) return; // Don't toggle pause while death menu is open
+        if (showingDeathScreen || showingCompletionScreen) return; // Don't toggle pause while death menu is open
         if (!paused) {
             paused = true;
             pauseTimestamp = mainScreen.getDelta();
@@ -248,13 +282,13 @@ public class LevelGameplayPane extends GraphicsPane {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            if (showingDeathScreen) {
+            if (showingDeathScreen || showingCompletionScreen) {
                 goToLevelSelect(); // ESC on death menu goes back to level select
             } else {
                 pauseUnpause();
             }
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP) {
-            if (showingDeathScreen) {
+            if (showingDeathScreen || showingCompletionScreen) {
                 restartLevel(); // Space/Up on death menu replays
             } else if (!paused && player != null) {
                 player.jump();
@@ -267,6 +301,16 @@ public class LevelGameplayPane extends GraphicsPane {
     public void mouseClicked(MouseEvent e) {
         if (showingDeathScreen && deathMenu.isVisible()) {
             String action = deathMenu.mouseClicked(e);
+            if ("replay".equals(action)) {
+                restartLevel();
+            } else if ("levelselect".equals(action)) {
+                goToLevelSelect();
+            }
+            return; // Consume click while death menu is open
+        }
+
+        if (showingCompletionScreen && completionMenu.isVisible()) {
+            String action = completionMenu.mouseClicked(e);
             if ("replay".equals(action)) {
                 restartLevel();
             } else if ("levelselect".equals(action)) {

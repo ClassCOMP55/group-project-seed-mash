@@ -98,17 +98,17 @@ public class GameLevel {
 
 
     public static final String[] TEST_GEOM_2 = {
-            "                                                                                             ",
-            "                                                                                             ",
-            "                                                                                             ",
-            "                                                                                             ",
-            "                                                                                             ",
-            "                   BBB                                                 B B                   ",
-            "                    B                                                  B B                   ",
-            "                    B                                                  BBB                   ",
-            "                    B                                                  B B                   ",
-            "            ^      BB                                                  B B                   ",
-            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB      BBBBBBBBBBBBBBBBB",
+            "                                                                                                ",
+            "                                                                                                ",
+            "                                                                                                ",
+            "                                                                                                ",
+            "                                                                                                ",
+            "                                                       B                                        ",
+            "                                                  BBBBB                                         ",
+            "                                                                                                ",
+            "                                                                                                ",
+            "            ^                                                                                   ",
+            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     };
 
     public static final GameLevel TEST_LEVEL = new GameLevel(
