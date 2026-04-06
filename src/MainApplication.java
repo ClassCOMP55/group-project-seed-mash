@@ -32,6 +32,8 @@ public class MainApplication extends GraphicsProgram {
 	private boolean endGame = false;
 	private long startMillis = 0;
 	private Timer gameTimer;
+	private boolean menuMusicPlaying = false;
+
 
 	public void setStartMillis(long startMillis) {
 		this.startMillis = startMillis;
@@ -62,6 +64,22 @@ public class MainApplication extends GraphicsProgram {
 	public void setMusicVol(double musicVol) {
 		this.musicVol = musicVol;
 		AudioPlayer.getInstance().setVolume((float) musicVol / 100.0f);
+	}
+	
+
+	public void startMenuMusic() {
+		if (!menuMusicPlaying) {
+			AudioPlayer.getInstance().playSound("Media/", "sunflower-seed-wav");
+			menuMusicPlaying = true;
+		}
+	}
+ 
+
+	public void stopMenuMusic() {
+		if (menuMusicPlaying) {
+			AudioPlayer.getInstance().stopSound("Media/", "sunflower-seed-wav");
+			menuMusicPlaying = false;
+		}
 	}
 
 	public void endGame() {
@@ -116,7 +134,7 @@ public class MainApplication extends GraphicsProgram {
 		settings = new Settings(this);
 		
 		//TheDefaultPane
-		switchToScreen(startPane);
+		switchToStartScreen();
 
 		startMillis = System.currentTimeMillis();
 
@@ -138,17 +156,25 @@ public class MainApplication extends GraphicsProgram {
 
 	public static void main(String[] args) {
 		new MainApplication().start();
+		
 	}
+	
 
 	public void switchToLevelSelectScreen() {
 		switchToScreen(levelSelectPane);
-	}
+		startMenuMusic();
 
+	}
+	
 	public void switchToStartScreen() {
 		switchToScreen(startPane);
+		startMenuMusic();
 	}
 
+
+
 	public void switchToGameplayScreen() {
+		stopMenuMusic();
 		switchToScreen(levelGameplayPane);
 	}
 
