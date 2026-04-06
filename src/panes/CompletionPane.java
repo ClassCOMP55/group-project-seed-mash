@@ -71,7 +71,7 @@ public class CompletionPane {
         addElement(title);
 
         // Subtitle
-        GLabel subtitle = new GLabel("Better luck next time!");
+        GLabel subtitle = new GLabel("Good job!");
         subtitle.setFont(new Font("Comic Sans MS", Font.PLAIN, 22));
         subtitle.setColor(new Color(200, 220, 255));
         subtitle.setLocation((screenW - subtitle.getWidth()) / 2, boxY + 115);
