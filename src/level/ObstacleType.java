@@ -14,7 +14,8 @@ public enum ObstacleType {
     BLOCK("obstacles/block.png", 'B'),
     UP_SPIKE("obstacles/spike_up.png", '^'),
     DOWN_SPIKE("obstacles/spike_down.png", 'V'),
-    PLATFORM("obstacles/platform.png", '-');
+    PLATFORM("obstacles/platform.png", '-'),
+	CHARACTER("Character Sprite (1).png", 'G');
 
     private final String imageFile;
     private final char charRepresentation;
@@ -48,6 +49,7 @@ public enum ObstacleType {
             case 'v' -> DOWN_SPIKE;
             case '-' -> PLATFORM;
             case ' ' -> null; //Empty, occupied by "air"
+            case 'G' -> CHARACTER;
             default -> {
                 System.out.println("Warning: attempted to get obstacle with invalid character '" + c + "', returning null.");
                 yield null;
