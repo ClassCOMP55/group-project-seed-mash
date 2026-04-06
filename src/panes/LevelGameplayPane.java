@@ -6,6 +6,7 @@ import acm.graphics.GRect;
 import level.Character;
 import level.GameLevel;
 import level.LevelStitcher;
+import level.SaveData;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

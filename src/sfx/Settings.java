@@ -3,6 +3,7 @@ package sfx;
 import acm.graphics.*;
 import java.util.*;
 import acm.program.*;
+import panes.MainApplication;
 
 import java.awt.*;
 import java.awt.event.*;
