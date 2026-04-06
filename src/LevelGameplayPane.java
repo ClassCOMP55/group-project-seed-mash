@@ -31,10 +31,8 @@ public class LevelGameplayPane extends GraphicsPane {
     private Character player;
     private long lastTickTime;
 
-    // Death / restart UI
-    private GRect deathOverlay;
-    private GLabel deathLabel;
-    private GLabel restartLabel;
+    // Death menu
+    private DeathMenuPane deathMenu;
     private boolean showingDeathScreen = false;
 
     @Override
@@ -44,9 +42,13 @@ public class LevelGameplayPane extends GraphicsPane {
 
     @Override
     public void hideContent() {
+        if (deathMenu != null && deathMenu.isVisible()) {
+            deathMenu.hide();
+        }
+        showingDeathScreen = false;
+        paused = false;
         contents.clear();
         mainScreen.clear();
-        showingDeathScreen = false;
     }
 
     public GImage getBackgroundImage() {
@@ -71,6 +73,7 @@ public class LevelGameplayPane extends GraphicsPane {
         progressBarPercentage.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
         progressBarPercentage.setColor(Color.WHITE);
         this.mainScreen = mainApplication;
+        this.deathMenu = new DeathMenuPane(mainApplication);
     }
 
     public GameLevel getCurrentLevel() {
@@ -123,7 +126,6 @@ public class LevelGameplayPane extends GraphicsPane {
         if (currentLevel == null) return;
 
         // Scroll the level based on the character's X position
-        // Character stays visually near the left side of the screen
         double characterPixelX = player.getXPos() * ELEMENT_SCALING;
         double levelOffsetX = -characterPixelX + 200; // keep character 200px from left edge
 
@@ -173,51 +175,22 @@ public class LevelGameplayPane extends GraphicsPane {
         renderLevel(delta);
     }
 
+    /**
+     * Shows the death menu overlay with Replay and Level Select buttons.
+     */
     private void showDeathScreen() {
         showingDeathScreen = true;
-
-        deathOverlay = new GRect(0, 0, mainScreen.getWidth(), mainScreen.getHeight());
-        deathOverlay.setFilled(true);
-        deathOverlay.setFillColor(new Color(0, 0, 0, 150));
-        contents.add(deathOverlay);
-        mainScreen.add(deathOverlay);
-
-        deathLabel = new GLabel("YOU DIED");
-        deathLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 80));
-        deathLabel.setColor(Color.RED);
-        deathLabel.setLocation(
-                (mainScreen.getWidth() - deathLabel.getWidth()) / 2,
-                mainScreen.getHeight() / 2 - 40
-        );
-        contents.add(deathLabel);
-        mainScreen.add(deathLabel);
-
-        restartLabel = new GLabel("Click or press SPACE to restart");
-        restartLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
-        restartLabel.setColor(Color.WHITE);
-        restartLabel.setLocation(
-                (mainScreen.getWidth() - restartLabel.getWidth()) / 2,
-                mainScreen.getHeight() / 2 + 40
-        );
-        contents.add(restartLabel);
-        mainScreen.add(restartLabel);
+        paused = true;
+        deathMenu.show();
     }
 
+    /**
+     * Restarts the current level.
+     */
     private void restartLevel() {
-        // Remove death screen elements
-        if (deathOverlay != null) {
-            mainScreen.remove(deathOverlay);
-            contents.remove(deathOverlay);
-        }
-        if (deathLabel != null) {
-            mainScreen.remove(deathLabel);
-            contents.remove(deathLabel);
-        }
-        if (restartLabel != null) {
-            mainScreen.remove(restartLabel);
-            contents.remove(restartLabel);
-        }
+        deathMenu.hide();
         showingDeathScreen = false;
+        paused = false;
 
         // Remove old sprite
         mainScreen.remove(player.getSprite());
@@ -236,7 +209,18 @@ public class LevelGameplayPane extends GraphicsPane {
         lastTickTime = System.currentTimeMillis();
     }
 
+    /**
+     * Returns to the level select screen.
+     */
+    private void goToLevelSelect() {
+        deathMenu.hide();
+        showingDeathScreen = false;
+        paused = false;
+        mainScreen.switchToLevelSelectScreen();
+    }
+
     public void pauseUnpause() {
+        if (showingDeathScreen) return; // Don't toggle pause while death menu is open
         if (!paused) {
             paused = true;
             pauseTimestamp = mainScreen.getDelta();
@@ -250,12 +234,14 @@ public class LevelGameplayPane extends GraphicsPane {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            if (!showingDeathScreen) {
+            if (showingDeathScreen) {
+                goToLevelSelect(); // ESC on death menu goes back to level select
+            } else {
                 pauseUnpause();
             }
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP) {
             if (showingDeathScreen) {
-                restartLevel();
+                restartLevel(); // Space/Up on death menu replays
             } else if (!paused && player != null) {
                 player.jump();
             }
@@ -265,9 +251,17 @@ public class LevelGameplayPane extends GraphicsPane {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (showingDeathScreen) {
-            restartLevel();
-        } else if (!paused && player != null) {
+        if (showingDeathScreen && deathMenu.isVisible()) {
+            String action = deathMenu.mouseClicked(e);
+            if ("replay".equals(action)) {
+                restartLevel();
+            } else if ("levelselect".equals(action)) {
+                goToLevelSelect();
+            }
+            return; // Consume click while death menu is open
+        }
+
+        if (!paused && player != null) {
             player.jump();
         }
     }
