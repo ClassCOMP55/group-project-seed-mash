@@ -187,6 +187,11 @@ public class LevelGameplayPane extends GraphicsPane {
     private void showDeathScreen() {
         showingDeathScreen = true;
         paused = true;
+        
+        SaveData.save(new level.GameLevel[]{
+                level.GameLevel.TEST_LEVEL,
+                level.GameLevel.TEST_LEVEL_2
+            });
         deathMenu.show();
     }
 
