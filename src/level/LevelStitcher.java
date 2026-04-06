@@ -1,5 +1,7 @@
 package level;
 
+import panes.LevelSelectPane;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -86,17 +88,12 @@ public class LevelStitcher {
     }
     public static void main(String[] args) {
         LevelStitcher stitch = new LevelStitcher();
-        stitch.setLevel(GameLevel.TEST_LEVEL_2);
-
-        stitch.createObstacles();
-        stitch.createLevelImage();
-        stitch.createBackgroundImage();
-
-        stitch.setLevel(GameLevel.TEST_LEVEL);
-
-        stitch.createObstacles();
-        stitch.createLevelImage();
-        stitch.createBackgroundImage();
+        for (GameLevel level: LevelSelectPane.levels) {
+            stitch.setLevel(level);
+            stitch.createObstacles();
+            stitch.createLevelImage();
+            stitch.createBackgroundImage();
+        }
     }
     public static class TestFilter implements BufferedImageOp {
         private GameLevel level;
