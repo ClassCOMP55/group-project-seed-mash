@@ -248,6 +248,16 @@ public class StartPane extends GraphicsPane{
 		mainScreen.add(descriptionButton);
 
 	}*/
+    
+    private void settingButton() {
+        double centerX = mainScreen.getWidth() / 2;
+        double btnW = 280;
+        double btnH = 56;
+        double btnX = centerX - btnW / 2;
+        double btnY = 560;
+        
+        
+    }
 	
 	
 	private void addSettingButton() {
