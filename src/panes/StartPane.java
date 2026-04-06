@@ -284,6 +284,17 @@ public class StartPane extends GraphicsPane{
         settingsHighlight.setColor(THEME_TEAL_LIGHT);
         contents.add(settingsHighlight);
         mainScreen.add(settingsHighlight);
+        
+        settingsLabel = new GLabel("S E T T I N G S");
+        settingsLabel = new GLabel("S E T T I N G S");
+        settingsLabel.setFont(new Font("Courier New", Font.BOLD, 26));
+        settingsLabel.setColor(TEXT_WHITE);
+        settingsLabel.setLocation(
+            btnX + (btnW - settingsLabel.getWidth()) / 2,
+            btnY + btnH / 2 + 10
+        );
+        contents.add(settingsLabel);
+        mainScreen.add(settingsLabel);
     }
 	
 	
@@ -296,16 +307,16 @@ public class StartPane extends GraphicsPane{
 		mainScreen.add(settingButton);
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		GObject clicked = mainScreen.getElementAtLocation(e.getX(), e.getY());
-		
-		if (clicked == playButtonBg || clicked == playButtonBorder
-	            || clicked == playButtonLabel || clicked == playButtonHighlight) 
-			{       mainScreen.switchToLevelSelectScreen();
+	 @Override
+	    public void mouseClicked(MouseEvent e) {
+	        GObject clicked = mainScreen.getElementAtLocation(e.getX(), e.getY());
 
-		} else if (clicked == settingButton) {
-			mainScreen.switchToSettings();
-		}
-	}
+	        if (clicked == playButtonBg || clicked == playButtonBorder
+	            || clicked == playButtonLabel || clicked == playButtonHighlight) {
+	            mainScreen.switchToLevelSelectScreen();
+	        } else if (clicked == settingsBtnBg || clicked == settingsBtnBorder
+	            || clicked == settingsLabel || clicked == settingsHighlight) {
+	            mainScreen.switchToSettings();
+	        }
+	    }
 }
