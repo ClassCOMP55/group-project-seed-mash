@@ -6,9 +6,11 @@ import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
 import acm.graphics.GObject;
 import acm.graphics.*;
+import acm.util.MediaTools;
 
 
-public class StartPane extends GraphicsPane {
+
+public class StartPane extends GraphicsPane{
 	
 	private MainApplication mainScreen;
 	private GImage settingButton;
@@ -24,7 +26,7 @@ public class StartPane extends GraphicsPane {
     private GRect settingsHighlight;
     
     // ─── Original Theme Colors ───
-    // From panes.StartPane / panes.LevelSelectPane background
+    // From StartPane / LevelSelectPane background
     private static final Color THEME_BLUE = new Color(0, 102, 204);
     // Darker shades for depth
     private static final Color THEME_BLUE_DARK = new Color(0, 70, 150);
@@ -34,20 +36,20 @@ public class StartPane extends GraphicsPane {
     private static final Color THEME_BLUE_LIGHT = new Color(40, 140, 230);
     private static final Color THEME_BLUE_LIGHTEST = new Color(80, 170, 255);
  
-    // From panes.LevelSelectPane play button
+    // From LevelSelectPane play button
     private static final Color THEME_GREEN = new Color(46, 204, 113);
     private static final Color THEME_GREEN_LIGHT = new Color(80, 230, 140);
     private static final Color THEME_GREEN_DARK = new Color(30, 150, 80);
     private static final Color THEME_GREEN_DARKEST = new Color(20, 110, 60);
  
-    // From sfx.Settings menu body
+    // From Settings menu body
     private static final Color THEME_TEAL = new Color(54, 212, 201);
     private static final Color THEME_TEAL_LIGHT = new Color(90, 235, 225);
     private static final Color THEME_TEAL_DARK = new Color(35, 160, 150);
  
-    // From sfx.Settings slider
+    // From Settings slider
     private static final Color THEME_SLIDER_BLUE = new Color(19, 117, 203);
-    // From sfx.Settings knob
+    // From Settings knob
     private static final Color THEME_KNOB_BLUE = new Color(50, 159, 255);
  
     // Neutral colors
@@ -78,9 +80,9 @@ public class StartPane extends GraphicsPane {
 		drawBackground();
 		drawGround();
 		drawTitle();
-		addDescriptionButton();
 		addSettingButton();
 		drawLine();
+		playButton();
         System.out.println("show content");
 
 	}
@@ -179,25 +181,65 @@ public class StartPane extends GraphicsPane {
 		contents.add(bar);
 		mainScreen.add(bar);
 		
+		
 	}
+	
+	private void playButton() {
+		double centerX = mainScreen.getWidth() / 2;
+        double btnW = 400;
+        double btnH = 80;
+        double btnX = centerX - btnW / 2;
+        double btnY = 420;
+        
+        GRect outerShadow = new GRect(btnX + 4, btnY + 4, btnW, btnH);
+        outerShadow.setFilled(true);
+        outerShadow.setFillColor(new Color(0, 0, 0, 80));
+        outerShadow.setColor(new Color(0, 0, 0, 80));
+        contents.add(outerShadow);
+        mainScreen.add(outerShadow);
+        
+        playButtonBorder = new GRect(btnX - PX, btnY - PX, btnW + PX * 2, btnH + PX * 2);
+        playButtonBorder.setFilled(true);
+        playButtonBorder.setFillColor(THEME_GREEN_DARKEST);
+        playButtonBorder.setColor(THEME_GREEN_DARKEST);
+        contents.add(playButtonBorder);
+        mainScreen.add(playButtonBorder);
+        
+        playButtonBg = new GRect(btnX, btnY, btnW, btnH);
+        playButtonBg.setFilled(true);
+        playButtonBg.setFillColor(THEME_GREEN);
+        playButtonBg.setColor(THEME_GREEN);
+        contents.add(playButtonBg);
+        mainScreen.add(playButtonBg);
+        
+        playButtonHighlight = new GRect(btnX, btnY, btnW, PX * 2);
+        playButtonHighlight.setFilled(true);
+        playButtonHighlight.setFillColor(THEME_GREEN_LIGHT);
+        playButtonHighlight.setColor(THEME_GREEN_LIGHT);
+        contents.add(playButtonHighlight);
+        mainScreen.add(playButtonHighlight);
+        
+        playButtonLabel = new GLabel("P L A Y");
+        playButtonLabel.setFont(new Font("Courier New", Font.BOLD, 42));
+        playButtonLabel.setColor(TEXT_WHITE);
+        playButtonLabel.setLocation(
+            btnX + (btnW - playButtonLabel.getWidth()) / 2,
+            btnY + btnH / 2 + 15
+        );
+        contents.add(playButtonLabel);
+        mainScreen.add(playButtonLabel);
+        
+	}
+	
+	
 	
     private int lerp(int a, int b, int step, int total) {
         if (total == 0) return a;
         return a + (b - a) * step / total;
     }
-	
-	private void addText() {
-		GLabel Text = new GLabel("TRIGONOMETRY JUMP");
-		Text.setFont(new Font("Comic Sans MS", Font.BOLD, 100));
-		Text.setColor(Color.BLACK);
-		Text.setLocation((mainScreen.getWidth() - Text.getWidth()) / 2, 320);
-		contents.add(Text);
-		mainScreen.add(Text);
-	}
-	
 
 	
-	private void addDescriptionButton() {
+	/*private void addDescriptionButton() {
 		descriptionButton = new GImage("images-removebg-preview.png", 200, 400);
 		descriptionButton.scale(0.8, 0.8);
 		descriptionButton.setLocation((mainScreen.getWidth() - descriptionButton.getWidth())/ 2, 400);
@@ -205,7 +247,7 @@ public class StartPane extends GraphicsPane {
 		contents.add(descriptionButton);
 		mainScreen.add(descriptionButton);
 
-	}
+	}*/
 	
 	
 	private void addSettingButton() {
@@ -217,15 +259,14 @@ public class StartPane extends GraphicsPane {
 		mainScreen.add(settingButton);
 	}
 
-	
-
-	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		GObject clicked = mainScreen.getElementAtLocation(e.getX(), e.getY());
 		
-		if (clicked == descriptionButton) {
-			mainScreen.switchToLevelSelectScreen();
+		if (clicked == playButtonBg || clicked == playButtonBorder
+	            || clicked == playButtonLabel || clicked == playButtonHighlight) 
+			{       mainScreen.switchToLevelSelectScreen();
+
 		} else if (clicked == settingButton) {
 			mainScreen.switchToSettings();
 		}
