@@ -5,6 +5,8 @@ import acm.program.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -14,6 +16,7 @@ public class MainApplication extends GraphicsProgram {
 	//Settings
 	public static final int WINDOW_WIDTH = 1920;
 	public static final int WINDOW_HEIGHT = 1080;
+	private static final int TICK_INTERVAL_MS = 8; // ~125 FPS
 
 	//List of all the full screen panes
 	private StartPane startPane;
@@ -26,19 +29,19 @@ public class MainApplication extends GraphicsProgram {
 	//Sound Values
 	double sfxVol = 100;
 	double musicVol = 100;
-    private boolean endGame = false;
-    private long startMillis = 0;
-    private long prevMillis = 0;
+	private boolean endGame = false;
+	private long startMillis = 0;
+	private Timer gameTimer;
 
-    public void setStartMillis(long startMillis) {
-        this.startMillis = startMillis;
-    }
-    public long getStartMillis() {
-        return startMillis;
-    }
-    public long getDelta() {
-        return System.currentTimeMillis() - startMillis;
-    }
+	public void setStartMillis(long startMillis) {
+		this.startMillis = startMillis;
+	}
+	public long getStartMillis() {
+		return startMillis;
+	}
+	public long getDelta() {
+		return System.currentTimeMillis() - startMillis;
+	}
 
 	public MainApplication() {
 		super();
@@ -61,7 +64,15 @@ public class MainApplication extends GraphicsProgram {
 		AudioPlayer.getInstance().setVolume((float) musicVol / 100.0f);
 	}
 
+	public void endGame() {
+		endGame = true;
+		if (gameTimer != null) {
+			gameTimer.stop();
+		}
+	}
+
 	public void quitGame() {
+		endGame();
 		clear();
 	}
 
@@ -86,17 +97,16 @@ public class MainApplication extends GraphicsProgram {
 
 	public void init() {
 		this.gw.setTitle("Trigonometry Jump");
-        try {
-            this.gw.setIconImage(ImageIO.read(new File("Media/Character Sprite (1).png")));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-//		this.gw.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		try {
+			this.gw.setIconImage(ImageIO.read(new File("Media/Character Sprite (1).png")));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
 
 	public void run() {
-		System.out.println("Lets' Begin!");
+		System.out.println("Let's Begin!");
 		setupInteractions();
 
 		//Initialize all Panes
@@ -108,16 +118,22 @@ public class MainApplication extends GraphicsProgram {
 		//TheDefaultPane
 		switchToScreen(startPane);
 
-        startMillis = System.currentTimeMillis();
-        do {
-            System.out.print(" \b"); //<-- this line makes the moving level work for some reason
-            if (getDelta() != prevMillis && getDelta() % 8 == 0) { //limit frames to 125 per second
-                if (currentScreen.equals(levelGameplayPane)) {
-                    levelGameplayPane.tick(getDelta());
-                }
-                prevMillis = getDelta();
-            }
-        } while (!endGame);
+		startMillis = System.currentTimeMillis();
+
+		// Use a Swing Timer instead of a busy-wait loop
+		gameTimer = new Timer(TICK_INTERVAL_MS, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (endGame) {
+					gameTimer.stop();
+					return;
+				}
+				if (currentScreen != null && currentScreen.equals(levelGameplayPane)) {
+					levelGameplayPane.tick(getDelta());
+				}
+			}
+		});
+		gameTimer.start();
 	}
 
 	public static void main(String[] args) {
@@ -151,8 +167,8 @@ public class MainApplication extends GraphicsProgram {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (settingsOpen) {
-	        settings.mousePressed(e);
-	    } 
+			settings.mousePressed(e);
+		} 
 		else if (currentScreen != null) {
 			currentScreen.mousePressed(e);
 		}
@@ -173,18 +189,18 @@ public class MainApplication extends GraphicsProgram {
 		if (settingsOpen) {
 			settings.mouseClicked(e); 
 		}
-	    else if (currentScreen != null) {
-	    	currentScreen.mouseClicked(e);
+		else if (currentScreen != null) {
+			currentScreen.mouseClicked(e);
 		}
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		 if (settingsOpen) { 
-			 settings.mouseDragged(e); 
-		 }
-		 else if(currentScreen != null) {
-			 currentScreen.mouseDragged(e);
+		if (settingsOpen) { 
+			settings.mouseDragged(e); 
+		}
+		else if(currentScreen != null) {
+			currentScreen.mouseDragged(e);
 		}
 	}
 
