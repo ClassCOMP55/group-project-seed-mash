@@ -80,6 +80,7 @@ public class StartPane extends GraphicsPane{
 		drawTitle();
 		addDescriptionButton();
 		addSettingButton();
+		drawLine();
         System.out.println("show content");
 
 	}
@@ -164,6 +165,21 @@ public class StartPane extends GraphicsPane{
         contents.add(title);
         mainScreen.add(title);
     }
+	
+	private void drawLine() {
+		double centerX = mainScreen.getWidth() / 2;
+		double underlineY = 275;
+		double width = 1000;
+		double barX = centerX - width / 2;
+		
+		GRect bar = new GRect(barX,underlineY,width,1);
+		bar.setFilled(true);
+        bar.setFillColor(THEME_TEAL);
+        bar.setColor(THEME_TEAL);
+		contents.add(bar);
+		mainScreen.add(bar);
+		
+	}
 	
     private int lerp(int a, int b, int step, int total) {
         if (total == 0) return a;
