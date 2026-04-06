@@ -14,7 +14,6 @@ public class LevelSelectPane extends GraphicsPane {
     private GImage rightArrow;
     private GRect playButton;
     private GLabel playButtonText;
-    private AudioPlayer backgroundMusic;
 
     // Promoted to fields so they can be removed on redraw
     private GImage levelDiffIcon;
@@ -31,16 +30,6 @@ public class LevelSelectPane extends GraphicsPane {
         this.mainScreen = mainScreen;
     }
 
-    private void playMusic() {
-        backgroundMusic = AudioPlayer.getInstance();
-        backgroundMusic.playSound("Media/", "sunflower-seed-wav");
-    }
-
-    private void stopMusic() {
-        if (backgroundMusic != null) {
-            backgroundMusic.stopSound("Media/", "sunflower-seed-wav");
-        }
-    }
 
     @Override
     public void showContent() {
@@ -50,12 +39,10 @@ public class LevelSelectPane extends GraphicsPane {
         addBackButton();
         addLeftArrow();
         addRightArrow();
-        playMusic();
     }
 
     @Override
     public void hideContent() {
-        stopMusic();
         for (GObject item : contents) {
             mainScreen.remove(item);
         }
