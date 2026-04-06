@@ -256,6 +256,12 @@ public class StartPane extends GraphicsPane{
         double btnX = centerX - btnW / 2;
         double btnY = 560;
         
+        GRect shadow = new GRect(btnX + 3, btnY + 3, btnW, btnH);
+        shadow.setFilled(true);
+        shadow.setFillColor(new Color(0, 0, 0, 60));
+        shadow.setColor(new Color(0, 0, 0, 60));
+        contents.add(shadow);
+        mainScreen.add(shadow);
         
     }
 	
