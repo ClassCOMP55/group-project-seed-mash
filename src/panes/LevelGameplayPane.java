@@ -29,6 +29,8 @@ public class LevelGameplayPane extends GraphicsPane {
     private final GRect progressBarBackground;
     private final GRect progressBar;
     private final GLabel progressBarPercentage;
+    
+    long songPauseTime = 0;
 
     // Character
     private Character player;
@@ -239,6 +241,9 @@ public class LevelGameplayPane extends GraphicsPane {
         showingCompletionScreen = false;
         isProgressSaved = false;
         paused = false;
+        mainScreen.setMusicFrame(0);
+        mainScreen.startLevelMusic(currentLevel.getSoundtrackURL(), 
+        		mainScreen.getFullFrameLength(currentLevel.getSoundtrackURL()));
 
         // Remove old sprite
         mainScreen.remove(player.getSprite());
@@ -266,6 +271,7 @@ public class LevelGameplayPane extends GraphicsPane {
         completionMenu.hide();
         showingCompletionScreen = false;
         paused = false;
+        mainScreen.setMusicFrame(0);
         mainScreen.switchToLevelSelectScreen();
     }
 
@@ -274,10 +280,16 @@ public class LevelGameplayPane extends GraphicsPane {
         if (!paused) {
             paused = true;
             pauseTimestamp = mainScreen.getDelta();
+            songPauseTime = mainScreen.getMusicFrame(currentLevel.getSoundtrackURL());
+            mainScreen.stopLevelMusic(currentLevel.getSoundtrackURL());
         } else {
             paused = false;
             mainScreen.setStartMillis(mainScreen.getStartMillis() + mainScreen.getDelta() - pauseTimestamp);
             lastTickTime = System.currentTimeMillis(); // prevent physics jump after unpause
+            mainScreen.setMusicFrame(songPauseTime);
+            mainScreen.startLevelMusic(currentLevel.getSoundtrackURL(), 
+            		mainScreen.getFullFrameLength(currentLevel.getSoundtrackURL()));
+            
         }
     }
 
@@ -304,7 +316,6 @@ public class LevelGameplayPane extends GraphicsPane {
         if (showingDeathScreen && deathMenu.isVisible()) {
             String action = deathMenu.mouseClicked(e);
             if ("replay".equals(action)) {
-            	mainScreen.startLevelMusic(currentLevel.getSoundtrackURL());
                 restartLevel();
             } else if ("levelselect".equals(action)) {
                 goToLevelSelect();
@@ -315,7 +326,6 @@ public class LevelGameplayPane extends GraphicsPane {
         if (showingCompletionScreen && completionMenu.isVisible()) {
             String action = completionMenu.mouseClicked(e);
             if ("replay".equals(action)) {
-            	mainScreen.startLevelMusic(currentLevel.getSoundtrackURL());
                 restartLevel();
             } else if ("levelselect".equals(action)) {
                 goToLevelSelect();

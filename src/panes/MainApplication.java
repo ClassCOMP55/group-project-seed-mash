@@ -39,7 +39,11 @@ public class MainApplication extends GraphicsProgram {
 	private Timer gameTimer;
 	private boolean menuMusicPlaying = false;
 	private boolean levelMusicPlaying = false;
-
+	
+	/*Frame lengths for each song (use printMusicFrame() to check)
+	Menu music: 11337142
+	Test level music: 86053333
+	*/
 
 	public void setStartMillis(long startMillis) {
 		this.startMillis = startMillis;
@@ -75,7 +79,7 @@ public class MainApplication extends GraphicsProgram {
 
 	public void startMenuMusic() {
 		if (!menuMusicPlaying) {
-			AudioPlayer.getInstance().playSound("Media/", "sunflower-seed-wav");
+			AudioPlayer.getInstance().playSound("Media/", "sunflower-seed-wav", 11337142);
 			menuMusicPlaying = true;
 		}
 	}
@@ -88,9 +92,9 @@ public class MainApplication extends GraphicsProgram {
 		}
 	}
 	
-	public void startLevelMusic(String songURL) {
+	public void startLevelMusic(String songURL, long id) {
 		if (!levelMusicPlaying) {
-			AudioPlayer.getInstance().playSound("Media/", songURL);
+			AudioPlayer.getInstance().playSound("Media/", songURL, id);
 			levelMusicPlaying = true;
 		}
 	}
@@ -100,6 +104,18 @@ public class MainApplication extends GraphicsProgram {
 			AudioPlayer.getInstance().stopSound("Media/", songURL);
 			levelMusicPlaying = false;
 		}
+	}
+	
+	public long getMusicFrame(String songURL) {
+		return AudioPlayer.getInstance().getFramePos("Media/", songURL);
+	}
+	
+	public void setMusicFrame(long num) {
+		AudioPlayer.getInstance().setFramePos(num);
+	}
+	
+	public long getFullFrameLength(String songURL) {
+		return AudioPlayer.getInstance().getFullFrameLength("Media/", songURL);
 	}
 
 	public void endGame() {
