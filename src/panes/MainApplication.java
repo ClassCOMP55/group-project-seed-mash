@@ -38,6 +38,7 @@ public class MainApplication extends GraphicsProgram {
 	private long startMillis = 0;
 	private Timer gameTimer;
 	private boolean menuMusicPlaying = false;
+	private boolean levelMusicPlaying = false;
 
 
 	public void setStartMillis(long startMillis) {
@@ -84,6 +85,20 @@ public class MainApplication extends GraphicsProgram {
 		if (menuMusicPlaying) {
 			AudioPlayer.getInstance().stopSound("Media/", "sunflower-seed-wav");
 			menuMusicPlaying = false;
+		}
+	}
+	
+	public void startLevelMusic(String songURL) {
+		if (!levelMusicPlaying) {
+			AudioPlayer.getInstance().playSound("Media/", songURL);
+			levelMusicPlaying = true;
+		}
+	}
+	
+	public void stopLevelMusic(String songURL) {
+		if (levelMusicPlaying) {
+			AudioPlayer.getInstance().stopSound("Media/", songURL);
+			levelMusicPlaying = false;
 		}
 	}
 

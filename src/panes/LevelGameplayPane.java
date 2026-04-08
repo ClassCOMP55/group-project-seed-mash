@@ -210,6 +210,7 @@ public class LevelGameplayPane extends GraphicsPane {
             isProgressSaved = true;
         }
         deathMenu.show();
+        mainScreen.stopLevelMusic(currentLevel.getSoundtrackURL());
     }
 
     private void showCompletion() {
@@ -223,6 +224,7 @@ public class LevelGameplayPane extends GraphicsPane {
             isProgressSaved = true;
         }
         completionMenu.show();
+        mainScreen.stopLevelMusic(currentLevel.getSoundtrackURL());
     }
 
 
@@ -302,6 +304,7 @@ public class LevelGameplayPane extends GraphicsPane {
         if (showingDeathScreen && deathMenu.isVisible()) {
             String action = deathMenu.mouseClicked(e);
             if ("replay".equals(action)) {
+            	mainScreen.startLevelMusic(currentLevel.getSoundtrackURL());
                 restartLevel();
             } else if ("levelselect".equals(action)) {
                 goToLevelSelect();
@@ -312,6 +315,7 @@ public class LevelGameplayPane extends GraphicsPane {
         if (showingCompletionScreen && completionMenu.isVisible()) {
             String action = completionMenu.mouseClicked(e);
             if ("replay".equals(action)) {
+            	mainScreen.startLevelMusic(currentLevel.getSoundtrackURL());
                 restartLevel();
             } else if ("levelselect".equals(action)) {
                 goToLevelSelect();
