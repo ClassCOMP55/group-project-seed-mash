@@ -39,11 +39,6 @@ public class MainApplication extends GraphicsProgram {
 	private Timer gameTimer;
 	private boolean menuMusicPlaying = false;
 	private boolean levelMusicPlaying = false;
-	
-	/*Frame lengths for each song (use printMusicFrame() to check)
-	Menu music: 11337142
-	Test level music: 86053333
-	*/
 
 	public void setStartMillis(long startMillis) {
 		this.startMillis = startMillis;
@@ -79,7 +74,7 @@ public class MainApplication extends GraphicsProgram {
 
 	public void startMenuMusic() {
 		if (!menuMusicPlaying) {
-			AudioPlayer.getInstance().playSound("Media/", "sunflower-seed-wav", 11337142);
+			AudioPlayer.getInstance().playSound("Media/", "sunflower-seed-wav", 11337142); //Numbers are just for menu music ignore it
 			menuMusicPlaying = true;
 		}
 	}
