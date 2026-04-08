@@ -271,36 +271,15 @@ public class LevelGameplayPane extends GraphicsPane {
         completionMenu.hide();
         showingCompletionScreen = false;
         paused = false;
+        mainScreen.stopLevelMusic(currentLevel.getSoundtrackURL());
         mainScreen.setMusicFrame(0);
         mainScreen.switchToLevelSelectScreen();
-    }
-
-    public void pauseUnpause() {
-        if (showingDeathScreen || showingCompletionScreen) return; // Don't toggle pause while death menu is open
-        if (!paused) {
-            paused = true;
-            pauseTimestamp = mainScreen.getDelta();
-            songPauseTime = mainScreen.getMusicFrame(currentLevel.getSoundtrackURL());
-            mainScreen.stopLevelMusic(currentLevel.getSoundtrackURL());
-        } else {
-            paused = false;
-            mainScreen.setStartMillis(mainScreen.getStartMillis() + mainScreen.getDelta() - pauseTimestamp);
-            lastTickTime = System.currentTimeMillis(); // prevent physics jump after unpause
-            mainScreen.setMusicFrame(songPauseTime);
-            mainScreen.startLevelMusic(currentLevel.getSoundtrackURL(), 
-            		mainScreen.getFullFrameLength(currentLevel.getSoundtrackURL()));
-            
-        }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            if (showingDeathScreen || showingCompletionScreen) {
-                goToLevelSelect(); // ESC on death menu goes back to level select
-            } else {
-                pauseUnpause();
-            }
+            goToLevelSelect(); // ESC on death menu goes back to level select
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP) {
             if (showingDeathScreen || showingCompletionScreen) {
                 restartLevel(); // Space/Up on death menu replays

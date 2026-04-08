@@ -19,7 +19,7 @@ public class LevelStitcher {
     public static final int ELEMENT_SCALING = 80;
     public static final Component OBSERVER = new JPanel();
     private GameLevel level;
-    private TestFilter colorFilter = new TestFilter();
+    private LevelRecolorFilter colorFilter = new LevelRecolorFilter();
 
     public void setLevel(GameLevel level) {
         this.colorFilter.setLevel(level);
@@ -95,7 +95,7 @@ public class LevelStitcher {
             stitch.createBackgroundImage();
         }
     }
-    public static class TestFilter implements BufferedImageOp {
+    public static class LevelRecolorFilter implements BufferedImageOp {
         private GameLevel level;
 
         @Override
