@@ -157,13 +157,8 @@ public class Character {
             if (charCol >= 0 && charCol < geometry[0].length && headCheckY >= 0 && headCheckY < geometry.length) {
                 ObstacleType above = geometry[headCheckY][charCol];
                 if (above != null) {
-                    if (above == ObstacleType.DOWN_SPIKE) {
-                        die();
-                        return;
-                    }
-                    // Bonk head on ceiling
-                    yPos = headCheckY - 1;
-                    yVel = 0;
+                    die();
+                    return;
                 } else {
                     yPos = newY;
                 }
