@@ -196,6 +196,15 @@ public class LevelSelectPane extends GraphicsPane {
         double cardX = cx - CARD_WIDTH / 2;
         double cardY = 180;
         
+        /* ---------- card shadow ---------- */
+        GRect cardShadow = new GRect(cardX + 5, cardY + 5, CARD_WIDTH, CARD_HEIGHT);
+        cardShadow.setFilled(true);
+        cardShadow.setFillColor(new Color(0, 0, 0, 70));
+        cardShadow.setColor(new Color(0, 0, 0, 70));
+        addLevelInfoElement(cardShadow);
+        
+        
+        
 
         // Play button
         playButton = new GRect(300, 150, mainScreen.getWidth() - 600, 300);
