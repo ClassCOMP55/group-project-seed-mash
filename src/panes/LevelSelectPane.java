@@ -217,6 +217,14 @@ public class LevelSelectPane extends GraphicsPane {
         accent.setColor(THEME_TEAL);
         addLevelInfoElement(accent);
         
+        /* ---------- level number ---------- */
+        String numStr = "L E V E L  " + (currentSelection + 1) + " / " + levels.length;
+        GLabel numLabel = new GLabel(numStr);
+        numLabel.setFont(new Font("Courier New", Font.BOLD, 18));
+        numLabel.setColor(THEME_TEAL_LIGHT);
+        numLabel.setLocation(cardX + 30, cardY + 50);
+        addLevelInfoElement(numLabel);
+        
         
 
         // Play button
