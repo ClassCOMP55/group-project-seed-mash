@@ -210,6 +210,12 @@ public class LevelSelectPane extends GraphicsPane {
         cardBody.setColor(THEME_BLUE_DARK);
         addLevelInfoElement(cardBody);
         
+        /* ---------- teal accent strip ---------- */
+        GRect accent = new GRect(cardX, cardY, CARD_WIDTH, PX * 2);
+        accent.setFilled(true);
+        accent.setFillColor(THEME_TEAL);
+        accent.setColor(THEME_TEAL);
+        addLevelInfoElement(accent);
         
         
 
