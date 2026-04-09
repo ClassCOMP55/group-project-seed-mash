@@ -9,6 +9,31 @@ import acm.graphics.*;
 import level.GameLevel;
 
 public class LevelSelectPane extends GraphicsPane {
+	
+    private static final Color THEME_BLUE         = new Color(0, 102, 204);
+    private static final Color THEME_BLUE_DARK    = new Color(0, 70, 150);
+    private static final Color THEME_BLUE_DARKER  = new Color(0, 50, 110);
+    private static final Color THEME_BLUE_DARKEST = new Color(0, 30, 80);
+    private static final Color THEME_BLUE_LIGHT   = new Color(40, 140, 230);
+ 
+    private static final Color THEME_GREEN         = new Color(46, 204, 113);
+    private static final Color THEME_GREEN_LIGHT   = new Color(80, 230, 140);
+    private static final Color THEME_GREEN_DARK    = new Color(30, 150, 80);
+    private static final Color THEME_GREEN_DARKEST = new Color(20, 110, 60);
+ 
+    private static final Color THEME_TEAL       = new Color(54, 212, 201);
+    private static final Color THEME_TEAL_LIGHT = new Color(90, 235, 225);
+    private static final Color THEME_TEAL_DARK  = new Color(35, 160, 150);
+ 
+    private static final Color TEXT_WHITE  = new Color(240, 240, 240);
+    private static final Color TEXT_SUBTLE = new Color(180, 210, 240);
+ 
+    private static final Color GROUND_TOP    = new Color(0, 85, 170);
+    private static final Color GROUND_MID    = new Color(0, 65, 135);
+    private static final Color GROUND_BOTTOM = new Color(0, 45, 100);
+    private static final Color GROUND_DEEP   = new Color(0, 30, 70);
+ 
+    private static final int PX = 8;
 
     public static final GameLevel[] levels = {GameLevel.TEST_LEVEL, GameLevel.TEST_LEVEL_2};
     private GImage backButton;
@@ -22,6 +47,8 @@ public class LevelSelectPane extends GraphicsPane {
     private GLabel runTimeLabel;
     private GRect progressLabel;
     private GRect progress;
+    
+    
 
     // Track all level-info elements for easy cleanup
     private ArrayList<GObject> levelInfoElements = new ArrayList<>();
@@ -35,7 +62,7 @@ public class LevelSelectPane extends GraphicsPane {
 
     @Override
     public void showContent() {
-        addBackground();
+    	drawBackground();
         addTitle();
         drawLevelInfo();
         addBackButton();
@@ -52,14 +79,22 @@ public class LevelSelectPane extends GraphicsPane {
         levelInfoElements.clear();
     }
 
-    private void addBackground() {
-        GRect bg = new GRect(0, 0, mainScreen.getWidth(), mainScreen.getHeight());
-        bg.setFilled(true);
-        bg.setColor(new Color(0, 102, 204));
-        contents.add(bg);
-        mainScreen.add(bg);
+    private void drawBackground() {
+        int bands = 8;
+        double bandH = mainScreen.getHeight() / (double) bands;
+        for (int i = 0; i < bands; i++) {
+            int r = lerp(0, THEME_BLUE.getRed(), i, bands);
+            int g = lerp(30, THEME_BLUE.getGreen(), i, bands);
+            int b = lerp(80, THEME_BLUE.getBlue(), i, bands);
+            GRect band = new GRect(0, i * bandH, mainScreen.getWidth(), bandH + 1);
+            band.setFilled(true);
+            Color c = new Color(r, g, b);
+            band.setFillColor(c);
+            band.setColor(c);
+            contents.add(band);
+            mainScreen.add(band);
+        }
     }
-
     private void addTitle() {
         GLabel title = new GLabel("SELECT LEVEL");
         title.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
@@ -213,6 +248,11 @@ public class LevelSelectPane extends GraphicsPane {
         rightArrow.setLocation(mainScreen.getWidth() - rightArrow.getWidth() - 50, 400);
         contents.add(rightArrow);
         mainScreen.add(rightArrow);
+    }
+    
+    private int lerp(int a, int b, int step, int total) {
+        if (total == 0) return a;
+        return a + (b - a) * step / total;
     }
 
     @Override
