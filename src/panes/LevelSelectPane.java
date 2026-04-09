@@ -63,6 +63,7 @@ public class LevelSelectPane extends GraphicsPane {
     @Override
     public void showContent() {
     	drawBackground();
+    	drawGround();
         addTitle();
         drawLevelInfo();
         addBackButton();
@@ -93,6 +94,44 @@ public class LevelSelectPane extends GraphicsPane {
             band.setColor(c);
             contents.add(band);
             mainScreen.add(band);
+        }
+    }
+    
+    private void drawGround() {
+        double groundY = mainScreen.getHeight() - 160;
+        double w = mainScreen.getWidth();
+        int blockSize = PX * 5;
+ 
+        // Surface row
+        for (int x = 0; x < w; x += blockSize) {
+            GRect surface = new GRect(x, groundY, blockSize, blockSize);
+            surface.setFilled(true);
+            surface.setFillColor((x / blockSize) % 2 == 0 ? THEME_BLUE : THEME_BLUE_DARK);
+            surface.setColor(THEME_BLUE_DARK);
+            contents.add(surface);
+            mainScreen.add(surface);
+ 
+            GRect highlight = new GRect(x, groundY, blockSize, PX);
+            highlight.setFilled(true);
+            highlight.setFillColor(THEME_TEAL);
+            highlight.setColor(THEME_TEAL);
+            contents.add(highlight);
+            mainScreen.add(highlight);
+        }
+ 
+        // Deeper rows
+        Color[] depthColors    = {GROUND_TOP, GROUND_MID, GROUND_BOTTOM};
+        Color[] depthAltColors = {THEME_BLUE_DARKER, GROUND_TOP, GROUND_MID};
+        for (int row = 1; row <= 3; row++) {
+            for (int x = 0; x < w; x += blockSize) {
+                GRect block = new GRect(x, groundY + row * blockSize, blockSize, blockSize);
+                block.setFilled(true);
+                Color c = ((x / blockSize) + row) % 2 == 0 ? depthColors[row - 1] : depthAltColors[row - 1];
+                block.setFillColor(c);
+                block.setColor(GROUND_DEEP);
+                contents.add(block);
+                mainScreen.add(block);
+            }
         }
     }
     private void addTitle() {
