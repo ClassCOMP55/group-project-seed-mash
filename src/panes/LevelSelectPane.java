@@ -203,6 +203,13 @@ public class LevelSelectPane extends GraphicsPane {
         cardShadow.setColor(new Color(0, 0, 0, 70));
         addLevelInfoElement(cardShadow);
         
+        /* ---------- card body ---------- */
+        GRect cardBody = new GRect(cardX, cardY, CARD_WIDTH, CARD_HEIGHT);
+        cardBody.setFilled(true);
+        cardBody.setFillColor(THEME_BLUE_DARK);
+        cardBody.setColor(THEME_BLUE_DARK);
+        addLevelInfoElement(cardBody);
+        
         
         
 
