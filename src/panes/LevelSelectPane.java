@@ -64,7 +64,8 @@ public class LevelSelectPane extends GraphicsPane {
     public void showContent() {
     	drawBackground();
     	drawGround();
-        addTitle();
+    	drawTitle();
+    	drawTitleLine();
         drawLevelInfo();
         addBackButton();
         addLeftArrow();
@@ -134,13 +135,31 @@ public class LevelSelectPane extends GraphicsPane {
             }
         }
     }
-    private void addTitle() {
-        GLabel title = new GLabel("SELECT LEVEL");
-        title.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
-        title.setColor(Color.WHITE);
-        title.setLocation((mainScreen.getWidth() - title.getWidth()) / 2, 60);
+    private void drawTitle() {
+        GLabel shadow = new GLabel("S E L E C T   L E V E L");
+        shadow.setFont(new Font("Courier New", Font.BOLD, 64));
+        shadow.setColor(THEME_BLUE_DARKEST);
+        shadow.setLocation((mainScreen.getWidth() - shadow.getWidth()) / 2 + 4, 104);
+        contents.add(shadow);
+        mainScreen.add(shadow);
+ 
+        GLabel title = new GLabel("S E L E C T   L E V E L");
+        title.setFont(new Font("Courier New", Font.BOLD, 64));
+        title.setColor(TEXT_WHITE);
+        title.setLocation((mainScreen.getWidth() - title.getWidth()) / 2, 100);
         contents.add(title);
         mainScreen.add(title);
+    }
+ 
+    private void drawTitleLine() {
+        double cx = mainScreen.getWidth() / 2.0;
+        double lineW = 860;
+        GRect bar = new GRect(cx - lineW / 2, 120, lineW, 1);
+        bar.setFilled(true);
+        bar.setFillColor(THEME_TEAL);
+        bar.setColor(THEME_TEAL);
+        contents.add(bar);
+        mainScreen.add(bar);
     }
 
     /**
