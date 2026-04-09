@@ -80,7 +80,6 @@ public class StartPane extends GraphicsPane{
 		drawBackground();
 		drawGround();
 		drawTitle();
-		addSettingButton();
 		drawLine();
 		playButton();
 		settingButton();
@@ -298,14 +297,6 @@ public class StartPane extends GraphicsPane{
     }
 	
 	
-	private void addSettingButton() {
-		settingButton = new GImage("2747966-200__1_-removebg-preview.png",200,400);
-		settingButton.scale(0.5, 0.5);
-		settingButton.setLocation((mainScreen.getWidth() - settingButton.getWidth()) - 50, 50);
-		
-		contents.add(settingButton);
-		mainScreen.add(settingButton);
-	}
 
 	 @Override
 	    public void mouseClicked(MouseEvent e) {
