@@ -192,6 +192,10 @@ public class LevelSelectPane extends GraphicsPane {
         clearLevelInfo();
 
         GameLevel level = levels[currentSelection];
+        double cx = mainScreen.getWidth() / 2.0;
+        double cardX = cx - CARD_WIDTH / 2;
+        double cardY = 180;
+        
 
         // Play button
         playButton = new GRect(300, 150, mainScreen.getWidth() - 600, 300);
