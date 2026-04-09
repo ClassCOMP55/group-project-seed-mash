@@ -111,6 +111,8 @@ public class StartPane extends GraphicsPane{
         }
     }
 	
+	
+	
 	private void drawGround() {
         double groundY = mainScreen.getHeight() - 160;
         double w = mainScreen.getWidth();
