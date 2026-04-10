@@ -209,7 +209,7 @@ public class Character {
     private void updateRotation(double deltaSeconds) {
         if (!onGround) {
             // Rotate while in the air
-            rotationAngle += ROTATION_SPEED * deltaSeconds;
+            rotationAngle -= ROTATION_SPEED * deltaSeconds;
             wasOnGround = false;
         } else {
             if (!wasOnGround) {

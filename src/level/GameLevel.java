@@ -166,4 +166,30 @@ public class GameLevel {
 			System.out.println();
 		}
     }
+
+    public static final String[] RED_SUN_GEOM = {
+            "                                                                                                ",
+            "                                                                                                ",
+            "                                                                                                ",
+            "                                                                                                ",
+            "                                                                                                ",
+            "                                                       B                                        ",
+            "                                                  BBBBB                                         ",
+            "                                                                                                ",
+            "                                                                                                ",
+            "            ^                                                                                   ",
+            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+    };
+    public static final GameLevel RED_SUN = new GameLevel(
+            "Red Sun in the Sky",
+            "Pursuing My True Self - Shihoko Hirata - Topic (128k)", //TODO: get actual audio
+            new LevelStitcher.ColorScheme(
+                    new Color(255,50, 50),
+                    new Color(255, 255, 0),
+                    new Color(238/3, 28/3, 37/3)),
+            112,
+            geomFromString(RED_SUN_GEOM),
+            1,
+            0
+    );
 }
