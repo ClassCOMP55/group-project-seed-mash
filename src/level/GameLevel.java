@@ -181,8 +181,8 @@ public class GameLevel {
             "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     };
     public static final GameLevel RED_SUN = new GameLevel(
-            "Red Sun in the Sky",
-            "Pursuing My True Self - Shihoko Hirata - Topic (128k)", //TODO: get actual audio
+            "Red Sun In The Sky",
+            "Red_Sun",
             new LevelStitcher.ColorScheme(
                     new Color(255,50, 50),
                     new Color(255, 255, 0),
