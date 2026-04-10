@@ -238,24 +238,26 @@ public class LevelSelectPane extends GraphicsPane {
         nameLabel.setLocation(cardX + (CARD_WIDTH - nameLabel.getWidth()) / 2, cardY + 110);
         addLevelInfoElement(nameLabel);
         
-
-        // Play button
-        playButton = new GRect(300, 150, mainScreen.getWidth() - 600, 300);
-        playButton.setFilled(true);        playButton.setColor(new Color(46, 204, 113));
-        addLevelInfoElement(playButton);
-
-        // Level name text
-        playButtonText = new GLabel(level.getLevelName(), 0, 0);
-        playButtonText.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
-        playButtonText.setColor(Color.WHITE);
-        playButtonText.scale(2);
-        playButtonText.setLocation(
-                (playButton.getWidth() / 2) - (playButtonText.getWidth() / 2) + playButton.getX(),
-                (playButton.getHeight() / 2) - (playButtonText.getHeight() / 2) + playButton.getY() + 50
-        );
-        addLevelInfoElement(playButtonText);
-
-        // Difficulty icon
+        /* ---------- divider ---------- */
+        double divY = cardY + 130;
+        GRect divider = new GRect(cardX + 40, divY, CARD_WIDTH - 80, 1);
+        divider.setFilled(true);
+        divider.setFillColor(THEME_TEAL_DARK);
+        divider.setColor(THEME_TEAL_DARK);
+        addLevelInfoElement(divider);
+ 
+        /* ---------- info row: difficulty + runtime ---------- */
+        double infoY = divY + 35;
+        double colWidth = (CARD_WIDTH - 80) / 2.0;
+        
+     // Difficulty
+        double diffX = cardX + 40;
+        GLabel diffTitle = new GLabel("DIFFICULTY");
+        diffTitle.setFont(new Font("Courier New", Font.BOLD, 14));
+        diffTitle.setColor(TEXT_SUBTLE);
+        diffTitle.setLocation(diffX + (colWidth - diffTitle.getWidth()) / 2, infoY);
+        addLevelInfoElement(diffTitle);
+ 
         int levelDifficulty = level.getDifficulty();
         String diffImage = "Difficulty1.png";
         if (levelDifficulty == 2) {
@@ -265,73 +267,13 @@ public class LevelSelectPane extends GraphicsPane {
         } else if (levelDifficulty == 4) {
             diffImage = "Difficulty4.png";
         }
-        levelDiffIcon = new GImage(diffImage);
+        GImage levelDiffIcon = new GImage(diffImage);
         levelDiffIcon.scale(0.2);
-        levelDiffIcon.setLocation(playButtonText.getX() - playButton.getX() / 2, playButtonText.getY() - 80);
+        levelDiffIcon.setLocation(diffX + (colWidth - levelDiffIcon.getWidth()) / 2, infoY + 10);
         addLevelInfoElement(levelDiffIcon);
+        
 
-        // Runtime label
-        int timeMin = level.getRuntime() / 60;
-        int timeSec = level.getRuntime() % 60;
-        String timeStr = timeMin + ":" + (timeSec < 10 ? "0" + timeSec : "" + timeSec);
-        runTimeLabel = new GLabel(timeStr, 300, 150);
-        runTimeLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 28));
-        runTimeLabel.setColor(Color.WHITE);
-        runTimeLabel.setLocation((mainScreen.getWidth() - runTimeLabel.getWidth()) / 2, playButtonText.getY() + 70);
-        addLevelInfoElement(runTimeLabel);
-
-        // --- Progress Bar Section ---
-        double barWidth = 1335;
-        double barHeight = 50;
-        double barX = (mainScreen.getWidth() - barWidth) / 2;
-        double barY = runTimeLabel.getY() + 35;
-
-        // "PROGRESS" label above the bar
-        GLabel progressTitle = new GLabel("PROGRESS");
-        progressTitle.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
-        progressTitle.setColor(new Color(200, 230, 255));
-        progressTitle.setLocation(barX, barY - 8);
-        addLevelInfoElement(progressTitle);
-
-        // Percentage label to the right of the title
-        int pct = (int) (level.getCompletionPercent());
-        GLabel pctLabel = new GLabel(pct + "%");
-        pctLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
-        pctLabel.setColor(Color.WHITE);
-        pctLabel.setLocation(barX + barWidth - pctLabel.getWidth(), barY - 8);
-        addLevelInfoElement(pctLabel);
-
-        // Bar background (dark rounded look)
-        GRect barBg = new GRect(barX, barY, barWidth, barHeight);
-        barBg.setFilled(true);
-        barBg.setFillColor(new Color(0, 50, 120));
-        barBg.setColor(new Color(255, 255, 255, 80));
-        addLevelInfoElement(barBg);
-
-        // Bar fill (bright green to match play button, scaled to completion)
-        double fillWidth = Math.max(0, (level.getCompletionPercent() / 100.0) * barWidth);
-        if (fillWidth > 0) {
-            progress = new GRect(barX, barY, fillWidth, barHeight);
-            progress.setFilled(true);
-            progress.setFillColor(new Color(46, 204, 113));
-            progress.setColor(new Color(46, 204, 113));
-            addLevelInfoElement(progress);
-        }
-
-        // Bar border on top for crisp outline
-        progressLabel = new GRect(barX, barY, barWidth, barHeight);
-        progressLabel.setFilled(false);
-        progressLabel.setColor(Color.WHITE);
-        addLevelInfoElement(progressLabel);
-
-        // Completed banner if 100%
-        if (level.getCompletionPercent() >= 100) {
-            GLabel completedLabel = new GLabel("\u2714 COMPLETED");
-            completedLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 22));
-            completedLabel.setColor(new Color(46, 255, 140));
-            completedLabel.setLocation((mainScreen.getWidth() - completedLabel.getWidth()) / 2, barY + barHeight + 25);
-            addLevelInfoElement(completedLabel);
-        }
+       
     }
 
     private void addBackButton() {
