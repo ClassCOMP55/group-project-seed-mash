@@ -1,10 +1,10 @@
 ## Setup
 1. Download JavaFX 21 SDK from https://gluonhq.com/products/javafx/
-After you got to that website, scroll down there until you see the options u can download
-Select 21.something for the JavaFX version
+After you got to that website, scroll down there until you see the options u can download.
+Select 21.something for the JavaFX version.
 Then put it in a location where it will be easy for you to find.
-Then extract it
-2. Add JavaFX jars to build path
+Then extract it.
+2. Add JavaFX jars to build path.
 To add the JavaFx file to the build path:
 Project >> Properties >> Libraries
 Then click the class path so that "Add External JARs" button on the right will be visible.
