@@ -272,6 +272,23 @@ public class LevelSelectPane extends GraphicsPane {
         levelDiffIcon.setLocation(diffX + (colWidth - levelDiffIcon.getWidth()) / 2, infoY + 10);
         addLevelInfoElement(levelDiffIcon);
         
+     // Runtime
+        double timeX = cardX + 40 + colWidth;
+        GLabel timeTitle = new GLabel("RUNTIME");
+        timeTitle.setFont(new Font("Courier New", Font.BOLD, 14));
+        timeTitle.setColor(TEXT_SUBTLE);
+        timeTitle.setLocation(timeX + (colWidth - timeTitle.getWidth()) / 2, infoY);
+        addLevelInfoElement(timeTitle);
+ 
+        int mins = level.getRuntime() / 60;
+        int secs = level.getRuntime() % 60;
+        String timeStr = mins + ":" + (secs < 10 ? "0" : "") + secs;
+        GLabel timeValue = new GLabel(timeStr);
+        timeValue.setFont(new Font("Courier New", Font.BOLD, 28));
+        timeValue.setColor(TEXT_WHITE);
+        timeValue.setLocation(timeX + (colWidth - timeValue.getWidth()) / 2, infoY + 30);
+        addLevelInfoElement(timeValue);
+        
 
        
     }
