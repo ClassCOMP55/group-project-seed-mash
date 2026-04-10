@@ -74,7 +74,7 @@ public class MainApplication extends GraphicsProgram {
 
 	public void startMenuMusic() {
 		if (!menuMusicPlaying) {
-			AudioPlayer.getInstance().playSound("Media/", "sunflower-seed-wav", 11337142); //Numbers are just for menu music ignore it
+			AudioPlayer.getInstance().playSound("Media/", "tian_mi_mi"); //Numbers are just for menu music ignore it
 			menuMusicPlaying = true;
 		}
 	}
@@ -82,21 +82,21 @@ public class MainApplication extends GraphicsProgram {
 
 	public void stopMenuMusic() {
 		if (menuMusicPlaying) {
-			AudioPlayer.getInstance().stopSound("Media/", "sunflower-seed-wav");
+			AudioPlayer.getInstance().stopSound();
 			menuMusicPlaying = false;
 		}
 	}
 	
 	public void startLevelMusic(String songURL, long id) {
 		if (!levelMusicPlaying) {
-			AudioPlayer.getInstance().playSound("Media/", songURL, id);
+			AudioPlayer.getInstance().playSound("Media/", songURL);
 			levelMusicPlaying = true;
 		}
 	}
 	
 	public void stopLevelMusic(String songURL) {
 		if (levelMusicPlaying) {
-			AudioPlayer.getInstance().stopSound("Media/", songURL);
+			AudioPlayer.getInstance().stopSound();
 			levelMusicPlaying = false;
 		}
 	}

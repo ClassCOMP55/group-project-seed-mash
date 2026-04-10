@@ -1,87 +1,80 @@
 package sfx;
-
-import javax.sound.sampled.*;
+import javafx.application.Platform;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import java.io.File;
-import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 public class AudioPlayer {
+	
+	private static AudioPlayer somePlayer;
+	private MediaPlayer currentPlayer;
 
-    private final ArrayList<Clip> players = new ArrayList<>();
-    private final ArrayList<Long> songLengths = new ArrayList<>();
-    private static AudioPlayer somePlayer;
-
-    private AudioPlayer() {}
-
-    public static AudioPlayer getInstance() {
-        if (somePlayer == null) {
-            somePlayer = new AudioPlayer();
-        }
-        return somePlayer;
-    }
-
-    private Clip createMediaPlayer(String folder, String name) {
+	private AudioPlayer() {
+		final CountDownLatch latch = new CountDownLatch(1);
         try {
-            File file = new File(folder + "/" + name + ".wav");
-            AudioInputStream audioInput = AudioSystem.getAudioInputStream(file);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInput);
-            players.add(clip);
-            songLengths.add(clip.getMicrosecondLength());
-            return clip;
+            Platform.startup(() -> latch.countDown());
+            latch.await();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            // Already initialized, ignore
         }
-    }
-
-    public void playSound(String folder, String name, long id) {
-        for (int i = 0; i < songLengths.size(); i++) {
-        	if (songLengths.get(i) == id) {
-        		players.get(i).loop(Clip.LOOP_CONTINUOUSLY);
-        		players.get(i).start();
-        		return;
-        	}
-        }
-        
-        //In case it's not there
-        Clip clip = createMediaPlayer(folder, name);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
-		clip.start();
-    }
-
-    public void stopSound(String folder, String name) {
-        for (Clip player : players) {
-            player.stop();
-        }
-    }
-
-    public void setVolume(float volume) {
-        for (Clip clip : players) {
-            FloatControl fc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            float dB = (float) (Math.log10(Math.max(volume, 0.0001)) * 20);
-            fc.setValue(dB);
-        }
-    }
-    
-    public long getFramePos(String folder, String name) {
-    	for (Clip clip : players) {
-    		if (clip.getMicrosecondPosition() != 0) {
-    			//System.out.println(clip.getFramePosition());
-    			return clip.getMicrosecondPosition();
-    		}
-    	}
-    	return 0;
-    }
-    
-    // Helper method to find frame length
-    public long getFullFrameLength(String folder, String name) {
-    	Clip clip = createMediaPlayer(folder, name);
-    	return clip.getMicrosecondLength();
-    }
-    
-    public void setFramePos(long num) {
-    	for (Clip clip : players) {
-    		clip.setMicrosecondPosition(num);
-    	}
-    }
+	}
+		
+	public static AudioPlayer getInstance() {
+		if (somePlayer == null) {
+			somePlayer = new AudioPlayer();
+		}
+		return somePlayer;
+	}	
+	
+	public void playSound(String folder, String name) {
+		Platform.runLater(() -> {  // JavaFX must run on its own thread
+            stopSound();
+            String path = new File(folder + name + ".mp3").toURI().toString();
+            Media media = new Media(path);
+            currentPlayer = new MediaPlayer(media);
+            currentPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            currentPlayer.play();
+        });
+	}
+	
+	public void stopSound() {
+       if (currentPlayer != null) {
+           currentPlayer.stop();
+       }
+	}
+  
+	public void pauseSound() {
+       if (currentPlayer != null) {
+           currentPlayer.pause();
+       }
+	}
+	
+	public void setVolume(float volume) {
+   	if (currentPlayer != null) {
+           currentPlayer.setVolume(volume); // 0.0 to 1.0
+       }
+	}
+  
+	public long getFramePos(String folder, String name) {
+   	if (currentPlayer != null) {
+           return (long) currentPlayer.getCurrentTime().toMillis();
+       }
+       return 0;
+   }
+  
+   // Helper method to find frame length
+   public long getFullFrameLength(String folder, String name) {
+   	if (currentPlayer != null) {
+           return (long) currentPlayer.getTotalDuration().toMillis();
+       }
+       return 0;
+   }
+  
+   public void setFramePos(long num) {
+   	if (currentPlayer != null) {
+           currentPlayer.seek(Duration.millis(num / 1000));
+       }
+   }
 }
