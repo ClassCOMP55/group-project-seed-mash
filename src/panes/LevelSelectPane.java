@@ -226,11 +226,22 @@ public class LevelSelectPane extends GraphicsPane {
         addLevelInfoElement(numLabel);
         
         
+        GLabel nameShadow = new GLabel(level.getLevelName().toUpperCase());
+        nameShadow.setFont(new Font("Courier New", Font.BOLD, 52));
+        nameShadow.setColor(THEME_BLUE_DARKEST);
+        nameShadow.setLocation(cardX + (CARD_WIDTH - nameShadow.getWidth()) / 2 + 3, cardY + 113);
+        addLevelInfoElement(nameShadow);
+ 
+        GLabel nameLabel = new GLabel(level.getLevelName().toUpperCase());
+        nameLabel.setFont(new Font("Courier New", Font.BOLD, 52));
+        nameLabel.setColor(TEXT_WHITE);
+        nameLabel.setLocation(cardX + (CARD_WIDTH - nameLabel.getWidth()) / 2, cardY + 110);
+        addLevelInfoElement(nameLabel);
+        
 
         // Play button
         playButton = new GRect(300, 150, mainScreen.getWidth() - 600, 300);
-        playButton.setFilled(true);
-        playButton.setColor(new Color(46, 204, 113));
+        playButton.setFilled(true);        playButton.setColor(new Color(46, 204, 113));
         addLevelInfoElement(playButton);
 
         // Level name text
