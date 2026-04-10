@@ -305,8 +305,6 @@ public class LevelGameplayPane extends GraphicsPane {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             if (showingDeathScreen || showingCompletionScreen) {
                 goToLevelSelect(); // ESC on death menu goes back to level select
-            } else {
-                pauseUnpause();
             }
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP) {
             if (showingDeathScreen || showingCompletionScreen) {
