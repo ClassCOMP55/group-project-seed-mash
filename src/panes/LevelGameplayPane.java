@@ -204,10 +204,7 @@ public class LevelGameplayPane extends GraphicsPane {
         paused = true;
 
         if (!isProgressSaved) {
-            SaveData.save(new level.GameLevel[]{
-                    level.GameLevel.TEST_LEVEL,
-                    level.GameLevel.TEST_LEVEL_2
-            });
+            SaveData.save(LevelSelectPane.levels);
             isProgressSaved = true;
         }
         deathMenu.show();
@@ -218,10 +215,7 @@ public class LevelGameplayPane extends GraphicsPane {
         showingCompletionScreen = true;
 
         if (!isProgressSaved) {
-            SaveData.save(new level.GameLevel[]{
-                    level.GameLevel.TEST_LEVEL,
-                    level.GameLevel.TEST_LEVEL_2
-            });
+            SaveData.save(LevelSelectPane.levels);
             isProgressSaved = true;
         }
         completionMenu.show();
