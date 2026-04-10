@@ -3,10 +3,18 @@ package level;
 import acm.graphics.GImage;
 import acm.graphics.*;
 import java.util.*;
+
+import javax.imageio.ImageIO;
 import acm.program.*;
 import acm.util.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.awt.geom.AffineTransform;
+import java.io.File;
+import java.io.IOException;
+
+
 
 /**
  * Player character that auto-runs forward (Geometry Dash style) and
@@ -18,6 +26,8 @@ public class Character {
     private static final double GRAVITY = 50.0;       // cells/s^2 downward
     private static final double JUMP_VELOCITY = 18.0;  // cells/s upward on jump
     private static final double RUN_SPEED = 8.0;       // cells/s horizontal
+    
+    private static final double ROTATION_SPEED = Math.PI * 2.0;
 
     private final GImage sprite;
     private GameLevel level;
@@ -30,6 +40,13 @@ public class Character {
     // Velocity
     private double xVel;
     private double yVel;
+    
+    private double rotationAngle = 0;
+    private double targetRotationAngle = 0;
+    private double wasOnGrond = 0;
+    
+    private BufferedImage originalImage;
+    private int spriteSize;
 
     private boolean onGround;
     private boolean dead;
@@ -40,6 +57,14 @@ public class Character {
         this.sprite = new GImage("Media/Character Sprite (1).png");
         this.dead = false;
         this.onGround = false;
+        this.spriteSize = elementScaling;
+        
+        try {
+        	originalImage = ImageIO.read(new File("Media/Character Sprite (1).png"));
+        }catch (IOException e) {
+        	System.out.println("Could not load character sprite for rotationn:" + e.getMessage());
+        	originalImage = null;
+        }
     }
 
     /**
