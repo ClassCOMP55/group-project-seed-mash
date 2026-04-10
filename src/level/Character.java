@@ -272,8 +272,8 @@ public class Character {
         double pixelY = getScreenYFromGrid(yPos);
 
         // On screen, add the level's scroll offset
-        double screenX = pixelX + levelOffsetX;
-        double screenY = pixelY;
+        double screenX = pixelX + levelOffsetX - rotationPadding;
+        double screenY = pixelY - rotationPadding;
 
         sprite.setLocation(screenX, screenY);
     }
