@@ -166,10 +166,7 @@ public class MainApplication extends GraphicsProgram {
 		
 		//TheDefaultPane
 		
-		SaveData.load(new level.GameLevel[]{
-    	level.GameLevel.TEST_LEVEL,
-    	level.GameLevel.TEST_LEVEL_2
-});	
+		SaveData.load(LevelSelectPane.levels);
 		
 		switchToStartScreen();
 
