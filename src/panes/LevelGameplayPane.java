@@ -292,6 +292,13 @@ public class LevelGameplayPane extends GraphicsPane {
             
         }
     }
+    
+    public void mousedPressed(MouseEvent e) {
+    	if (showingDeathScreen || showingCompletionScreen) return;
+    	if(!paused && player != null) {
+    		player.jump();
+    	}
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
