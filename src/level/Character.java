@@ -3,10 +3,18 @@ package level;
 import acm.graphics.GImage;
 import acm.graphics.*;
 import java.util.*;
+
+import javax.imageio.ImageIO;
 import acm.program.*;
 import acm.util.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.awt.geom.AffineTransform;
+import java.io.File;
+import java.io.IOException;
+
+
 
 /**
  * Player character that auto-runs forward (Geometry Dash style) and
@@ -18,6 +26,8 @@ public class Character {
     private static final double GRAVITY = 50.0;       // cells/s^2 downward
     private static final double JUMP_VELOCITY = 18.0;  // cells/s upward on jump
     private static final double RUN_SPEED = 8.0;       // cells/s horizontal
+    
+    private static final double ROTATION_SPEED = Math.PI * 2.0;
 
     private final GImage sprite;
     private GameLevel level;
@@ -30,6 +40,13 @@ public class Character {
     // Velocity
     private double xVel;
     private double yVel;
+    
+    private double rotationAngle = 0;
+    private double targetRotationAngle = 0;
+    private boolean wasOnGround = true;
+    
+    private BufferedImage originalImage;
+    private int spriteSize;
 
     private boolean onGround;
     private boolean dead;
@@ -40,6 +57,14 @@ public class Character {
         this.sprite = new GImage("Media/Character Sprite (1).png");
         this.dead = false;
         this.onGround = false;
+        this.spriteSize = elementScaling;
+        
+        try {
+        	originalImage = ImageIO.read(new File("Media/Character Sprite (1).png"));
+        }catch (IOException e) {
+        	System.out.println("Could not load character sprite for rotationn:" + e.getMessage());
+        	originalImage = null;
+        }
     }
 
     /**
@@ -53,6 +78,9 @@ public class Character {
         this.onGround = false;
         this.xVel = RUN_SPEED;
         this.yVel = 0;
+        this.rotationAngle = 0;
+        this.targetRotationAngle = 0;
+        this.wasOnGround = true;
 
         // Find the starting Y: top of the highest block in column 0
         int startY = 0;
@@ -167,12 +195,71 @@ public class Character {
             }
             onGround = false;
         }
+        
+        // --- Rotation ---
+        updateRotation(deltaSeconds);
 
         // --- Check if character has gone past the level ---
         if (xPos >= geometry[0].length) {
             // Level complete — don't die, just stop
             xVel = 0;
         }
+    }
+    
+    private void updateRotation(double deltaSeconds) {
+        if (!onGround) {
+            // Rotate while in the air
+            rotationAngle += ROTATION_SPEED * deltaSeconds;
+            wasOnGround = false;
+        } else {
+            if (!wasOnGround) {
+                // Just landed — snap to nearest 90°
+                double halfPI = Math.PI / 2.0;
+                rotationAngle = Math.round(rotationAngle / halfPI) * halfPI;
+                targetRotationAngle = rotationAngle;
+                wasOnGround = true;
+            }
+        }
+ 
+        // Update the sprite image with rotation
+        updateSpriteRotation();
+    }
+    /**
+     * Renders the sprite rotated by the current angle.
+     */
+    private int rotationPadding = 0;
+ 
+    private void updateSpriteRotation() {
+        if (originalImage == null) return;
+ 
+        int size = spriteSize;
+        int diagSize = (int) Math.ceil(size * Math.sqrt(2));
+        rotationPadding = (diagSize - size) / 2;
+ 
+        BufferedImage rotated = new BufferedImage(diagSize, diagSize, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = rotated.createGraphics();
+ 
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+ 
+        // Draw the character at original size, centered in the larger canvas, then rotate
+        AffineTransform transform = new AffineTransform();
+        transform.translate(diagSize / 2.0, diagSize / 2.0);
+        transform.rotate(-rotationAngle);
+        transform.scale((double) size / originalImage.getWidth(), (double) size / originalImage.getHeight());
+        transform.translate(-originalImage.getWidth() / 2.0, -originalImage.getHeight() / 2.0);
+ 
+        g2d.drawImage(originalImage, transform, null);
+        g2d.dispose();
+ 
+        int[][] pixels = new int[diagSize][diagSize];
+        for (int row = 0; row < diagSize; row++) {
+            for (int col = 0; col < diagSize; col++) {
+                pixels[row][col] = rotated.getRGB(col, row);
+            }
+        }
+        sprite.setImage(new GImage(pixels).getImage());
+        sprite.setSize(diagSize, diagSize);
     }
 
     /**
@@ -185,8 +272,8 @@ public class Character {
         double pixelY = getScreenYFromGrid(yPos);
 
         // On screen, add the level's scroll offset
-        double screenX = pixelX + levelOffsetX;
-        double screenY = pixelY;
+        double screenX = pixelX + levelOffsetX - rotationPadding;
+        double screenY = pixelY - rotationPadding;
 
         sprite.setLocation(screenX, screenY);
     }

@@ -271,7 +271,6 @@ public class LevelGameplayPane extends GraphicsPane {
         completionMenu.hide();
         showingCompletionScreen = false;
         paused = false;
-        mainScreen.stopLevelMusic(currentLevel.getSoundtrackURL());
         mainScreen.setMusicFrame(0);
         mainScreen.switchToLevelSelectScreen();
     }
@@ -279,7 +278,11 @@ public class LevelGameplayPane extends GraphicsPane {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            goToLevelSelect(); // ESC on death menu goes back to level select
+            if (showingDeathScreen || showingCompletionScreen) {
+                goToLevelSelect(); // ESC on death menu goes back to level select
+            } else {
+                pauseUnpause();
+            }
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP) {
             if (showingDeathScreen || showingCompletionScreen) {
                 restartLevel(); // Space/Up on death menu replays
