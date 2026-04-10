@@ -195,12 +195,71 @@ public class Character {
             }
             onGround = false;
         }
+        
+        // --- Rotation ---
+        updateRotation(deltaSeconds);
 
         // --- Check if character has gone past the level ---
         if (xPos >= geometry[0].length) {
             // Level complete — don't die, just stop
             xVel = 0;
         }
+    }
+    
+    private void updateRotation(double deltaSeconds) {
+        if (!onGround) {
+            // Rotate while in the air
+            rotationAngle += ROTATION_SPEED * deltaSeconds;
+            wasOnGround = false;
+        } else {
+            if (!wasOnGround) {
+                // Just landed — snap to nearest 90°
+                double halfPI = Math.PI / 2.0;
+                rotationAngle = Math.round(rotationAngle / halfPI) * halfPI;
+                targetRotationAngle = rotationAngle;
+                wasOnGround = true;
+            }
+        }
+ 
+        // Update the sprite image with rotation
+        updateSpriteRotation();
+    }
+    /**
+     * Renders the sprite rotated by the current angle.
+     */
+    private int rotationPadding = 0;
+ 
+    private void updateSpriteRotation() {
+        if (originalImage == null) return;
+ 
+        int size = spriteSize;
+        int diagSize = (int) Math.ceil(size * Math.sqrt(2));
+        rotationPadding = (diagSize - size) / 2;
+ 
+        BufferedImage rotated = new BufferedImage(diagSize, diagSize, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = rotated.createGraphics();
+ 
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+ 
+        // Draw the character at original size, centered in the larger canvas, then rotate
+        AffineTransform transform = new AffineTransform();
+        transform.translate(diagSize / 2.0, diagSize / 2.0);
+        transform.rotate(-rotationAngle);
+        transform.scale((double) size / originalImage.getWidth(), (double) size / originalImage.getHeight());
+        transform.translate(-originalImage.getWidth() / 2.0, -originalImage.getHeight() / 2.0);
+ 
+        g2d.drawImage(originalImage, transform, null);
+        g2d.dispose();
+ 
+        int[][] pixels = new int[diagSize][diagSize];
+        for (int row = 0; row < diagSize; row++) {
+            for (int col = 0; col < diagSize; col++) {
+                pixels[row][col] = rotated.getRGB(col, row);
+            }
+        }
+        sprite.setImage(new GImage(pixels).getImage());
+        sprite.setSize(diagSize, diagSize);
     }
 
     /**
