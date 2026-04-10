@@ -43,7 +43,7 @@ public class Character {
     
     private double rotationAngle = 0;
     private double targetRotationAngle = 0;
-    private double wasOnGrond = 0;
+    private boolean wasOnGround = true;
     
     private BufferedImage originalImage;
     private int spriteSize;
@@ -78,6 +78,9 @@ public class Character {
         this.onGround = false;
         this.xVel = RUN_SPEED;
         this.yVel = 0;
+        this.rotationAngle = 0;
+        this.targetRotationAngle = 0;
+        this.wasOnGround = true;
 
         // Find the starting Y: top of the highest block in column 0
         int startY = 0;
