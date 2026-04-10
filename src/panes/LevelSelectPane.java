@@ -289,7 +289,55 @@ public class LevelSelectPane extends GraphicsPane {
         timeValue.setLocation(timeX + (colWidth - timeValue.getWidth()) / 2, infoY + 30);
         addLevelInfoElement(timeValue);
         
-
+        /* ---------- progress bar ---------- */
+        double barMargin = 50;
+        double barX = cardX + barMargin;
+        double barFullW = CARD_WIDTH - barMargin * 2;
+        double barH = 30;
+        double barY = cardY + CARD_HEIGHT - 120;
+ 
+        GLabel progTitle = new GLabel("PROGRESS");
+        progTitle.setFont(new Font("Courier New", Font.BOLD, 14));
+        progTitle.setColor(TEXT_SUBTLE);
+        progTitle.setLocation(barX, barY - 10);
+        addLevelInfoElement(progTitle);
+ 
+        int pct = (int) level.getCompletionPercent();
+        GLabel pctLabel = new GLabel(pct + "%");
+        pctLabel.setFont(new Font("Courier New", Font.BOLD, 14));
+        pctLabel.setColor(TEXT_WHITE);
+        pctLabel.setLocation(barX + barFullW - pctLabel.getWidth(), barY - 10);
+        addLevelInfoElement(pctLabel);
+        
+     // Bar border
+        GRect barBorder = new GRect(barX - PX / 2, barY - PX / 2, barFullW + PX, barH + PX);
+        barBorder.setFilled(true);
+        barBorder.setFillColor(THEME_BLUE_DARKEST);
+        barBorder.setColor(THEME_BLUE_DARKEST);
+        addLevelInfoElement(barBorder);
+ 
+        // Bar track
+        GRect barTrack = new GRect(barX, barY, barFullW, barH);
+        barTrack.setFilled(true);
+        barTrack.setFillColor(THEME_BLUE_DARKER);
+        barTrack.setColor(THEME_BLUE_DARKER);
+        addLevelInfoElement(barTrack);
+ 
+        // Bar fill
+        double fillW = Math.max(0, (level.getCompletionPercent() / 100.0) * barFullW);
+        if (fillW > 0) {
+            GRect barFill = new GRect(barX, barY, fillW, barH);
+            barFill.setFilled(true);
+            barFill.setFillColor(THEME_GREEN);
+            barFill.setColor(THEME_GREEN);
+            addLevelInfoElement(barFill);
+ 
+            GRect fillHl = new GRect(barX, barY, fillW, PX);
+            fillHl.setFilled(true);
+            fillHl.setFillColor(THEME_GREEN_LIGHT);
+            fillHl.setColor(THEME_GREEN_LIGHT);
+            addLevelInfoElement(fillHl);
+        }
        
     }
 
