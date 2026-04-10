@@ -213,6 +213,7 @@ public class MainApplication extends GraphicsProgram {
 	public void switchToGameplayScreen() {
 		stopMenuMusic();
 		switchToScreen(levelGameplayPane);
+		startLevelMusic(levelGameplayPane.getCurrentLevel().getSoundtrackURL(), 0);
 	}
 
 	protected void switchToScreen(GraphicsPane newScreen) {
