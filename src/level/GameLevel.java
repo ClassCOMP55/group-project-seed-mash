@@ -113,7 +113,7 @@ public class GameLevel {
 
     public static final GameLevel TEST_LEVEL = new GameLevel(
             "Test Level 1",
-            "Pursuing My True Self - Shihoko Hirata - Topic (128k)",
+            "Pursuing_My_True_Self",
             new LevelStitcher.ColorScheme(
                     Color.BLUE,
                     Color.WHITE,
