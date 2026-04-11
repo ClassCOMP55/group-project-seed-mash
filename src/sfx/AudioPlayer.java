@@ -39,6 +39,18 @@ public class AudioPlayer {
         });
 	}
 	
+	public void playSFX(String folder, String name) {
+	    Platform.runLater(() -> {
+	        String path = new File(folder + name + ".mp3").toURI().toString();
+	        Media media = new Media(path);
+	        MediaPlayer sfxPlayer = new MediaPlayer(media);
+	        sfxPlayer.setCycleCount(1); // play once
+	        sfxPlayer.play();
+	        // auto cleanup when done
+	        sfxPlayer.setOnEndOfMedia(() -> sfxPlayer.dispose());
+	    });
+	}
+	
 	public void stopSound() {
        if (currentPlayer != null) {
            currentPlayer.stop();
