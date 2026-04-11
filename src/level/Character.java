@@ -32,6 +32,8 @@ public class Character {
     private final GImage sprite;
     private GameLevel level;
     private ObstacleType[][] geometry;
+    
+    private panes.MainApplication mainApp;
 
     // Position in grid-cell units (fractional)
     private double xPos;
