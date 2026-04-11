@@ -112,7 +112,19 @@ public class MainApplication extends GraphicsProgram {
 	public long getFullFrameLength(String songURL) {
 		return AudioPlayer.getInstance().getFullFrameLength("Media/", songURL);
 	}
+	
+	private static final String[] DEATH_SOUNDS = {
+		    "death1",
+		    "death2", 
+		    "death3"
+		    // add as many as you want
+		};
 
+	public void playDeathSound() {
+	    int random = (int) (Math.random() * DEATH_SOUNDS.length);
+	    AudioPlayer.getInstance().playSFX("Media/", DEATH_SOUNDS[random]);
+	}
+	
 	public void endGame() {
 		endGame = true;
 		if (gameTimer != null) {
@@ -204,8 +216,6 @@ public class MainApplication extends GraphicsProgram {
 		switchToScreen(startPane);
 		startMenuMusic();
 	}
-
-
 
 	public void switchToGameplayScreen() {
 		stopMenuMusic();
