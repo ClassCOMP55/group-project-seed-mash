@@ -55,6 +55,7 @@ public class Character {
     private int elementScaling;
 
     public Character(int elementScaling) {
+    	this.mainApp = mainApp;
         this.elementScaling = elementScaling;
         this.sprite = new GImage("Media/Character Sprite (1).png");
         this.dead = false;
@@ -292,6 +293,7 @@ public class Character {
         dead = true;
         xVel = 0;
         yVel = 0;
+        mainApp.playDeathSound();
         System.out.println("Character died at (" + xPos + ", " + yPos + ")");
     }
 
