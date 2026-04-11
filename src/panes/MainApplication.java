@@ -114,9 +114,11 @@ public class MainApplication extends GraphicsProgram {
 	}
 	
 	private static final String[] DEATH_SOUNDS = {
-		    "death1",
-		    "death2", 
-		    "death3"
+		    "deathSFX_ack",
+		    "deathSFX_bong",
+		    "deathSFX_downer",
+		    "deathSFX_error",
+		    "deathSFX_fart",
 		    // add as many as you want
 		};
 

@@ -54,8 +54,8 @@ public class Character {
     private boolean dead;
     private int elementScaling;
 
-    public Character(int elementScaling) {
-    	this.mainApp = mainApp;
+    public Character(int elementScaling, panes.MainApplication mainApp) {
+        this.mainApp = mainApp;
         this.elementScaling = elementScaling;
         this.sprite = new GImage("Media/Character Sprite (1).png");
         this.dead = false;
@@ -63,10 +63,10 @@ public class Character {
         this.spriteSize = elementScaling;
         
         try {
-        	originalImage = ImageIO.read(new File("Media/Character Sprite (1).png"));
-        }catch (IOException e) {
-        	System.out.println("Could not load character sprite for rotationn:" + e.getMessage());
-        	originalImage = null;
+            originalImage = ImageIO.read(new File("Media/Character Sprite (1).png"));
+        } catch (IOException e) {
+            System.out.println("Could not load character sprite for rotation:" + e.getMessage());
+            originalImage = null;
         }
     }
 

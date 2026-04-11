@@ -105,7 +105,7 @@ public class LevelGameplayPane extends GraphicsPane {
         this.lastTickTime = System.currentTimeMillis();
 
         // Initialize the player character
-        player = new Character(ELEMENT_SCALING);
+        player = new Character(ELEMENT_SCALING, mainScreen);
         player.initForLevel(currentLevel);
         GImage sprite = player.getSprite();
         sprite.setSize(ELEMENT_SCALING, ELEMENT_SCALING);
@@ -243,7 +243,7 @@ public class LevelGameplayPane extends GraphicsPane {
         contents.remove(player.getSprite());
 
         // Reinitialize character
-        player = new Character(ELEMENT_SCALING);
+        player = new Character(ELEMENT_SCALING, mainScreen);
         player.initForLevel(currentLevel);
         GImage sprite = player.getSprite();
         sprite.setSize(ELEMENT_SCALING, ELEMENT_SCALING);
