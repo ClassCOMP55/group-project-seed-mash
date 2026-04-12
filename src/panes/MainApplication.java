@@ -127,6 +127,17 @@ public class MainApplication extends GraphicsProgram {
 	    AudioPlayer.getInstance().playSFX("Media/", DEATH_SOUNDS[random]);
 	}
 	
+	private static final String[] WIN_SOUNDS = {
+		    "win1",
+		    "win2",
+		    "win3"
+		};
+
+	public void playWinSound() {
+	    int random = (int) (Math.random() * WIN_SOUNDS.length);
+	    AudioPlayer.getInstance().playSFX("Media/", WIN_SOUNDS[random]);
+	}
+	
 	public void endGame() {
 		endGame = true;
 		if (gameTimer != null) {

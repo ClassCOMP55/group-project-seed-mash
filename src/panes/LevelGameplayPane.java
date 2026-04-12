@@ -213,6 +213,7 @@ public class LevelGameplayPane extends GraphicsPane {
 
     private void showCompletion() {
         showingCompletionScreen = true;
+        mainScreen.playWinSound();
 
         if (!isProgressSaved) {
             SaveData.save(LevelSelectPane.levels);
