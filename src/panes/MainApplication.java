@@ -137,6 +137,10 @@ public class MainApplication extends GraphicsProgram {
 	    AudioPlayer.getInstance().playSFX("Media/", WIN_SOUNDS[random]);
 	}
 	
+	public void playClickSound() {
+	    AudioPlayer.getInstance().playSFX("Media/", "click");
+	}
+	
 	public void endGame() {
 		endGame = true;
 		if (gameTimer != null) {
