@@ -10,6 +10,9 @@ public class AudioPlayer {
 	
 	private static AudioPlayer somePlayer;
 	private MediaPlayer currentPlayer;
+	private java.util.HashMap<String, Media> mediaCache = new java.util.HashMap<>();
+	private float currentVolume = 1.0f;
+	private float sfxVolume = 1.0f;
 
 	private AudioPlayer() {
 		final CountDownLatch latch = new CountDownLatch(1);
@@ -26,7 +29,14 @@ public class AudioPlayer {
 			somePlayer = new AudioPlayer();
 		}
 		return somePlayer;
-	}	
+	}
+	
+	public void preload(String folder, String name) {
+	    Platform.runLater(() -> {
+	        String path = new File(folder + name + ".mp3").toURI().toString();
+	        mediaCache.put(folder + name, new Media(path));
+	    });
+	}
 	
 	public void playSound(String folder, String name) {
 		Platform.runLater(() -> {  // JavaFX must run on its own thread
@@ -35,18 +45,20 @@ public class AudioPlayer {
             Media media = new Media(path);
             currentPlayer = new MediaPlayer(media);
             currentPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            currentPlayer.setVolume(currentVolume);
             currentPlayer.play();
         });
 	}
 	
 	public void playSFX(String folder, String name) {
+		float vol = sfxVolume;
 	    Platform.runLater(() -> {
-	        String path = new File(folder + name + ".mp3").toURI().toString();
-	        Media media = new Media(path);
+	        Media media = mediaCache.getOrDefault(folder + name, 
+	            new Media(new File(folder + name + ".mp3").toURI().toString()));
 	        MediaPlayer sfxPlayer = new MediaPlayer(media);
-	        sfxPlayer.setCycleCount(1); // play once
+	        sfxPlayer.setVolume(vol);
+	        sfxPlayer.setCycleCount(1);
 	        sfxPlayer.play();
-	        // auto cleanup when done
 	        sfxPlayer.setOnEndOfMedia(() -> sfxPlayer.dispose());
 	    });
 	}
@@ -64,9 +76,16 @@ public class AudioPlayer {
 	}
 	
 	public void setVolume(float volume) {
-   	if (currentPlayer != null) {
-           currentPlayer.setVolume(volume); // 0.0 to 1.0
-       }
+		this.currentVolume = volume;
+	    Platform.runLater(() -> {
+	        if (currentPlayer != null) {
+	            currentPlayer.setVolume(volume);
+	        }
+	    });
+	}
+	
+	public void setSFXVolume(float volume) {
+	    this.sfxVolume = volume;
 	}
   
 	public long getFramePos(String folder, String name) {
