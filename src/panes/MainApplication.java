@@ -128,9 +128,8 @@ public class MainApplication extends GraphicsProgram {
 	}
 	
 	private static final String[] WIN_SOUNDS = {
-		    "win1",
-		    "win2",
-		    "win3"
+		    "winSFX_quack",
+		    "winSFX_yipeee",
 		};
 
 	public void playWinSound() {

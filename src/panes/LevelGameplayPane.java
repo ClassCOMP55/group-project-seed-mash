@@ -212,6 +212,7 @@ public class LevelGameplayPane extends GraphicsPane {
     }
 
     private void showCompletion() {
+    	if (showingCompletionScreen) return;
         showingCompletionScreen = true;
         mainScreen.playWinSound();
 
