@@ -138,7 +138,7 @@ public class MainApplication extends GraphicsProgram {
 	}
 	
 	public void playClickSound() {
-	    AudioPlayer.getInstance().playSFX("Media/", "click");
+	    AudioPlayer.getInstance().playSFX("Media/", "clickSFX_scifi");
 	}
 	
 	public void endGame() {
