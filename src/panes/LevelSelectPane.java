@@ -386,15 +386,19 @@ public class LevelSelectPane extends GraphicsPane {
         if (clicked == backButton) {
             System.out.println("Back button clicked!");
             mainScreen.switchToStartScreen();
+            mainScreen.playClickSound();
         } else if (clicked == leftArrow) {
             incrementSelection(-1);
             drawLevelInfo();
+            mainScreen.playClickSound();
         } else if (clicked == rightArrow) {
             incrementSelection(1);
             drawLevelInfo();
+            mainScreen.playClickSound();
         } else if (levelInfoElements.contains(clicked)) {
             mainScreen.levelGameplayPane.setCurrentLevel(levels[currentSelection]);
             mainScreen.switchToGameplayScreen();
+            mainScreen.playClickSound();
         }
     }
 

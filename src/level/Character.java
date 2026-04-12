@@ -32,6 +32,8 @@ public class Character {
     private final GImage sprite;
     private GameLevel level;
     private ObstacleType[][] geometry;
+    
+    private panes.MainApplication mainApp;
 
     // Position in grid-cell units (fractional)
     private double xPos;
@@ -52,7 +54,8 @@ public class Character {
     private boolean dead;
     private int elementScaling;
 
-    public Character(int elementScaling) {
+    public Character(int elementScaling, panes.MainApplication mainApp) {
+        this.mainApp = mainApp;
         this.elementScaling = elementScaling;
         this.sprite = new GImage("Media/Character Sprite (1).png");
         this.dead = false;
@@ -60,10 +63,10 @@ public class Character {
         this.spriteSize = elementScaling;
         
         try {
-        	originalImage = ImageIO.read(new File("Media/Character Sprite (1).png"));
-        }catch (IOException e) {
-        	System.out.println("Could not load character sprite for rotationn:" + e.getMessage());
-        	originalImage = null;
+            originalImage = ImageIO.read(new File("Media/Character Sprite (1).png"));
+        } catch (IOException e) {
+            System.out.println("Could not load character sprite for rotation:" + e.getMessage());
+            originalImage = null;
         }
     }
 
@@ -290,6 +293,7 @@ public class Character {
         dead = true;
         xVel = 0;
         yVel = 0;
+        mainApp.playDeathSound();
         System.out.println("Character died at (" + xPos + ", " + yPos + ")");
     }
 

@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Settings extends GraphicsProgram {
-    MainApplication mainApp;
+    private panes.MainApplication mainApp;
     ArrayList<GObject> settingsMenu = new ArrayList<GObject>();
     GImage closeButton;
     public static final int ScaleWidth = 500;
@@ -226,6 +226,7 @@ public class Settings extends GraphicsProgram {
     public void mouseClicked(MouseEvent e) {
         GObject x = mainApp.getElementAtLocation(e.getX(), e.getY());
         if (x == closeButton) {
+            mainApp.playClickSound();
             closeSettingsMenu();
         }
     }

@@ -307,9 +307,11 @@ public class StartPane extends GraphicsPane{
 	        if (clicked == playButtonBg || clicked == playButtonBorder
 	            || clicked == playButtonLabel || clicked == playButtonHighlight) {
 	            mainScreen.switchToLevelSelectScreen();
+	            mainScreen.playClickSound();
 	        } else if (clicked == settingsBtnBg || clicked == settingsBtnBorder
 	            || clicked == settingsLabel || clicked == settingsHighlight) {
 	            mainScreen.switchToSettings();
+	            mainScreen.playClickSound();
 	        }
 	    }
 }

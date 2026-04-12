@@ -112,7 +112,35 @@ public class MainApplication extends GraphicsProgram {
 	public long getFullFrameLength(String songURL) {
 		return AudioPlayer.getInstance().getFullFrameLength("Media/", songURL);
 	}
+	
+	private static final String[] DEATH_SOUNDS = {
+		    "deathSFX_ack",
+		    "deathSFX_bong",
+		    "deathSFX_fah",
+		    "deathSFX_error",
+		    "deathSFX_fart",
+		    // add as many as you want
+		};
 
+	public void playDeathSound() {
+	    int random = (int) (Math.random() * DEATH_SOUNDS.length);
+	    AudioPlayer.getInstance().playSFX("Media/", DEATH_SOUNDS[random]);
+	}
+	
+	private static final String[] WIN_SOUNDS = {
+		    "winSFX_quack",
+		    "winSFX_yipeee",
+		};
+
+	public void playWinSound() {
+	    int random = (int) (Math.random() * WIN_SOUNDS.length);
+	    AudioPlayer.getInstance().playSFX("Media/", WIN_SOUNDS[random]);
+	}
+	
+	public void playClickSound() {
+	    AudioPlayer.getInstance().playSFX("Media/", "clickSFX_scifi");
+	}
+	
 	public void endGame() {
 		endGame = true;
 		if (gameTimer != null) {
@@ -204,8 +232,6 @@ public class MainApplication extends GraphicsProgram {
 		switchToScreen(startPane);
 		startMenuMusic();
 	}
-
-
 
 	public void switchToGameplayScreen() {
 		stopMenuMusic();
