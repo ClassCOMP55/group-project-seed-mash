@@ -59,7 +59,8 @@ public class MainApplication extends GraphicsProgram {
 	}
 
 	public void setSfxVol(double sfxVol) {
-		this.sfxVol = sfxVol;
+	    this.sfxVol = sfxVol;
+	    AudioPlayer.getInstance().setSFXVolume((float) sfxVol / 100.0f);
 	}
 
 	public double getMusicVol() {
@@ -70,7 +71,6 @@ public class MainApplication extends GraphicsProgram {
 		this.musicVol = musicVol;
 		AudioPlayer.getInstance().setVolume((float) musicVol / 100.0f);
 	}
-	
 
 	public void startMenuMusic() {
 		if (!menuMusicPlaying) {
@@ -192,6 +192,16 @@ public class MainApplication extends GraphicsProgram {
 		levelGameplayPane = new LevelGameplayPane(this);
 		settings = new Settings(this);
 		
+		//Preloading the sound
+		AudioPlayer.getInstance().preload("Media/", "deathSFX_ack");
+		AudioPlayer.getInstance().preload("Media/", "deathSFX_bong");
+		AudioPlayer.getInstance().preload("Media/", "deathSFX_fah");
+		AudioPlayer.getInstance().preload("Media/", "deathSFX_error");
+		AudioPlayer.getInstance().preload("Media/", "deathSFX_fart");
+		AudioPlayer.getInstance().preload("Media/", "winSFX_quack");
+		AudioPlayer.getInstance().preload("Media/", "winSFX_yipeee");
+		AudioPlayer.getInstance().preload("Media/", "clickSFX_scifi");
+
 		//TheDefaultPane
 		
 		SaveData.load(LevelSelectPane.levels);
