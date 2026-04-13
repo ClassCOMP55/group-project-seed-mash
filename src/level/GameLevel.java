@@ -111,6 +111,20 @@ public class GameLevel {
             "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     };
 
+    public  static final String[] FINAL_DESTI = {
+            "                                                                                                ",
+            "                                                                                                ",
+            "                                                                                                ",
+            "                                                                                                ",
+            "                                                                                                ",
+            "                                                       B                                        ",
+            "                                                  BBBBB                                         ",
+            "                                                                                                ",
+            "                                                                                                ",
+            "            ^                                                                                   ",
+            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+    };
+    
     public static final GameLevel TEST_LEVEL = new GameLevel(
             "Test Level 1",
             "Pursuing_My_True_Self",
@@ -138,6 +152,21 @@ public class GameLevel {
             3,
             1
     );
+    
+    public static final GameLevel FINAL_DESTINATION = new GameLevel(
+    		"Final Destination",
+    		"final_destination",
+    		 new LevelStitcher.ColorScheme(
+                     new Color(255, 100, 10),
+                     Color.WHITE,
+                     new Color(50, 0, 0)
+             ),
+             60,
+             geomFromString(FINAL_DESTI),
+             3,
+             1
+    		
+    		);
 
     public int getDifficulty() {
         return difficulty;
