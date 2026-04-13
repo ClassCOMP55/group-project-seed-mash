@@ -192,4 +192,30 @@ public class GameLevel {
             1,
             0
     );
+    
+    public static final String[] TUMBLING_DICE_GEOM = {
+            "                                                                                                                                                                                 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
+            "                                                                                                                                                                                 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
+            "                                                                                                                                                                                 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
+            "                                                                  BB                            B ^^^                    ^                                                       BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
+            "                                                                  vv                            v BBB                    -                                                       BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
+            "                  ^                         ^                                              ^                       ^^                     ^                      ^               BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
+            "                  v                         v                                          B-------B            B-----------B               ---                      v               BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
+            "              ^              ^          ^             ^                 ^              B       B        ^B--B           B       ^                         ----           B----B  BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
+            "              B          ^   v    B-------B     ^     B--B  ^           v   ^     B--B B       B  ----  BB  B           B  B----B     ^                B        --   ^   B    B  BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
+            "          B---B^        ^B      ^^B       B     B-----B  B  B     ^^BB      B-----B  B B       B        BB  B           B  B    B   ---              ^^B          ----   B    B  B                                            ",
+            "BBBBBBBBBBB   BBBBBBBBBBBBBBBBBBBBB       BBBBBBB     B  B  BBBBBBBBBBBBBBBBB     B  BBB       B        BB  B           BBBB    B              BBBBBBBBB                 B    B  BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
+    };
+    public static final GameLevel TUMBLING_DICE = new GameLevel(
+            "Tumbling Dice",
+            "Tumbling_Dice",
+            new LevelStitcher.ColorScheme(
+                    new Color(255,26, 26),
+                    Color.WHITE,
+                    new Color(0, 0, 0)),
+            80,
+            geomFromString(TUMBLING_DICE_GEOM),
+            3,
+            0
+    );
 }
