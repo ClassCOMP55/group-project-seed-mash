@@ -173,11 +173,11 @@ public class GameLevel {
             "                                                                                                ",
             "                                                                                                ",
             "                                                                                                ",
-            "                                                       B                                        ",
-            "                                                  BBBBB                                         ",
             "                                                                                                ",
-            "                                                                                                ",
-            "            ^                                                                                   ",
+            "                                ^BBBBBB                                                         ",
+            "                           ^BBBBBB    B  -                                                      ",
+            "                       ^BBBBBB        B     -                                                   ",
+            "              ^BBBBBBBBBBBBB          B        -                                                ",
             "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     };
     public static final GameLevel RED_SUN = new GameLevel(
