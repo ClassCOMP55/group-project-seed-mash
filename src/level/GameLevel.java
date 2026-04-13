@@ -203,7 +203,7 @@ public class GameLevel {
             "                  v                         v                                          B-------B            B-----------B               ---                      v               BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
             "              ^              ^          ^             ^                 ^              B       B        ^B--B           B       ^                         ----           B----B  BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
             "              B          ^   v    B-------B     ^     B--B  ^           v   ^     B--B B       B  ----  BB  B           B  B----B     ^                B        --   ^   B    B  BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
-            "          B---B^        ^B      ^^B       B     B-----B  B  B     ^^BB      B-----B  B B       B        BB  B           B  B    B   ---              ^^B          ----   B    B                                               ",
+            "          B---B^        ^B      ^^B       B     B-----B  B  B     ^^BB      B-----B  B B       B        BB  B           B  B    B   ---              ^^B          ----   B    B  B                                            ",
             "BBBBBBBBBBB   BBBBBBBBBBBBBBBBBBBBB       BBBBBBB     B  B  BBBBBBBBBBBBBBBBB     B  BBB       B        BB  B           BBBB    B              BBBBBBBBB                 B    B  BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
     };
     public static final GameLevel TUMBLING_DICE = new GameLevel(
