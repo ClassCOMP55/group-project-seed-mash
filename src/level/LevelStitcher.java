@@ -72,6 +72,24 @@ public class LevelStitcher {
         }
     }
 
+    private static final int SEG_WIDTH = 1920;
+    public void createLevelImageSegments() {
+        try {
+            BufferedImage levelImg = ImageIO.read(new File("./Media/export/" + level.getLevelName() + "/level.png"));
+            int numSegments = (int) Math.ceil((double) levelImg.getWidth() / SEG_WIDTH);
+            File output = new File("./Media/export/" + level.getLevelName() + "/segment");
+            if (!output.exists()) output.mkdirs();
+            for (int i = 0; i < numSegments; i++) {
+                int width = (i*SEG_WIDTH + SEG_WIDTH > levelImg.getWidth() ? Math.floorMod(levelImg.getWidth(), SEG_WIDTH) : SEG_WIDTH);
+                BufferedImage subImage = levelImg.getSubimage(i * SEG_WIDTH, 0, width, 1080);
+                if (ImageIO.write(subImage, "png", new File("./Media/export/" + level.getLevelName() + "/segment/" + i + ".png"))) {
+                    System.out.println("level " + level.getLevelName() + " segment " + i + " successfully exported");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void createBackgroundImage() {
         try {
             BufferedImage buf = ImageIO.read(new File("Media/background.png"));
@@ -92,6 +110,7 @@ public class LevelStitcher {
             stitch.setLevel(level);
             stitch.createObstacles();
             stitch.createLevelImage();
+            stitch.createLevelImageSegments();
             stitch.createBackgroundImage();
         }
     }
