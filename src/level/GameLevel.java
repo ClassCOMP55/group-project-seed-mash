@@ -252,17 +252,17 @@ public class GameLevel {
     		);
     
     public static final String[] GREAT_FAIRY_FOUNTAIN_GEOM = {
-    	    "                                                                                                                         ",
-    	    "                                                                                                                         ",
-    	    "                                                                                                                         ",
-    	    "                                                                                                                         ",
-    	    "                                                                                                                         ",
-    	    "                         B             B        B                   B              B                                     ",
-    	    "                         B        B    B   B    B             B     B        B     B                                     ",
-    	    "                    B    B        B    B   B    B       B     B     B   B    B     B                                     ",
-    	    "                    B ^  B   -    B ^  B ^ B ^  B ^ ^   B ^   B ^   B   B ^  B ^   B                                     ",
-    	    "               B    B    B        B        B            B         B        B                                             ",
-    	    "BBBBBBBBBBBBBBBBBBBBBBBBBB   B    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+    	    "                                                                                                                          ",
+    	    "                                                                                                                          ",
+    	    "                                                                                                                          ",
+    	    "                                                                                                                          ",
+    	    "                                                                                                                          ",
+    	    "                         B             B        B                    B              B                                     ",
+    	    "                         B        B    B   B    B              B     B        B     B                                     ",
+    	    "                    B    B        B    B   B    B        B     B     B   B    B     B                                     ",
+    	    "                    B    B   -    B ^  B ^ B ^  B ^ ^    B     B ^   B   B ^  B ^   B                                     ",
+    	    "               B    B^^^^B        B        B               ^^^       B        B                                           ",
+    	    "BBBBBBBBBBBBBBBBBBBBBBBBBB   B    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     	};
     
     public static final GameLevel GREAT_FAIRY_FOUNTAIN = new GameLevel(
