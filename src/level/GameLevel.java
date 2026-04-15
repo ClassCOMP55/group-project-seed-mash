@@ -223,17 +223,17 @@ public class GameLevel {
     );
     
     public  static final String[] FINAL_DESTI = {
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                       B                                        ",
-            "                                                  BBBBB                                         ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "            ^                                                                                   ",
-            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+            "                                                                                                	   ",
+            "                                                                                                	   ",
+            "                                                                                                	   ",
+            "                                                                                                	   ",
+            "                                                                                                	   ",
+            "                                                                                               	   ",
+            "                                                                                           		   ",
+            "                                                                                                	   ",
+            "                     B                                                                           	   ",
+            "                  B  B       B                                                                   	   ",
+            "BBBBBBBBBBBBBBBBBBBBBB       BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     };
     
     public static final GameLevel FINAL_DESTINATION = new GameLevel(
