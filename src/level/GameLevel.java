@@ -176,11 +176,11 @@ public class GameLevel {
             "                                                                                                ",
             "                                                                                                ",
             "                                                                                                ",
-            "                                                       B                                        ",
-            "                                                  BBBBB                                         ",
             "                                                                                                ",
-            "                                                                                                ",
-            "            ^                                                                                   ",
+            "                                ^BBBBBB                                                         ",
+            "                           ^BBBBBB    B  -                                                      ",
+            "                       ^BBBBBB        B     -                                                   ",
+            "              ^BBBBBBBBBBBBB          B        -                                                ",
             "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     };
     public static final GameLevel RED_SUN = new GameLevel(
@@ -197,17 +197,17 @@ public class GameLevel {
     );
     
     public static final String[] TUMBLING_DICE_GEOM = {
-            "                                                                                                                                                                                 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
-            "                                                                                                                                                                                 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
-            "                                                                                                                                                                                 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
-            "                                                                  BB                            B ^^^                    ^                                                       BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
-            "                                                                  vv                            v BBB                    -                                                       BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
-            "                  ^                         ^                                              ^                       ^^                     ^                      ^               BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
-            "                  v                         v                                          B-------B            B-----------B               ---                      v               BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
-            "              ^              ^          ^             ^                 ^              B       B        ^B--B           B       ^                         ----           B----B  BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
-            "              B          ^   v    B-------B     ^     B--B  ^           v   ^     B--B B       B  ----  BB  B           B  B----B     ^                B        --   ^   B    B  BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
-            "          B---B^        ^B      ^^B       B     B-----B  B  B     ^^BB      B-----B  B B       B        BB  B           B  B    B   ---              ^^B          ----   B    B  B                                            ",
-            "BBBBBBBBBBB   BBBBBBBBBBBBBBBBBBBBB       BBBBBBB     B  B  BBBBBBBBBBBBBBBBB     B  BBB       B        BB  B           BBBB    B              BBBBBBBBB                 B    B  BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB    ",
+    		"                                                                                                                                                                    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                         B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B                                                                             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                                                                                            ",
+            "                                                                                                                                                                    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                         B B B B B B B B B   B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B       B     B B B B B B B B B B B B B B B B B B B B B B B B B B B B B                                                                             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                                                                                            ",
+            "                                                                                                                                                                    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                         B B B B B B B       B B B B B B   B B B B B B B B B B B B B B B B B B B B B B B B B B B B B               B B B B B B B B B B   B B B B B B B B B B B B B B B B B                                                                             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB       BBBBBBBBBBBBBBBB                                                                                            ",
+            "                                                                  BB                            ^                        ^                                          BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                         B B B B B B           B             B B B B B B B B B     B B     B     B B B B B                           B B B   B B B B       B B           B B B B B B B B B                                                                             BBBBBBBBBBBBBB       BBBBBBBBBBBBBB       BBBBBBBBBBBBBBBB                                                                                            ",
+            "                                                                  vv                            v                        -                                          BBBBBBBBBBBBBBB       BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                             B B B                               B B B             B               B                           B     B B       B B         B B             B B B     B                                                               ^                 BBBBBBBBBBBBBB       BBBBBBBBBBBBBB       BBBBBBBBBBBBBBBB                                      BB                                                    ",
+            "                  ^                         ^                                              ^                       ^^                     ^                      ^  BBBBBBBBBBBBBBB       BBBBBBBBBBBBBBBBBB       BBBBBB          BB                 B B           B                       B                                                     B     B-B                           B               B B                                                                 ^   -                    BBBBBBBBBBB       BBBBBBBBBBBBBB                 BBBBBB                                      BB-BB            BB                                  ^",
+            "                  v                         v                                          B-------B            B-----------B               ---                      v  BBBBBBBBBBBBBBB       BBBBBBBBBBBBBBBBBB       BBBBBB          vv             B                 B             B                                     B                     B-B B B-B B B-B       B                           B                                                                 B-------B                         BBBBBBBBBB                          BBBBBBBBB     BBBB                       BB         BB  BB BB    BB      BB BB                        BB------",
+            "              ^              ^          ^             ^                 ^              B       B        ^B--B           B       ^                          ---      BBBBBBBBBBBBBBB                                           ^^        ^^        B             B-B B B           B                     B B       B     B               B     B B B B B B B B B     B             B       B     B-B                              ^                   ^            B       B                                        BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                  BBB         BB BB      BB  BB BB ^^ BB B-B  BB BB B-B ^^         BB      BB      ",
+            "              B          ^   v    B-------B     ^     B--B  ^           v   ^     B--B B       B  ----  BB  B           B  B----B     ^               B-B       --                     BBBBBBBBBBBBBBBBBB        BBBBBBBB-----------------------B B-B     B     B B B B-B-B B B-B B B-B             B-B B B-B-B   B-B-B B B     B B-B B B B-B B B B B B B B B B B-B B-B     B-B   B-B     B-B-B B B-B             B       B------B      ^^       B-B B        B---B       B       ^             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB           vvv     BB  BB BB B-B  BB  BB BB BB BB B B  BB BB B B BB BB      BB B-B  BB      ",
+            "          B---B^        ^B      ^^B       B     B-----B  B  B     ^^BB      B-----B  B B       B        BB  B           B  B    B   ---              ^B B         --BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB     BBBBBBBB                       B B B     B-B   B B B B B B B B B B B B B       B-B B B B B B B B B B B B B B-B B B B B B B B B B B B B B B B B B B B B B-B B B B B B B-B B B B B B B B       B-B B      ^B      B  B------B     B B B^^      B   B       B       B    ^^      ^BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB      ^^         ^^BB  BB BB B B  BB  BB BB BB BB B B  BB BB B B BB BB B-B  BB B B  BB      ",
+            "BBBBBBBBBBB   BBBBBBBBBBBBBBBBBBBBB       BBBBBBB     B  B  BBBBBBBBBBBBBBBBB     B  BBB       B        BB  B           BBBB    B              BBBBBBBB B           BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                       B B B B-B B B-B B B B B B B B B B B B B B B-B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B-B B B B BBBBBBBBB      BBBB      BBBBBBB BBBBBBBBBBBB   B       BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB  BB BB B B  BB  BB BB BB BB B B  BB BB B B BB BB B B  BB B B  BB      ",
     };
     public static final GameLevel TUMBLING_DICE = new GameLevel(
             "Tumbling Dice",
@@ -250,5 +250,32 @@ public class GameLevel {
              1
     		
     		);
-
+    
+    public static final String[] GREAT_FAIRY_FOUNTAIN_GEOM = {
+    	    "                                                                                                                          ",
+    	    "                                                                                                                          ",
+    	    "                                                                                                                          ",
+    	    "                                                                                                                          ",
+    	    "                                                                                                                          ",
+    	    "                         B             B        B                    B              B                                     ",
+    	    "                         B        B    B   B    B              B     B        B     B                                     ",
+    	    "                    B    B        B    B   B    B        B     B     B   B    B     B                                     ",
+    	    "                    B    B   -    B ^  B ^ B ^  B ^ ^    B     B ^   B   B ^  B ^   B                                     ",
+    	    "               B    B^^^^B        B        B               ^^^       B        B                                           ",
+    	    "BBBBBBBBBBBBBBBBBBBBBBBBBB   B    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+    	};
+    
+    public static final GameLevel GREAT_FAIRY_FOUNTAIN = new GameLevel(
+    	    "Great Fairy Fountain",
+    	    "Great_Fairy_Fountain",
+    	    new LevelStitcher.ColorScheme(
+	    		new Color(30, 30, 60),   // deep dark navy — primary
+	    	    new Color(60, 50, 80),   // dark muted purple — secondary
+	    	    new Color(80, 70, 50) 
+    	    ),
+    	    180,
+    	    geomFromString(GREAT_FAIRY_FOUNTAIN_GEOM),
+    	    2,
+    	    3
+    	);
 }

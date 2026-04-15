@@ -22,6 +22,7 @@ public class LevelGameplayPane extends GraphicsPane {
     private boolean paused = false;
     private long pauseTimestamp;
     private GImage levelImage;
+    private GImage levelImage2;
     private GImage backgroundImage;
     private GImage backgroundImage2; // for scrolling background
 
@@ -97,7 +98,8 @@ public class LevelGameplayPane extends GraphicsPane {
         this.currentLevel = currentLevel;
         showingDeathScreen = false;
 
-        levelImage = new GImage("export/" + currentLevel.getLevelName() + "/level.png");
+        levelImage = new GImage("export/" + currentLevel.getLevelName() + "/segment/0.png");
+        levelImage2 = new GImage("export/" + currentLevel.getLevelName() + "/segment/1.png");
         backgroundImage = new GImage("export/" + currentLevel.getLevelName() + "/background.png");
         backgroundImage2 = new GImage("export/" + currentLevel.getLevelName() + "/background.png");
         stitcher.setLevel(currentLevel);
@@ -119,6 +121,8 @@ public class LevelGameplayPane extends GraphicsPane {
         // Add level
         contents.add(levelImage);
         mainScreen.add(levelImage);
+        contents.add(levelImage2);
+        mainScreen.add(levelImage2);
 
         // Add character sprite
         contents.add(sprite);
@@ -134,20 +138,28 @@ public class LevelGameplayPane extends GraphicsPane {
     }
 
     private void renderLevel(long delta) {
-        if (paused) return;
-        if (currentLevel == null) return;
+        if (paused || currentLevel == null) return;
 
         // Scroll the level based on the character's X position
         double characterPixelX = player.getXPos() * ELEMENT_SCALING;
-        double levelOffsetX = -characterPixelX + 200; // keep character 200px from left edge
-
-        levelImage.setLocation(levelOffsetX, -250);
-
+        double levelOffsetX = -characterPixelX + 240; // keep character 200px from left edge
+        levelImage.setLocation(levelOffsetX % levelImage.getWidth(), -250);
+        levelImage2.setLocation(levelImage.getX() + levelImage.getWidth(), -250);
+        if (Math.floor(player.getXPos()-3) % 24 == 0d) {
+//            System.out.println("changing images");
+            int i = (int) (Math.round(player.getXPos() - 3) / 24);
+            int maxSegments = (int) Math.ceil(currentLevel.getGeometry()[0].length / 24f);
+            levelImage.setImage("export/" + currentLevel.getLevelName() + "/segment/" + i + ".png");
+            if (i + 1 > maxSegments - 1) {
+                levelImage2.setVisible(false);
+            } else {
+                levelImage2.setImage("export/" + currentLevel.getLevelName() + "/segment/" + (i + 1) + ".png");
+            }
+        }
         // Parallax background scrolling (moves at half speed)
         double bgOffset = levelOffsetX / 2.0;
         backgroundImage.setLocation(bgOffset % backgroundImage.getWidth(), 0);
         backgroundImage2.setLocation(backgroundImage.getX() + backgroundImage.getWidth(), 0);
-
         // Update character sprite position on screen
         player.updateSpritePosition(levelOffsetX);
 
