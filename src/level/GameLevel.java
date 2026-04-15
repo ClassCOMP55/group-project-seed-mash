@@ -250,5 +250,32 @@ public class GameLevel {
              1
     		
     		);
-
+    
+    public static final String[] GREAT_FAIRY_FOUNTAIN_GEOM = {
+    	    "                                                                                                                         ",
+    	    "                                                                                                                         ",
+    	    "                                                                                                                         ",
+    	    "                                                                                                                         ",
+    	    "                                                                                                                         ",
+    	    "                         B             B        B                   B              B                                     ",
+    	    "                         B        B    B   B    B             B     B        B     B                                     ",
+    	    "                    B    B   B    B    B   B    B       B     B     B   B    B     B                                     ",
+    	    "                    B ^  B   B ^  B ^  B ^ B ^  B ^ ^   B ^   B ^   B   B ^  B ^   B                                     ",
+    	    "               B    B    B        B        B            B         B        B                                             ",
+    	    "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+    	};
+    
+    public static final GameLevel GREAT_FAIRY_FOUNTAIN = new GameLevel(
+    	    "Great Fairy Fountain",
+    	    "Great_Fairy_Fountain",
+    	    new LevelStitcher.ColorScheme(
+	    		new Color(30, 30, 60),   // deep dark navy — primary
+	    	    new Color(60, 50, 80),   // dark muted purple — secondary
+	    	    new Color(80, 70, 50) 
+    	    ),
+    	    180,
+    	    geomFromString(GREAT_FAIRY_FOUNTAIN_GEOM),
+    	    2,
+    	    3
+    	);
 }
