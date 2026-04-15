@@ -259,10 +259,10 @@ public class GameLevel {
     	    "                                                                                                                         ",
     	    "                         B             B        B                   B              B                                     ",
     	    "                         B        B    B   B    B             B     B        B     B                                     ",
-    	    "                    B    B   B    B    B   B    B       B     B     B   B    B     B                                     ",
-    	    "                    B ^  B   B ^  B ^  B ^ B ^  B ^ ^   B ^   B ^   B   B ^  B ^   B                                     ",
+    	    "                    B    B        B    B   B    B       B     B     B   B    B     B                                     ",
+    	    "                    B ^  B   -    B ^  B ^ B ^  B ^ ^   B ^   B ^   B   B ^  B ^   B                                     ",
     	    "               B    B    B        B        B            B         B        B                                             ",
-    	    "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+    	    "BBBBBBBBBBBBBBBBBBBBBBBBBB   B    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     	};
     
     public static final GameLevel GREAT_FAIRY_FOUNTAIN = new GameLevel(
