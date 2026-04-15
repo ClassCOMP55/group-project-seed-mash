@@ -227,34 +227,33 @@ public class GameLevel {
             0
     );
     
-    public  static final String[] FINAL_DESTI = {
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                       B                                        ",
-            "                                                  BBBBB                                         ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "            ^                                                                                   ",
-            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+    public static final String[] FINAL_DESTI = {
+            "                                                                                                                                                                                    ",
+            "                                                                                                                                                                                    ",
+            "                                                                                                                                                                                    ",
+            "                                                             V   V            V V        V      V V                    V       V                                                    ",
+            "                                                                                                                                                                                    ",
+            "                                                                                                                                                                                    ",
+            "                                      BBBBBBBBBBBBB   BBBBBBBBB^BBBBBBB    BBBBBBBBB   BBBBB^^BBBBBBB    BBBBBBBBB   BBBBB^BBBBBBBBB    BBBBBBBBBB                                  ",
+            "                               BBBBB                                                                                                              BBBBB                             ",
+            "                        BBBBB                                                                                                                          BBBBB                        ",
+            "                 BBBBB                                                                                                                                      BBBBB                   ",
+            "BBBBBBBBBBBBBBB                                                                                                                                                  BBBBBBBBBBBBBBBBBBB",
     };
-    
+
     public static final GameLevel FINAL_DESTINATION = new GameLevel(
-    		"Final Destination",
-    		"final_destination",
-    		 new LevelStitcher.ColorScheme(
-                     new Color(255, 100, 10),
-                     Color.WHITE,
-                     new Color(50, 0, 0)
-             ),
-             60,
-             geomFromString(FINAL_DESTI),
-             3,
-             1
-    		
-    		);
+            "Final Destination",
+            "final_destination",
+            new LevelStitcher.ColorScheme(
+                    new Color(30, 15, 80),
+                    new Color(90, 70, 200),
+                    new Color(8, 4, 25)
+            ),
+            60,
+            geomFromString(FINAL_DESTI),
+            3,
+            1
+    );
     
     public static final String[] GREAT_FAIRY_FOUNTAIN_GEOM = {
     	    "                                                                                                                          ",
