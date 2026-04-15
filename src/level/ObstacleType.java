@@ -48,7 +48,7 @@ public enum ObstacleType {
             case '^' -> UP_SPIKE;
             case 'v' -> DOWN_SPIKE;
             case '-' -> PLATFORM;
-            case ' ' -> null; //Empty, occupied by "air"
+            case ' ', '\t'-> null; //Empty, occupied by "air"
             case 'G' -> CHARACTER;
             default -> {
                 System.out.println("Warning: attempted to get obstacle with invalid character '" + c + "', returning null.");
