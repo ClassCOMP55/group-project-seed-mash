@@ -151,11 +151,11 @@ public class LevelGameplayPane extends GraphicsPane {
             int maxSegments = (int) Math.ceil(currentLevel.getGeometry()[0].length / 24f);
             levelImage.setImage("export/" + currentLevel.getLevelName() + "/segment/" + i + ".png");
             if (i + 1 > maxSegments - 1) {
-                System.out.println("set invis");
+//                System.out.println("set invis");
                 levelImage2.setVisible(false);
             } else {
                 if (!levelImage2.isVisible()) {
-                    System.out.println("set vis");
+//                    System.out.println("set vis");
                     levelImage2.setVisible(true);
                 }
                 levelImage2.setImage("export/" + currentLevel.getLevelName() + "/segment/" + (i + 1) + ".png");

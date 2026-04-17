@@ -142,7 +142,7 @@ public class Character {
                     return;
                 } else if (obstacle == ObstacleType.BLOCK) {
                     // Hit a wall — die (Geometry Dash style)
-                    System.out.println("death via horizontal collision");
+//                    System.out.println("death via horizontal collision");
                     die();
                     return;
                 }
