@@ -153,6 +153,7 @@ public class LevelGameplayPane extends GraphicsPane {
             if (i + 1 > maxSegments - 1) {
                 levelImage2.setVisible(false);
             } else {
+                if (!levelImage2.isVisible()) levelImage2.setVisible(true);
                 levelImage2.setImage("export/" + currentLevel.getLevelName() + "/segment/" + (i + 1) + ".png");
             }
         }
