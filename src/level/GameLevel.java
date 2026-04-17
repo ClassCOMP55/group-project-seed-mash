@@ -176,17 +176,17 @@ public class GameLevel {
     }
 
     public static final String[] RED_SUN_GEOM = {
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                ^BBBBBB                                                         ",
-            "                           ^BBBBBB    B  -                                                      ",
-            "                       ^BBBBBB        B     -                                                   ",
-            "              ^BBBBBBBBBBBBB          B        -                                                ",
-            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+            "                                                                                                   ",
+            "                                                                                                   ",
+            "                                                                                                   ",
+            "                                                                                                   ",
+            "         ^                                                                                         ",
+            "       -BBB-                                                                                       ",
+            "        v v                     ^B----B                                                            ",
+            "                           ^B----B    B  -                                                         ",
+            "                      ^B----B    B    B     -          B     B                                     ",
+            "               ^B------B    B    B    B        -       B     B                                     ",
+            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB     BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     };
     public static final GameLevel RED_SUN = new GameLevel(
             "Red Sun In The Sky",
