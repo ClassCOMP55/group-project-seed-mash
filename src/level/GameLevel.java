@@ -261,22 +261,22 @@ public class GameLevel {
     	    "                                                                                                                          ",
     	    "                                                                                                                          ",
     	    "                                                                                                                          ",
-    	    "                         B             B        B                    B              B                                     ",
-    	    "                         B        B    B   B    B              B     B        B     B                                     ",
-    	    "                    B    B        B    B   B    B        B     B     B   B    B     B                                     ",
-    	    "                    B    B   -    B ^  B ^ B ^  B ^ ^    B     B ^   B   B ^  B ^   B                                     ",
-    	    "               B    B^^^^B        B        B               ^^^       B        B                                           ",
-    	    "BBBBBBBBBBBBBBBBBBBBBBBBBB   B    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+    	    "                        B             B        B                     B              B                                     ",
+    	    "                        B        B    B   B    B               B     B        B     B                                     ",
+    	    "                   B    B        B    B   B    B         B     B     B   B    B     B                                     ",
+    	    "                   B    B  --    B ^  B ^ B ^  B ^ ^     B     B ^   B   B ^  B ^   B                                     ",
+    	    "              B    B^^^^B        B        B                ^^^       B        B                                           ",
+    	    "BBBBBBBBBBBBBBBBBBBBBBBBB   B    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     	};
     
     public static final GameLevel GREAT_FAIRY_FOUNTAIN = new GameLevel(
     	    "Great Fairy Fountain",
     	    "Great_Fairy_Fountain",
     	    new LevelStitcher.ColorScheme(
-	    		new Color(30, 30, 60),   // deep dark navy — primary
-	    	    new Color(60, 50, 80),   // dark muted purple — secondary
-	    	    new Color(80, 70, 50) 
-    	    ),
+	    		new Color(64, 224, 208),
+                Color.WHITE,
+                Color.BLACK
+            ),
     	    180,
     	    geomFromString(GREAT_FAIRY_FOUNTAIN_GEOM),
     	    2,
