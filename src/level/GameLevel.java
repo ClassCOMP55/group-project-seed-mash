@@ -262,10 +262,10 @@ public class GameLevel {
 		    "   BBB                                                                                                                                                                                                                                                                                                                          ",
 		    "   B B                  B             B        B                          B              B         B                    B                   B              B         B                    B                   B                            ",
 		    "                        B        B    B   B    B                    B     B        B     B   B     B              B     B        B     B    B   B          B   B     B              B     B        B     B                                 ",
-		    "                   B    B        B    B   B    B                    B     B   B    B     B   B     B         B    B     B   B    B     B    B   B     B    B   B     B         B    B     B   B    B     B                                 ",
-		    "                   B    B  --    B    B   B    B ^ ^      ^    B ^  B ^   B   B ^  B ^   B ^ B ^   B ^ ^ ^   B ^  B ^   B   B ^  B ^   B ^  B ^ B ^   B ^  B ^ B ^   B ^ ^ ^   B ^  B ^   B   B ^  B ^   B                                 ",
-		    "              B    B^^^^B        B    B   B                    B          B        B          B               B         B        B          B         B         B               B         B        B                                       ",
-		    "BBBBBBBBBBBBBBBBBBBBBBBBB        B    B   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+		    "                   B    B        B    B   B    B                    B     B  ---   B     B   B     B         B    B     B   B    B     B    B   B     B    B   B     B         B    B     B   B    B     B                                 ",
+		    "                   B    B  --    B    B   B    B v v      v    B ^  B ^   B        B ^   B ^ B ^   B v v v   B ^  B v   B   B    B     B    B   B     B ^  B ^ B ^   B ^ ^ ^   B ^  B ^   B   B ^  B ^   B                                 ",
+		    "              B    B^^^^B        B    B   B                    B          B        B          B              B          B        B          B         B        B               B          B        B                                       ",
+		    "BBBBBBBBBBBBBBBBBBBBBBBBB        B    B   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB        BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
  	};
     
     public static final GameLevel GREAT_FAIRY_FOUNTAIN = new GameLevel(
