@@ -131,18 +131,19 @@ public class Character {
         double newY = yPos + yVel * deltaSeconds;
 
         // --- Horizontal collision ---
-        int cellX = (int) Math.floor(newX + 0.999); // leading edge (right side of character)
+        int cellX = (int) Math.floor(newX + 0.999999999f); // leading edge (right side of character)
         int cellYBottom = (int) Math.floor(yPos);
         // Check the cell the character's right edge is moving into at current height
         if (cellX >= 0 && cellX < geometry[0].length && cellYBottom >= 0 && cellYBottom < geometry.length) {
             ObstacleType obstacle = geometry[cellYBottom][cellX];
             if (obstacle != null) {
                 if (obstacle == ObstacleType.UP_SPIKE || obstacle == ObstacleType.DOWN_SPIKE) {
+                    System.out.println("death via horizontal collision (spike)");
                     die();
                     return;
                 } else if (obstacle == ObstacleType.BLOCK) {
                     // Hit a wall — die (Geometry Dash style)
-//                    System.out.println("death via horizontal collision");
+                    System.out.println("death via horizontal collision (block)");
                     die();
                     return;
                 }
@@ -180,6 +181,23 @@ public class Character {
             } else {
                 yPos = newY;
                 onGround = false;
+            }
+
+            if (charCol+1 >= 0 && charCol+1 < geometry[0].length && groundCheckY >= 0 && groundCheckY < geometry.length) {
+                ObstacleType belowRight = geometry[groundCheckY][charCol+1];
+                if (belowRight != null) {
+                    // Land on top of the block
+                    yPos = groundCheckY + 1;
+                    yVel = 0;
+                    onGround = true;
+                }
+//                else {
+//                    yPos = newY;
+//                    onGround = false;
+//                }
+//            } else {
+//                yPos = newY;
+//                onGround = false;
             }
         } else {
             // Moving upward — check above
