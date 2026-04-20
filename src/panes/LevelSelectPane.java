@@ -283,6 +283,8 @@ public class LevelSelectPane extends GraphicsPane {
         timeValue.setColor(TEXT_WHITE);
         timeValue.setLocation(timeX + (colWidth - timeValue.getWidth()) / 2, infoY + 30);
         addLevelInfoElement(timeValue);
+        
+        
 
         /* ---------- progress bar ---------- */
         double barMargin = 50;
@@ -343,6 +345,12 @@ public class LevelSelectPane extends GraphicsPane {
             addLevelInfoElement(doneLabel);
         }
 
+     // Name Credit
+        GLabel nameCredit = new GLabel(level.getCredit());
+        nameCredit.setFont(new Font("Courier New", Font.BOLD, 28));
+        nameCredit.setColor(TEXT_WHITE);
+        nameCredit.setLocation(barTrack.getX(), barTrack.getY() + barTrack.getHeight()*2);
+        addLevelInfoElement(nameCredit);
     }
 
     /* ------------------------------------------------------------------ */

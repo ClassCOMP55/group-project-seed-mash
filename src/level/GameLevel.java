@@ -17,6 +17,7 @@ public class GameLevel {
     private final int runtime;
     private final int difficulty;
     private final int stars;
+    private final String credit;
     private boolean completed = false;
 
     /**
@@ -29,7 +30,7 @@ public class GameLevel {
      * @param difficulty    Difficulty of the level
      * @param stars         Number of stars for the level
      */
-    public GameLevel(String levelName, String soundtrackURL, LevelStitcher.ColorScheme color, int runtime, ObstacleType[][] geom, int difficulty, int stars) {
+    public GameLevel(String levelName, String soundtrackURL, LevelStitcher.ColorScheme color, int runtime, ObstacleType[][] geom, int difficulty, int stars, String credit) {
         this.levelName = levelName;
         this.soundtrackURL = soundtrackURL;
         this.colorScheme = color;
@@ -37,6 +38,7 @@ public class GameLevel {
         this.geometry = geom;
         this.difficulty = difficulty;
         this.stars = stars;
+        this.credit = credit;
     }
 
     public String getLevelName() {
@@ -65,6 +67,10 @@ public class GameLevel {
 
     public int getRuntime() {
         return runtime;
+    }
+    
+    public String getCredit() {
+        return credit;
     }
 
     /**
@@ -129,7 +135,8 @@ public class GameLevel {
             60,
             geomFromString(TEST_GEOM),
             1,
-            5
+            5,
+            "Samuel"
     );
 
     public static final GameLevel TEST_LEVEL_2 = new GameLevel(
@@ -143,7 +150,8 @@ public class GameLevel {
             60,
             geomFromString(TEST_GEOM_2),
             3,
-            1
+            1,
+            "Smelvin"
     );
 
 
@@ -197,7 +205,8 @@ public class GameLevel {
             112,
             geomFromString(RED_SUN_GEOM),
             1,
-            0
+            0,
+            "Sean Yap"
     );
     
     public static final String[] TUMBLING_DICE_GEOM = {
@@ -223,7 +232,8 @@ public class GameLevel {
             80,
             geomFromString(TUMBLING_DICE_GEOM),
             3,
-            0
+            0,
+            "Maxwell Palacios"
     );
     
     public static final String[] FINAL_DESTI = {
@@ -251,7 +261,8 @@ public class GameLevel {
             60,
             geomFromString(FINAL_DESTI),
             2,
-            1
+            1,
+            "Anh Pham"
     );
     
     public static final String[] GREAT_FAIRY_FOUNTAIN_GEOM = {
@@ -279,6 +290,7 @@ public class GameLevel {
     	    69,
     	    geomFromString(GREAT_FAIRY_FOUNTAIN_GEOM),
     	    4,
-    	    0
+    	    0,
+    	    "Hayden Khant"
     	);
 }
