@@ -17,6 +17,7 @@ public class GameLevel {
     private final int runtime;
     private final int difficulty;
     private final int stars;
+    private final String credit;
     private boolean completed = false;
 
     /**
@@ -29,7 +30,7 @@ public class GameLevel {
      * @param difficulty    Difficulty of the level
      * @param stars         Number of stars for the level
      */
-    public GameLevel(String levelName, String soundtrackURL, LevelStitcher.ColorScheme color, int runtime, ObstacleType[][] geom, int difficulty, int stars) {
+    public GameLevel(String levelName, String soundtrackURL, LevelStitcher.ColorScheme color, int runtime, ObstacleType[][] geom, int difficulty, int stars, String credit) {
         this.levelName = levelName;
         this.soundtrackURL = soundtrackURL;
         this.colorScheme = color;
@@ -37,6 +38,7 @@ public class GameLevel {
         this.geometry = geom;
         this.difficulty = difficulty;
         this.stars = stars;
+        this.credit = credit;
     }
 
     public String getLevelName() {
@@ -65,6 +67,10 @@ public class GameLevel {
 
     public int getRuntime() {
         return runtime;
+    }
+    
+    public String getCredit() {
+        return credit;
     }
 
     /**
@@ -129,7 +135,8 @@ public class GameLevel {
             60,
             geomFromString(TEST_GEOM),
             1,
-            5
+            5,
+            "Samuel"
     );
 
     public static final GameLevel TEST_LEVEL_2 = new GameLevel(
@@ -143,7 +150,8 @@ public class GameLevel {
             60,
             geomFromString(TEST_GEOM_2),
             3,
-            1
+            1,
+            "Smelvin"
     );
 
 
@@ -182,7 +190,7 @@ public class GameLevel {
             "       -BBB-                                                              B                                                                   ",
             "        v v                                                               v                                                                   ",
             "                                ^B----B                                                                                                       ",
-            "                           ^B----B    B  -    `                                                                                               ",
+            "                           ^B----B    B  -                                                                                                    ",
             "                      ^B----B    B    B     -         -B     B-           ^            ^                                                      ",
             "               ^B------B    B    B    B        -       B     B            BBBBBBBBBBBBBBBBBBBBBBBBB-     -B-     -B-     -B-     -BBBBBBBBBBBB",
             "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB     BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB       B       B       B       BBBBBBBBBBBB",
@@ -196,20 +204,21 @@ public class GameLevel {
                     new Color(238/3, 28/3, 37/3)),
             112,
             geomFromString(RED_SUN_GEOM),
-            1,
-            0
+            2,
+            0,
+            "Sean Yap"
     );
     
     public static final String[] TUMBLING_DICE_GEOM = {
     		"                                                                                                                                                                    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                         B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B                                                                             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                                                                                            ",
-            "                                                                                                                                                                    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                         B B B B B B B B B   B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B       B     B B B B B B B B B B B B B B B B B B B B B B B B B B B B B                                                                             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                                                                                            ",
+            "                                                                                                                                                                    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                         B B B B B B B B B   B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B       B     B B B B B B B B B B B B B B B B B B B B B B B B B B B B B                                                                             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                                                                                            ",
             "                                                                                                                                                                    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                         B B B B B B B       B B B B B B   B B B B B B B B B B B B B B B B B B B B B B B B B B B B B               B B B B B B B B B B   B B B B B B B B B B B B B B B B B                                                                             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB       BBBBBBBBBBBBBBBB                                                                                            ",
             "                                                                  BB                            ^                        ^                                          BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                         B B B B B B           B             B B B B B B B B B     B B     B     B B B B B                           B B B   B B B B       B B           B B B B B B B B B                                                                             BBBBBBBBBBBBBB       BBBBBBBBBBBBBB       BBBBBBBBBBBBBBBB                                                                                            ",
-            "                                                                  VV                            V                        -                                          BBBBBBBBBBBBBBB       BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                             B B B                               B B B             B               B                           B     B B       B B         B B             B B B     B                                                               ^                 BBBBBBBBBBBBBB       BBBBBBBBBBBBBB       BBBBBBBBBBBBBBBB                                      BB                                                    ",
+            "                                                                  vv                            v                        -                                          BBBBBBBBBBBBBBB       BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                             B B B                               B B B             B               B                           B     B B       B B         B B             B B B     B                                                               ^                 BBBBBBBBBBBBBB       BBBBBBBBBBBBBB       BBBBBBBBBBBBBBBB                                      BB                                                    ",
             "                  ^                         ^                                              ^                       ^^                     ^                      ^  BBBBBBBBBBBBBBB       BBBBBBBBBBBBBBBBBB       BBBBBB          BB                 B B           B                       B                                                     B     B-B                           B               B B                                                                 ^   -                    BBBBBBBBBBB       BBBBBBBBBBBBBB                 BBBBBB                                      BB-BB            BB                                  ^",
-            "                  V                         V                                          B-------B            B-----------B               ---                      V  BBBBBBBBBBBBBBB       BBBBBBBBBBBBBBBBBB       BBBBBB          VV             B                 B             B                                     B                     B-B B B-B B B-B       B                           B                                                                 B-------B                         BBBBBBBBBB                          BBBBBBBBB     BBBB                       BB         BB  BB BB    BB      BB BB                        BB------",
+            "                  v                         v                                          B-------B            B-----------B               ---                      v  BBBBBBBBBBBBBBB       BBBBBBBBBBBBBBBBBB       BBBBBB          vv             B                 B             B                                     B                     B-B B B-B B B-B       B                           B                                                                 B-------B                         BBBBBBBBBB                          BBBBBBBBB     BBBB                       BB         BB  BB BB    BB      BB BB                        BB------",
             "              ^              ^          ^             ^                 ^              B       B        ^B--B           B       ^                          ---      BBBBBBBBBBBBBBB                                           ^^        ^^        B             B-B B B           B                     B B       B     B               B     B B B B B B B B B     B             B       B     B-B                              ^                   ^            B       B                                        BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                  BBB         BB BB      BB  BB BB ^^ BB B-B  BB BB B-B ^^         BB      BB      ",
-            "              B          ^   V    B-------B     ^     B--B  ^           V   ^     B--B B       B  ----  BB  B           B  B----B     ^               B-B       --                     BBBBBBBBBBBBBBBBBB        BBBBBBBB-----------------------B B-B     B     B B B B-B-B B B-B B B-B             B-B B B-B-B   B-B-B B B     B B-B B B B-B B B B B B B B B B B-B B-B     B-B   B-B     B-B-B B B-B             B       B------B      ^^       B-B B        B---B       B       ^             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB           VVV     BB  BB BB B-B  BB  BB BB BB BB B B  BB BB B B BB BB      BB B-B  BB      ",
+            "              B          ^   v    B-------B     ^     B--B  ^           v   ^     B--B B       B  ----  BB  B           B  B----B     ^               B-B       --                     BBBBBBBBBBBBBBBBBB        BBBBBBBB-----------------------B B-B     B     B B B B-B-B B B-B B B-B             B-B B B-B-B   B-B-B B B     B B-B B B B-B B B B B B B B B B B-B B-B     B-B   B-B     B-B-B B B-B             B       B------B      ^^       B-B B        B---B       B       ^             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB           vvv     BB  BB BB B-B  BB  BB BB BB BB B B  BB BB B B BB BB      BB B-B  BB      ",
             "          B---B^        ^B      ^^B       B     B-----B  B  B     ^^BB      B-----B  B B       B        BB  B           B  B    B   ---              ^B B         --BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB     BBBBBBBB                       B B B     B-B   B B B B B B B B B B B B B       B-B B B B B B B B B B B B B B-B B B B B B B B B B B B B B B B B B B B B B-B B B B B B B-B B B B B B B B       B-B B      ^B      B  B------B     B B B^^      B   B       B       B    ^^      ^BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB      ^^         ^^BB  BB BB B B  BB  BB BB BB BB B B  BB BB B B BB BB B-B  BB B B  BB      ",
             "BBBBBBBBBBB   BBBBBBBBBBBBBBBBBBBBB       BBBBBBB     B  B  BBBBBBBBBBBBBBBBB     B  BBB       B        BB  B           BBBB    B              BBBBBBBB B           BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                       B B B B-B B B-B B B B B B B B B B B B B B B-B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B-B B B B BBBBBBBBB      BBBB      BBBBBBB BBBBBBBBBBBB   B       BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB  BB BB B B  BB  BB BB BB BB B B  BB BB B B BB BB B B  BB B B  BB      ",
     };
@@ -223,7 +232,8 @@ public class GameLevel {
             80,
             geomFromString(TUMBLING_DICE_GEOM),
             3,
-            0
+            0,
+            "Maxwell Palacios"
     );
     
     public static final String[] FINAL_DESTI = {
@@ -250,8 +260,9 @@ public class GameLevel {
             ),
             60,
             geomFromString(FINAL_DESTI),
-            3,
-            1
+            1,
+            1,
+            "Anh Pham"
     );
     
     public static final String[] GREAT_FAIRY_FOUNTAIN_GEOM = {
@@ -279,6 +290,7 @@ public class GameLevel {
     	    69,
     	    geomFromString(GREAT_FAIRY_FOUNTAIN_GEOM),
     	    4,
-    	    0
+    	    0,
+    	    "Hayden Khant"
     	);
 }
