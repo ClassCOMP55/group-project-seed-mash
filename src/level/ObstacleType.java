@@ -46,7 +46,7 @@ public enum ObstacleType {
         return switch (c) {
             case 'B' -> BLOCK;
             case '^' -> UP_SPIKE;
-            case 'v' -> DOWN_SPIKE;
+            case 'v', 'V' -> DOWN_SPIKE;
             case '-' -> PLATFORM;
             case ' ', '\t'-> null; //Empty, occupied by "air"
             case 'G' -> CHARACTER;
