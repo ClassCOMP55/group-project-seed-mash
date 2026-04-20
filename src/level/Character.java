@@ -131,7 +131,7 @@ public class Character {
         double newY = yPos + yVel * deltaSeconds;
 
         // --- Horizontal collision ---
-        int cellX = (int) Math.floor(newX + 0.9); // leading edge (right side of character)
+        int cellX = (int) Math.floor(newX + 0.999); // leading edge (right side of character)
         int cellYBottom = (int) Math.floor(yPos);
         // Check the cell the character's right edge is moving into at current height
         if (cellX >= 0 && cellX < geometry[0].length && cellYBottom >= 0 && cellYBottom < geometry.length) {
@@ -142,6 +142,7 @@ public class Character {
                     return;
                 } else if (obstacle == ObstacleType.BLOCK) {
                     // Hit a wall — die (Geometry Dash style)
+//                    System.out.println("death via horizontal collision");
                     die();
                     return;
                 }
@@ -198,7 +199,7 @@ public class Character {
             }
             onGround = false;
         }
-        
+
         // --- Rotation ---
         updateRotation(deltaSeconds);
 
