@@ -204,7 +204,7 @@ public class GameLevel {
                     new Color(238/3, 28/3, 37/3)),
             112,
             geomFromString(RED_SUN_GEOM),
-            1,
+            2,
             0,
             "Sean Yap"
     );
@@ -260,7 +260,7 @@ public class GameLevel {
             ),
             60,
             geomFromString(FINAL_DESTI),
-            2,
+            1,
             1,
             "Anh Pham"
     );
