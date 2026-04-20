@@ -137,11 +137,21 @@ public class Character {
         if (cellX >= 0 && cellX < geometry[0].length && cellYBottom >= 0 && cellYBottom < geometry.length) {
             ObstacleType obstacle = geometry[cellYBottom][cellX];
             if (obstacle != null) {
-                if (obstacle == ObstacleType.UP_SPIKE || obstacle == ObstacleType.DOWN_SPIKE) {
-                    System.out.println("death via horizontal collision (spike)");
+                if (obstacle == ObstacleType.UP_SPIKE) {
+                    double deltaX = xPos - cellX;
+                    double deltaY = yPos - cellYBottom;
+                    if (deltaY >= 0 && deltaX > (0.5*deltaY) - 1 && deltaX < (-0.5*deltaY) + 1) {
+                        System.out.println("death via horizontal collision (Uspike)");
+                        System.out.println("dx = " + deltaX + ", dy = " + deltaY);
+                        die();
+                        return;
+                    }
+                } else if (obstacle == ObstacleType.DOWN_SPIKE) {
+                    System.out.println("death via horizontal collision (Dspike)");
                     die();
                     return;
-                } else if (obstacle == ObstacleType.BLOCK) {
+                }
+                else if (obstacle == ObstacleType.BLOCK) {
                     // Hit a wall — die (Geometry Dash style)
                     System.out.println("death via horizontal collision (block)");
                     die();
@@ -159,6 +169,7 @@ public class Character {
 
             if (groundCheckY < 0) {
                 // Fell off the bottom of the level
+                System.out.println("death via fall off");
                 die();
                 return;
             }
@@ -167,6 +178,7 @@ public class Character {
                 ObstacleType below = geometry[groundCheckY][charCol];
                 if (below != null) {
                     if (below == ObstacleType.UP_SPIKE) {
+                        System.out.println("death via collision (Uspike)");
                         die();
                         return;
                     }
@@ -185,7 +197,7 @@ public class Character {
 
             if (charCol+1 >= 0 && charCol+1 < geometry[0].length && groundCheckY >= 0 && groundCheckY < geometry.length) {
                 ObstacleType belowRight = geometry[groundCheckY][charCol+1];
-                if (belowRight != null) {
+                if (belowRight != null && belowRight != ObstacleType.UP_SPIKE) {
                     // Land on top of the block
                     yPos = groundCheckY + 1;
                     yVel = 0;
@@ -207,6 +219,7 @@ public class Character {
             if (charCol >= 0 && charCol < geometry[0].length && headCheckY >= 0 && headCheckY < geometry.length) {
                 ObstacleType above = geometry[headCheckY][charCol];
                 if (above != null) {
+                    System.out.println("death via head collision");
                     die();
                     return;
                 } else {
