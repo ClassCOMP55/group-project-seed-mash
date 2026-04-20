@@ -108,11 +108,11 @@ public class GameLevel {
             "                                                                                                ",
             "                                                                                                ",
             "                                                                                                ",
-            "                                                       B                                        ",
-            "                                                  BBBBB                                         ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "            ^                                                                                   ",
+            "                    B                                  B                                        ",
+            "                    B                             BBBBB                                         ",
+            "                            B                                                                   ",
+            "                    B       B                                                                   ",
+            "            ^       B       B                                                                   ",
             "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     };
 
@@ -174,19 +174,18 @@ public class GameLevel {
 			System.out.println();
 		}
     }
-
     public static final String[] RED_SUN_GEOM = {
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                                                                                ",
-            "                                ^BBBBBB                                                         ",
-            "                           ^BBBBBB    B  -                                                      ",
-            "                       ^BBBBBB        B     -                                                   ",
-            "              ^BBBBBBBBBBBBB          B        -                                                ",
-            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+            "                                                                                                                                              ",
+            "                                                                                                                                              ",
+            "                                                                          BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+            "         ^                                                                BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+            "       -BBB-                                                              B                                                                   ",
+            "        v v                                                               v                                                                   ",
+            "                                ^B----B                                                                                                       ",
+            "                           ^B----B    B  -    `                                                                                               ",
+            "                      ^B----B    B    B     -         -B     B-           ^            ^                                                      ",
+            "               ^B------B    B    B    B        -       B     B            BBBBBBBBBBBBBBBBBBBBBBBBB-     -B-     -B-     -B-     -BBBBBBBBBBBB",
+            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB     BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB       B       B       B       BBBBBBBBBBBB",
     };
     public static final GameLevel RED_SUN = new GameLevel(
             "Red Sun In The Sky",
@@ -256,17 +255,17 @@ public class GameLevel {
     );
     
     public static final String[] GREAT_FAIRY_FOUNTAIN_GEOM = {
-    	    "                                                                                                                          ",
-    	    "                                                                                                                          ",
-    	    "                                                                                                                          ",
-    	    "                                                                                                                          ",
-    	    "                                                                                                                          ",
-    	    "                        B             B        B                     B              B                                     ",
-    	    "                        B        B    B   B    B               B     B        B     B                                     ",
-    	    "                   B    B        B    B   B    B         B     B     B   B    B     B                                     ",
-    	    "                   B    B  --    B ^  B ^ B ^  B ^ ^     B     B ^   B   B ^  B ^   B                                     ",
-    	    "              B    B^^^^B        B        B                ^^^       B        B                                           ",
-    	    "BBBBBBBBBBBBBBBBBBBBBBBBB   B    BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+    	    "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ",
+    	    "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ",
+    	    "   ^ ^                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ",
+    	    "   B B                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ",
+    	    "   BBB                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ",
+    	    "   B B                  B             B        B                                    B                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ",
+    	    "   v v                  B        B    B   B    B                              B     B                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ",
+    	    "                   B    B        B    B   B    B                         B    B     B                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ",
+    	    "                   B    B  --    B    B   B    B ^ ^                     B ^  B ^   B                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ",
+    	    "              B    B^^^^B        B    B   B                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ",
+    	    "BBBBBBBBBBBBBBBBBBBBBBBBB        B    B   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     	};
     
     public static final GameLevel GREAT_FAIRY_FOUNTAIN = new GameLevel(
@@ -277,9 +276,9 @@ public class GameLevel {
                 Color.WHITE,
                 Color.BLACK
             ),
-    	    180,
+    	    69,
     	    geomFromString(GREAT_FAIRY_FOUNTAIN_GEOM),
-    	    2,
-    	    3
+    	    4,
+    	    0
     	);
 }

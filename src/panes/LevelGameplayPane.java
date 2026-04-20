@@ -143,17 +143,21 @@ public class LevelGameplayPane extends GraphicsPane {
         // Scroll the level based on the character's X position
         double characterPixelX = player.getXPos() * ELEMENT_SCALING;
         double levelOffsetX = -characterPixelX + 240; // keep character 200px from left edge
-        levelImage.setLocation(levelOffsetX % levelImage.getWidth(), -250);
-        levelImage2.setLocation(levelImage.getX() + levelImage.getWidth(), -250);
+        levelImage.setLocation(levelOffsetX % 1920, -250);
+        levelImage2.setLocation(levelImage.getX() + 1920, -250);
         if (Math.floor(player.getXPos()-3) % 24 == 0d) {
-//            System.out.println("changing images");
+//          System.out.println("changing images");
             int i = (int) (Math.round(player.getXPos() - 3) / 24);
             int maxSegments = (int) Math.ceil(currentLevel.getGeometry()[0].length / 24f);
             levelImage.setImage("export/" + currentLevel.getLevelName() + "/segment/" + i + ".png");
             if (i + 1 > maxSegments - 1) {
+//                System.out.println("set invis");
                 levelImage2.setVisible(false);
             } else {
-                if (!levelImage2.isVisible()) levelImage2.setVisible(true);
+                if (!levelImage2.isVisible()) {
+//                    System.out.println("set vis");
+                    levelImage2.setVisible(true);
+                }
                 levelImage2.setImage("export/" + currentLevel.getLevelName() + "/segment/" + (i + 1) + ".png");
             }
         }
