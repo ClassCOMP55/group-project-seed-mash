@@ -190,7 +190,7 @@ public class GameLevel {
             "       -BBB-                                                              B                                                                   ",
             "        v v                                                               v                                                                   ",
             "                                ^B----B                                                                                                       ",
-            "                           ^B----B    B  -    `                                                                                               ",
+            "                           ^B----B    B  -                                                                                                    ",
             "                      ^B----B    B    B     -         -B     B-           ^            ^                                                      ",
             "               ^B------B    B    B    B        -       B     B            BBBBBBBBBBBBBBBBBBBBBBBBB-     -B-     -B-     -B-     -BBBBBBBBBBBB",
             "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB     BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB       B       B       B       BBBBBBBBBBBB",
