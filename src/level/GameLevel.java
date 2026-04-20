@@ -250,7 +250,7 @@ public class GameLevel {
             ),
             60,
             geomFromString(FINAL_DESTI),
-            3,
+            2,
             1
     );
     
