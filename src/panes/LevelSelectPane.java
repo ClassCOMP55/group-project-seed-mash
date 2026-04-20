@@ -3,10 +3,14 @@ package panes;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import acm.graphics.*;
 import level.GameLevel;
+
+import javax.imageio.ImageIO;
 
 public class LevelSelectPane extends GraphicsPane {
 
@@ -39,7 +43,12 @@ public class LevelSelectPane extends GraphicsPane {
     private static final double CARD_WIDTH  = 900;
     private static final double CARD_HEIGHT = 420;
 
-    public static final GameLevel[] levels = {GameLevel.FINAL_DESTINATION, GameLevel.RED_SUN, GameLevel.TUMBLING_DICE, GameLevel.GREAT_FAIRY_FOUNTAIN};
+    public static final GameLevel[] levels = {
+            GameLevel.FINAL_DESTINATION,
+            GameLevel.RED_SUN,
+            GameLevel.TUMBLING_DICE,
+            GameLevel.GREAT_FAIRY_FOUNTAIN
+    };
     private GImage backButton;
     private GImage leftArrow;
     private GImage rightArrow;
@@ -67,6 +76,12 @@ public class LevelSelectPane extends GraphicsPane {
         addBackButton();
         addLeftArrow();
         addRightArrow();
+
+        try {
+            mainScreen.getGW().setIconImage(ImageIO.read(new File("Media/Character Sprite (1).png")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

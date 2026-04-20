@@ -18,169 +18,175 @@ import java.io.File;
 import java.io.IOException;
 
 public class MainApplication extends GraphicsProgram {
-	//sfx.Settings
-	public static final int WINDOW_WIDTH = 1920;
-	public static final int WINDOW_HEIGHT = 1080;
-	private static final int TICK_INTERVAL_MS = 8; // ~125 FPS
+    //sfx.Settings
+    public static final int WINDOW_WIDTH = 1920;
+    public static final int WINDOW_HEIGHT = 1080;
+    private static final int TICK_INTERVAL_MS = 8; // ~125 FPS
 
-	//List of all the full screen panes
-	private StartPane startPane;
-	private LevelSelectPane levelSelectPane;
-	public LevelGameplayPane levelGameplayPane;
-	private GraphicsPane currentScreen;
-	private Settings settings;
-	private boolean settingsOpen = false;
+    //List of all the full screen panes
+    private StartPane startPane;
+    private LevelSelectPane levelSelectPane;
+    public LevelGameplayPane levelGameplayPane;
+    private GraphicsPane currentScreen;
+    private Settings settings;
+    private boolean settingsOpen = false;
 
-	//Sound Values
-	double sfxVol = 100;
-	double musicVol = 100;
-	private boolean endGame = false;
-	private long startMillis = 0;
-	private Timer gameTimer;
-	private boolean menuMusicPlaying = false;
-	private boolean levelMusicPlaying = false;
+    //Sound Values
+    double sfxVol = 100;
+    double musicVol = 100;
+    private boolean endGame = false;
+    private long startMillis = 0;
+    private Timer gameTimer;
+    private boolean menuMusicPlaying = false;
+    private boolean levelMusicPlaying = false;
 
-	public void setStartMillis(long startMillis) {
-		this.startMillis = startMillis;
-	}
-	public long getStartMillis() {
-		return startMillis;
-	}
-	public long getDelta() {
-		return System.currentTimeMillis() - startMillis;
-	}
+    public void setStartMillis(long startMillis) {
+        this.startMillis = startMillis;
+    }
 
-	public MainApplication() {
-		super();
-	}
+    public long getStartMillis() {
+        return startMillis;
+    }
 
-	public double getSfxVol() {
-		return sfxVol;
-	}
+    public long getDelta() {
+        return System.currentTimeMillis() - startMillis;
+    }
 
-	public void setSfxVol(double sfxVol) {
-	    this.sfxVol = sfxVol;
-	    AudioPlayer.getInstance().setSFXVolume((float) sfxVol / 100.0f);
-	}
+    public MainApplication() {
+        super();
+    }
 
-	public double getMusicVol() {
-		return musicVol;
-	}
+    public double getSfxVol() {
+        return sfxVol;
+    }
 
-	public void setMusicVol(double musicVol) {
-		this.musicVol = musicVol;
-		AudioPlayer.getInstance().setVolume((float) musicVol / 100.0f);
-	}
+    public void setSfxVol(double sfxVol) {
+        this.sfxVol = sfxVol;
+        AudioPlayer.getInstance().setSFXVolume((float) sfxVol / 100.0f);
+    }
 
-	public void startMenuMusic() {
-		if (!menuMusicPlaying) {
-			AudioPlayer.getInstance().playSound("Media/", "tian_mi_mi"); //Numbers are just for menu music ignore it
-			menuMusicPlaying = true;
-		}
-	}
- 
+    public double getMusicVol() {
+        return musicVol;
+    }
 
-	public void stopMenuMusic() {
-		if (menuMusicPlaying) {
-			AudioPlayer.getInstance().stopSound();
-			menuMusicPlaying = false;
-		}
-	}
-	
-	public void startLevelMusic(String songURL, long id) {
-		if (!levelMusicPlaying) {
-			AudioPlayer.getInstance().playSound("Media/", songURL);
-			levelMusicPlaying = true;
-		}
-	}
-	
-	public void stopLevelMusic(String songURL) {
-		if (levelMusicPlaying) {
-			AudioPlayer.getInstance().stopSound();
-			levelMusicPlaying = false;
-		}
-	}
-	
-	public long getMusicFrame(String songURL) {
-		return AudioPlayer.getInstance().getFramePos("Media/", songURL);
-	}
-	
-	public void setMusicFrame(long num) {
-		AudioPlayer.getInstance().setFramePos(num);
-	}
-	
-	public long getFullFrameLength(String songURL) {
-		return AudioPlayer.getInstance().getFullFrameLength("Media/", songURL);
-	}
-	
-	private static final String[] DEATH_SOUNDS = {
-		    "deathSFX_ack",
-		    "deathSFX_bong",
-		    "deathSFX_fah",
-		    "deathSFX_error",
-		    "deathSFX_fart",
-		    // add as many as you want
-		};
+    public void setMusicVol(double musicVol) {
+        this.musicVol = musicVol;
+        AudioPlayer.getInstance().setVolume((float) musicVol / 100.0f);
+    }
 
-	public void playDeathSound() {
-	    int random = (int) (Math.random() * DEATH_SOUNDS.length);
-	    AudioPlayer.getInstance().playSFX("Media/", DEATH_SOUNDS[random]);
-	}
-	
-	private static final String[] WIN_SOUNDS = {
-		    "winSFX_quack",
-		    "winSFX_yipeee",
-		};
+    public void startMenuMusic() {
+        if (!menuMusicPlaying) {
+            AudioPlayer.getInstance().playSound("Media/", "tian_mi_mi"); //Numbers are just for menu music ignore it
+            menuMusicPlaying = true;
+        }
+    }
 
-	public void playWinSound() {
-	    int random = (int) (Math.random() * WIN_SOUNDS.length);
-	    AudioPlayer.getInstance().playSFX("Media/", WIN_SOUNDS[random]);
-	}
-	
-	public void playClickSound() {
-	    AudioPlayer.getInstance().playSFX("Media/", "clickSFX_scifi");
-	}
-	
-	public void endGame() {
-		endGame = true;
-		if (gameTimer != null) {
-			gameTimer.stop();
-		}
-	}
 
-	public void quitGame() {
-		endGame();
-		clear();
-	}
+    public void stopMenuMusic() {
+        if (menuMusicPlaying) {
+            AudioPlayer.getInstance().stopSound();
+            menuMusicPlaying = false;
+        }
+    }
 
-	public GWindow getWindow() {
-		return gw;
-	}
-	
-	public void setSettingsOpen(boolean open) {
-		this.settingsOpen = open;
-	}
-	
-	public void switchToSettings() {
-		settingsOpen = true;
-		settings.openSettingsMenu();
-	}
-	
-	protected void setupInteractions() {
-		requestFocus();
-		addKeyListeners();
-		addMouseListeners();
-	}
+    public void startLevelMusic(String songURL, long id) {
+        if (!levelMusicPlaying) {
+            AudioPlayer.getInstance().playSound("Media/", songURL);
+            levelMusicPlaying = true;
+        }
+    }
 
-	public void init() {
-		this.gw.setTitle("Trigonometry Jump");
-		try {
-			this.gw.setIconImage(ImageIO.read(new File("Media/Character Sprite (1).png")));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-	}
+    public void stopLevelMusic(String songURL) {
+        if (levelMusicPlaying) {
+            AudioPlayer.getInstance().stopSound();
+            levelMusicPlaying = false;
+        }
+    }
+
+    public long getMusicFrame(String songURL) {
+        return AudioPlayer.getInstance().getFramePos("Media/", songURL);
+    }
+
+    public void setMusicFrame(long num) {
+        AudioPlayer.getInstance().setFramePos(num);
+    }
+
+    public long getFullFrameLength(String songURL) {
+        return AudioPlayer.getInstance().getFullFrameLength("Media/", songURL);
+    }
+
+    private static final String[] DEATH_SOUNDS = {
+            "deathSFX_ack",
+            "deathSFX_bong",
+            "deathSFX_fah",
+            "deathSFX_error",
+            "deathSFX_fart",
+            // add as many as you want
+    };
+
+    public void playDeathSound() {
+        int random = (int) (Math.random() * DEATH_SOUNDS.length);
+        AudioPlayer.getInstance().playSFX("Media/", DEATH_SOUNDS[random]);
+    }
+
+    private static final String[] WIN_SOUNDS = {
+            "winSFX_quack",
+            "winSFX_yipeee",
+    };
+
+    public void playWinSound() {
+        int random = (int) (Math.random() * WIN_SOUNDS.length);
+        AudioPlayer.getInstance().playSFX("Media/", WIN_SOUNDS[random]);
+    }
+
+    public void playClickSound() {
+        AudioPlayer.getInstance().playSFX("Media/", "clickSFX_scifi");
+    }
+
+    public void endGame() {
+        endGame = true;
+        if (gameTimer != null) {
+            gameTimer.stop();
+        }
+    }
+
+    public void quitGame() {
+        endGame();
+        clear();
+    }
+
+    public GWindow getWindow() {
+        return gw;
+    }
+
+    public void setSettingsOpen(boolean open) {
+        this.settingsOpen = open;
+    }
+
+    public void switchToSettings() {
+        settingsOpen = true;
+        settings.openSettingsMenu();
+    }
+
+    protected void setupInteractions() {
+        requestFocus();
+        addKeyListeners();
+        addMouseListeners();
+    }
+
+    public void init() {
+        this.gw.setTitle("Trigonometry Jump");
+        try {
+            this.gw.setIconImage(ImageIO.read(new File("Media/Character Sprite (1).png")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    }
+
+    public GWindow getGW() {
+        return this.gw;
+}
 
 	public void run() {
 		System.out.println("Let's Begin!");
