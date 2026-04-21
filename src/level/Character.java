@@ -117,7 +117,7 @@ public class Character {
     }
 
     /**
-     * Main update method, called each frame.
+//     * Main update method, called each frame.
      * @param deltaSeconds time elapsed since last tick, in seconds
      */
     public void tick(double deltaSeconds) {
@@ -131,18 +131,48 @@ public class Character {
         double newY = yPos + yVel * deltaSeconds;
 
         // --- Horizontal collision ---
-        int cellX = (int) Math.floor(newX + 0.999); // leading edge (right side of character)
+        int cellX = (int) Math.floor(newX + 0.999999999f); // leading edge (right side of character)
         int cellYBottom = (int) Math.floor(yPos);
         // Check the cell the character's right edge is moving into at current height
         if (cellX >= 0 && cellX < geometry[0].length && cellYBottom >= 0 && cellYBottom < geometry.length) {
             ObstacleType obstacle = geometry[cellYBottom][cellX];
             if (obstacle != null) {
-                if (obstacle == ObstacleType.UP_SPIKE || obstacle == ObstacleType.DOWN_SPIKE) {
-                    die();
-                    return;
-                } else if (obstacle == ObstacleType.BLOCK) {
+                if (obstacle == ObstacleType.UP_SPIKE) {
+                    double deltaX = xPos - cellX;
+                    double deltaY = yPos - cellYBottom;
+                    if (deltaY >= 0) {
+                        if (deltaX > (0.5*deltaY) - 1 && deltaX < (-0.5*deltaY) + 1) {
+//                            System.out.println("death via horizontal collision (Uspike)");
+//                            System.out.println("dx = " + deltaX + ", dy = " + deltaY);
+                            die();
+                            return;
+                        }
+                    } else {
+//                        System.out.println("death via horizontal collision (Uspike)");
+//                        System.out.println("dx = " + deltaX + ", dy = " + deltaY);
+                        die();
+                        return;
+                    }
+                } else if (obstacle == ObstacleType.DOWN_SPIKE) {
+                    double deltaX = xPos - cellX;
+                    double deltaY = yPos - cellYBottom;
+                    if (deltaY <= 0) {
+                        if (deltaX > (-0.5*deltaY) - 1 && deltaX < (0.5*deltaY) + 1) {
+//                            System.out.println("death via horizontal collision (Dspike)");
+//                            System.out.println("dx = " + deltaX + ", dy = " + deltaY);
+                            die();
+                            return;
+                        }
+                    } else {
+//                        System.out.println("death via horizontal collision (Dspike)");
+//                        System.out.println("dx = " + deltaX + ", dy = " + deltaY);
+                        die();
+                        return;
+                    }
+                }
+                else if (obstacle == ObstacleType.BLOCK) {
                     // Hit a wall — die (Geometry Dash style)
-//                    System.out.println("death via horizontal collision");
+//                    System.out.println("death via horizontal collision (block)");
                     die();
                     return;
                 }
@@ -158,6 +188,7 @@ public class Character {
 
             if (groundCheckY < 0) {
                 // Fell off the bottom of the level
+//                System.out.println("death via fall off");
                 die();
                 return;
             }
@@ -166,8 +197,14 @@ public class Character {
                 ObstacleType below = geometry[groundCheckY][charCol];
                 if (below != null) {
                     if (below == ObstacleType.UP_SPIKE) {
-                        die();
-                        return;
+                        double deltaX = xPos - cellX;
+                        double deltaY = yPos - cellYBottom;
+                        if (deltaY >= 0 && deltaX > (0.5*deltaY) - 1 && deltaX < (-0.5*deltaY) + 1) {
+//                            System.out.println("death via horizontal collision (Uspike)");
+//                            System.out.println("dx = " + deltaX + ", dy = " + deltaY);
+                            die();
+                            return;
+                        }
                     }
                     // Land on top of the block
                     yPos = groundCheckY + 1;
@@ -181,6 +218,23 @@ public class Character {
                 yPos = newY;
                 onGround = false;
             }
+
+            if (charCol+1 >= 0 && charCol+1 < geometry[0].length && groundCheckY >= 0 && groundCheckY < geometry.length) {
+                ObstacleType belowRight = geometry[groundCheckY][charCol+1];
+                if (belowRight != null && belowRight != ObstacleType.UP_SPIKE) {
+                    // Land on top of the block
+                    yPos = groundCheckY + 1;
+                    yVel = 0;
+                    onGround = true;
+                }
+//                else {
+//                    yPos = newY;
+//                    onGround = false;
+//                }
+//            } else {
+//                yPos = newY;
+//                onGround = false;
+            }
         } else {
             // Moving upward — check above
             int headCheckY = (int) Math.floor(newY + 0.9);
@@ -189,8 +243,26 @@ public class Character {
             if (charCol >= 0 && charCol < geometry[0].length && headCheckY >= 0 && headCheckY < geometry.length) {
                 ObstacleType above = geometry[headCheckY][charCol];
                 if (above != null) {
-                    die();
-                    return;
+                    if (above == ObstacleType.DOWN_SPIKE) {
+                        double deltaX = xPos - cellX;
+                        double deltaY = yPos - cellYBottom;
+//                        System.out.println("dx = " + deltaX + ", dy = " + deltaY);
+                        if (deltaY <= 0) {
+                            if (deltaX > (-0.5 * deltaY) - 1 && deltaX < (0.5 * deltaY) + 1) {
+//                                System.out.println("death via head collision (Dspike)");
+//                                System.out.println("dx = " + deltaX + ", dy = " + deltaY);
+                                die();
+                                return;
+                            }
+                        } else {
+                            die();
+                            return;
+                        }
+                    } else {
+//                        System.out.println("death via head collision");
+                        die();
+                        return;
+                    }
                 } else {
                     yPos = newY;
                 }
@@ -224,9 +296,11 @@ public class Character {
                 wasOnGround = true;
             }
         }
+
  
         // Update the sprite image with rotation
         updateSpriteRotation();
+        mainApp.getGW().setIconImage(this.sprite.getImage());
     }
     /**
      * Renders the sprite rotated by the current angle.

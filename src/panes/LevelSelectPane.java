@@ -3,10 +3,14 @@ package panes;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import acm.graphics.*;
 import level.GameLevel;
+
+import javax.imageio.ImageIO;
 
 public class LevelSelectPane extends GraphicsPane {
 
@@ -39,7 +43,12 @@ public class LevelSelectPane extends GraphicsPane {
     private static final double CARD_WIDTH  = 900;
     private static final double CARD_HEIGHT = 420;
 
-    public static final GameLevel[] levels = {GameLevel.TEST_LEVEL, GameLevel.TEST_LEVEL_2, GameLevel.RED_SUN, GameLevel.TUMBLING_DICE, GameLevel.FINAL_DESTINATION, GameLevel.GREAT_FAIRY_FOUNTAIN};
+    public static final GameLevel[] levels = {
+            GameLevel.FINAL_DESTINATION,
+            GameLevel.RED_SUN,
+            GameLevel.TUMBLING_DICE,
+            GameLevel.GREAT_FAIRY_FOUNTAIN
+    };
     private GImage backButton;
     private GImage leftArrow;
     private GImage rightArrow;
@@ -67,6 +76,12 @@ public class LevelSelectPane extends GraphicsPane {
         addBackButton();
         addLeftArrow();
         addRightArrow();
+
+        try {
+            mainScreen.getGW().setIconImage(ImageIO.read(new File("Media/Character Sprite (1).png")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -283,6 +298,8 @@ public class LevelSelectPane extends GraphicsPane {
         timeValue.setColor(TEXT_WHITE);
         timeValue.setLocation(timeX + (colWidth - timeValue.getWidth()) / 2, infoY + 30);
         addLevelInfoElement(timeValue);
+        
+        
 
         /* ---------- progress bar ---------- */
         double barMargin = 50;
@@ -343,6 +360,12 @@ public class LevelSelectPane extends GraphicsPane {
             addLevelInfoElement(doneLabel);
         }
 
+     // Name Credit
+        GLabel nameCredit = new GLabel(level.getCredit());
+        nameCredit.setFont(new Font("Courier New", Font.BOLD, 28));
+        nameCredit.setColor(TEXT_WHITE);
+        nameCredit.setLocation(barTrack.getX(), barTrack.getY() + barTrack.getHeight()*2);
+        addLevelInfoElement(nameCredit);
     }
 
     /* ------------------------------------------------------------------ */
