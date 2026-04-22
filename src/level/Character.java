@@ -30,10 +30,9 @@ public class Character {
     private static final double ROTATION_SPEED = Math.PI * 2.0;
 
     private final GImage sprite;
-    private GameLevel level;
     private ObstacleType[][] geometry;
     
-    private panes.MainApplication mainApp;
+    private final panes.MainApplication mainApp;
 
     // Position in grid-cell units (fractional)
     private double xPos;
@@ -44,15 +43,14 @@ public class Character {
     private double yVel;
     
     private double rotationAngle = 0;
-    private double targetRotationAngle = 0;
     private boolean wasOnGround = true;
     
     private BufferedImage originalImage;
-    private int spriteSize;
+    private final int spriteSize;
 
     private boolean onGround;
     private boolean dead;
-    private int elementScaling;
+    private final int elementScaling;
 
     public Character(int elementScaling, panes.MainApplication mainApp) {
         this.mainApp = mainApp;
@@ -75,14 +73,12 @@ public class Character {
      * on top of the first column's topmost block.
      */
     public void initForLevel(GameLevel level) {
-        this.level = level;
         this.geometry = level.getGeometry();
         this.dead = false;
         this.onGround = false;
         this.xVel = RUN_SPEED;
         this.yVel = 0;
         this.rotationAngle = 0;
-        this.targetRotationAngle = 0;
         this.wasOnGround = true;
 
         // Find the starting Y: top of the highest block in column 0
@@ -193,7 +189,7 @@ public class Character {
                 return;
             }
 
-            if (charCol >= 0 && charCol < geometry[0].length && groundCheckY >= 0 && groundCheckY < geometry.length) {
+            if (charCol >= 0 && charCol < geometry[0].length && groundCheckY < geometry.length) {
                 ObstacleType below = geometry[groundCheckY][charCol];
                 if (below != null) {
                     if (below == ObstacleType.UP_SPIKE) {
@@ -219,7 +215,7 @@ public class Character {
                 onGround = false;
             }
 
-            if (charCol+1 >= 0 && charCol+1 < geometry[0].length && groundCheckY >= 0 && groundCheckY < geometry.length) {
+            if (charCol + 1 >= 0 && charCol + 1 < geometry[0].length && groundCheckY < geometry.length) {
                 ObstacleType belowRight = geometry[groundCheckY][charCol+1];
                 if (belowRight != null && belowRight != ObstacleType.UP_SPIKE) {
                     // Land on top of the block
@@ -292,7 +288,6 @@ public class Character {
                 // Just landed — snap to nearest 90°
                 double halfPI = Math.PI / 2.0;
                 rotationAngle = Math.round(rotationAngle / halfPI) * halfPI;
-                targetRotationAngle = rotationAngle;
                 wasOnGround = true;
             }
         }
@@ -376,6 +371,7 @@ public class Character {
         return xPos;
     }
 
+    @SuppressWarnings("unused")
     public double getYPos() {
         return yPos;
     }

@@ -123,7 +123,8 @@ public class GameLevel {
     };
 
 
-    
+
+    @SuppressWarnings("unused")
     public static final GameLevel TEST_LEVEL = new GameLevel(
             "Test Level 1",
             "Pursuing_My_True_Self",
@@ -139,6 +140,7 @@ public class GameLevel {
             "Samuel"
     );
 
+    @SuppressWarnings("unused")
     public static final GameLevel TEST_LEVEL_2 = new GameLevel(
             "Test Level 2",
             "",
@@ -159,17 +161,20 @@ public class GameLevel {
         return difficulty;
     }
 
+    @SuppressWarnings("unused")
     public int getStars() {
         return stars;
     }
 
+    @SuppressWarnings("unused")
     public boolean isCompleted() {
         return completed;
     }
+    @SuppressWarnings("unused")
     public void setCompleted() {
         this.completed = true;
     }
-    
+    @SuppressWarnings("unused")
     public void printGeom() {
     	for(int i = geometry.length-1; i >= 0; i--) {
 			for(int j = 0; j < geometry[0].length; j++) {

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class CompletionPane {
 
-    private MainApplication mainScreen;
-    private ArrayList<GObject> elements = new ArrayList<>();
+    private final MainApplication mainScreen;
+    private final ArrayList<GObject> elements = new ArrayList<>();
 
     // Buttons
     private GRect replayButton;

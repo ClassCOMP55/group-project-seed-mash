@@ -11,7 +11,7 @@ import acm.graphics.*;
 import level.GameLevel;
 
 import javax.imageio.ImageIO;
-
+@SuppressWarnings("unused")
 public class LevelSelectPane extends GraphicsPane {
 
     private static final Color THEME_BLUE         = new Color(0, 102, 204);
@@ -58,7 +58,7 @@ public class LevelSelectPane extends GraphicsPane {
     private GLabel playBtnLabel;
 
     // Track all level-info elements for easy cleanup
-    private ArrayList<GObject> levelInfoElements = new ArrayList<>();
+    private final ArrayList<GObject> levelInfoElements = new ArrayList<>();
 
     private int currentSelection = 0;
 

@@ -6,13 +6,12 @@ import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
 import acm.graphics.GObject;
 import acm.graphics.*;
-import acm.util.MediaTools;
 
 
-
+@SuppressWarnings("unused")
 public class StartPane extends GraphicsPane{
 	
-	private MainApplication mainScreen;
+	private final MainApplication mainScreen;
 	private GImage settingButton;
 	private GImage descriptionButton;
 	
@@ -265,7 +264,7 @@ public class StartPane extends GraphicsPane{
         contents.add(shadow);
         mainScreen.add(shadow);
         
-        settingsBtnBorder = new GRect(btnX - PX / 2, btnY - PX / 2, btnW + PX, btnH + PX);
+        settingsBtnBorder = new GRect(btnX - PX / 2d, btnY - PX / 2d, btnW + PX, btnH + PX);
         settingsBtnBorder.setFilled(true);
         settingsBtnBorder.setFillColor(THEME_TEAL_DARK);
         settingsBtnBorder.setColor(THEME_TEAL_DARK);

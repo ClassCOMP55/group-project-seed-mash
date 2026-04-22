@@ -15,16 +15,18 @@ import java.util.HashMap;
 /**
  * Level rendering approach: Stitch together obstacle images from level data in order to create one large panorama for rendering efficiency. - Sean Y.
  */
+@SuppressWarnings({"ResultOfMethodCallIgnored", "CallToPrintStackTrace"})
 public class LevelStitcher {
     public static final int ELEMENT_SCALING = 80;
     public static final Component OBSERVER = new JPanel();
     private GameLevel level;
-    private LevelRecolorFilter colorFilter = new LevelRecolorFilter();
+    private final LevelRecolorFilter colorFilter = new LevelRecolorFilter();
 
     public void setLevel(GameLevel level) {
         this.colorFilter.setLevel(level);
         this.level = level;
     }
+    @SuppressWarnings("ignored")
     public void createObstacles() {
         try {
             for (ObstacleType obstacle : ObstacleType.values()) {
