@@ -285,10 +285,37 @@ public class LevelGameplayPane extends GraphicsPane {
             if (showingDeathScreen || showingCompletionScreen) {
                 restartLevel(); // Space/Up on death menu replays
             } else if (!paused && player != null) {
+                player.setJumpHeld(true);
                 player.jump();
             }
         }
         super.keyPressed(e);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if ((e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP)
+                && player != null) {
+            player.setJumpHeld(false);
+        }
+        super.keyReleased(e);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // Don't trigger gameplay jump while a menu is open — menu handles clicks via mouseClicked
+        if (showingDeathScreen || showingCompletionScreen) return;
+        if (!paused && player != null) {
+            player.setJumpHeld(true);
+            player.jump();
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if (player != null) {
+            player.setJumpHeld(false);
+        }
     }
 
     @Override
@@ -313,8 +340,6 @@ public class LevelGameplayPane extends GraphicsPane {
             return; // Consume click while death menu is open
         }
 
-        if (!paused && player != null) {
-            player.jump();
-        }
+        // Jump is now handled in mousePressed for lower input latency.
     }
 }
