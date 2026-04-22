@@ -322,7 +322,7 @@ public class LevelSelectPane extends GraphicsPane {
         addLevelInfoElement(pctLabel);
 
         // Bar border
-        GRect barBorder = new GRect(barX - PX / 2, barY - PX / 2, barFullW + PX, barH + PX);
+        GRect barBorder = new GRect(barX - PX / 2d, barY - PX / 2d, barFullW + PX, barH + PX);
         barBorder.setFilled(true);
         barBorder.setFillColor(THEME_BLUE_DARKEST);
         barBorder.setColor(THEME_BLUE_DARKEST);
@@ -353,7 +353,7 @@ public class LevelSelectPane extends GraphicsPane {
 
         // Completed banner
         if (pct >= 100) {
-            GLabel doneLabel = new GLabel("\u2714  C O M P L E T E D");
+            GLabel doneLabel = new GLabel("✔  C O M P L E T E D");
             doneLabel.setFont(new Font("Courier New", Font.BOLD, 18));
             doneLabel.setColor(THEME_GREEN_LIGHT);
             doneLabel.setLocation(cardX + (CARD_WIDTH - doneLabel.getWidth()) / 2, barY + barH + 30);
