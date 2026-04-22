@@ -29,6 +29,9 @@ public class Character {
     
     private static final double ROTATION_SPEED = Math.PI * 2.0;
 
+    // Jump input forgiveness (Geometry Dash style)
+    private static final double JUMP_BUFFER_TIME = 0.15; // seconds
+
     private final GImage sprite;
     private GameLevel level;
     private ObstacleType[][] geometry;
@@ -53,6 +56,10 @@ public class Character {
     private boolean onGround;
     private boolean dead;
     private int elementScaling;
+
+    // Jump input state
+    private boolean jumpHeld = false;
+    private double jumpBufferTimer = 0;
 
     public Character(int elementScaling, panes.MainApplication mainApp) {
         this.mainApp = mainApp;
@@ -84,6 +91,8 @@ public class Character {
         this.rotationAngle = 0;
         this.targetRotationAngle = 0;
         this.wasOnGround = true;
+        this.jumpHeld = false;
+        this.jumpBufferTimer = 0;
 
         // Find the starting Y: top of the highest block in column 0
         int startY = 0;
@@ -107,13 +116,26 @@ public class Character {
     }
 
     /**
-     * Attempt to jump. Only works if the character is on the ground.
+     * Attempt to jump. If on the ground, jump immediately.
+     * If airborne, buffer the input so if we land within JUMP_BUFFER_TIME,
+     * we'll auto-jump on landing (Geometry Dash style).
      */
     public void jump() {
-        if (onGround && !dead) {
+        if (dead) return;
+        if (onGround) {
             yVel = JUMP_VELOCITY;
             onGround = false;
+        } else {
+            jumpBufferTimer = JUMP_BUFFER_TIME;
         }
+    }
+
+    /**
+     * Set whether the jump button is being held. When held and the character
+     * is on the ground, it will auto-jump (Geometry Dash style).
+     */
+    public void setJumpHeld(boolean held) {
+        this.jumpHeld = held;
     }
 
     /**
@@ -122,6 +144,17 @@ public class Character {
      */
     public void tick(double deltaSeconds) {
         if (dead) return;
+
+        // --- Decay jump buffer ---
+        if (jumpBufferTimer > 0) {
+            jumpBufferTimer -= deltaSeconds;
+        }
+        // --- Auto-jump on ground if button is held OR a jump was recently buffered ---
+        if (onGround && (jumpHeld || jumpBufferTimer > 0)) {
+            yVel = JUMP_VELOCITY;
+            onGround = false;
+            jumpBufferTimer = 0;
+        }
 
         // --- Apply gravity ---
         yVel -= GRAVITY * deltaSeconds * (xPos >= geometry[0].length ? -0.17 : 1);
