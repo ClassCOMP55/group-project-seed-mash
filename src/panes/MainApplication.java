@@ -10,13 +10,12 @@ import sfx.Settings;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
+@SuppressWarnings("unused")
 public class MainApplication extends GraphicsProgram {
     //sfx.Settings
     public static final int WINDOW_WIDTH = 1920;
@@ -155,10 +154,6 @@ public class MainApplication extends GraphicsProgram {
         clear();
     }
 
-    public GWindow getWindow() {
-        return gw;
-    }
-
     public void setSettingsOpen(boolean open) {
         this.settingsOpen = open;
     }
@@ -217,18 +212,15 @@ public class MainApplication extends GraphicsProgram {
 		startMillis = System.currentTimeMillis();
 
 		// Use a Swing Timer instead of a busy-wait loop
-		gameTimer = new Timer(TICK_INTERVAL_MS, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (endGame) {
-					gameTimer.stop();
-					return;
-				}
-				if (currentScreen != null && currentScreen.equals(levelGameplayPane)) {
-					levelGameplayPane.tick(getDelta());
-				}
-			}
-		});
+		gameTimer = new Timer(TICK_INTERVAL_MS, _ -> {
+            if (endGame) {
+                gameTimer.stop();
+                return;
+            }
+            if (currentScreen != null && currentScreen.equals(levelGameplayPane)) {
+                levelGameplayPane.tick();
+            }
+        });
 		gameTimer.start();
 	}
 

@@ -20,7 +20,6 @@ public class LevelGameplayPane extends GraphicsPane {
     private GameLevel currentLevel;
     private static LevelStitcher stitcher;
     private boolean paused = false;
-    private long pauseTimestamp;
     private GImage levelImage;
     private GImage levelImage2;
     private GImage backgroundImage;
@@ -29,17 +28,15 @@ public class LevelGameplayPane extends GraphicsPane {
     private final GRect progressBarBackground;
     private final GRect progressBar;
     private final GLabel progressBarPercentage;
-    
-    long songPauseTime = 0;
 
     // Character
     private Character player;
     private long lastTickTime;
 
     // Death menu
-    private DeathMenuPane deathMenu;
+    private final DeathMenuPane deathMenu;
     private boolean showingDeathScreen = false;
-    private CompletionPane completionMenu;
+    private final CompletionPane completionMenu;
     private boolean showingCompletionScreen = false;
     boolean isProgressSaved = false;
 
@@ -61,14 +58,6 @@ public class LevelGameplayPane extends GraphicsPane {
         paused = false;
         contents.clear();
         mainScreen.clear();
-    }
-
-    public GImage getBackgroundImage() {
-        return backgroundImage;
-    }
-
-    public GImage getBackgroundImage2() {
-        return backgroundImage2;
     }
 
     public LevelGameplayPane(MainApplication mainApplication) {
@@ -137,7 +126,7 @@ public class LevelGameplayPane extends GraphicsPane {
         mainScreen.add(progressBarPercentage);
     }
 
-    private void renderLevel(long delta) {
+    private void renderLevel() {
         if (paused || currentLevel == null) return;
 
         // Scroll the level based on the character's X position
@@ -182,9 +171,8 @@ public class LevelGameplayPane extends GraphicsPane {
 
     /**
      * Code that runs while the game is active.
-     * @param delta Time since game start in milliseconds (from panes.MainApplication)
      */
-    public void tick(long delta) {
+    public void tick() {
         if (currentLevel == null) return;
         if (showingDeathScreen) return;
 
@@ -210,7 +198,7 @@ public class LevelGameplayPane extends GraphicsPane {
             }
         }
 
-        renderLevel(delta);
+        renderLevel();
     }
 
     /**

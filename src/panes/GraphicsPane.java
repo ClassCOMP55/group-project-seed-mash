@@ -4,21 +4,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import acm.graphics.*;
-
+@SuppressWarnings("unused")
 public class GraphicsPane {
     protected MainApplication mainScreen;
     protected ArrayList<GObject> contents;
-    
+
 
     public GraphicsPane() {
-        contents = new ArrayList<GObject>();
+        contents = new ArrayList<>();
     }
-    
 
-    public GraphicsPane(MainApplication mainScreen) {
-        this.mainScreen = mainScreen;
-        contents = new ArrayList<GObject>();
-    }
 
     public void showContent() {
     }

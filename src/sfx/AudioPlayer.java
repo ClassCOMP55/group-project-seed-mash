@@ -10,14 +10,14 @@ public class AudioPlayer {
 	
 	private static AudioPlayer somePlayer;
 	private MediaPlayer currentPlayer;
-	private java.util.HashMap<String, Media> mediaCache = new java.util.HashMap<>();
+	private final java.util.HashMap<String, Media> mediaCache = new java.util.HashMap<>();
 	private float currentVolume = 1.0f;
 	private float sfxVolume = 1.0f;
 
 	private AudioPlayer() {
 		final CountDownLatch latch = new CountDownLatch(1);
         try {
-            Platform.startup(() -> latch.countDown());
+            Platform.startup(latch::countDown);
             latch.await();
         } catch (Exception e) {
             // Already initialized, ignore
@@ -59,7 +59,7 @@ public class AudioPlayer {
 	        sfxPlayer.setVolume(vol);
 	        sfxPlayer.setCycleCount(1);
 	        sfxPlayer.play();
-	        sfxPlayer.setOnEndOfMedia(() -> sfxPlayer.dispose());
+	        sfxPlayer.setOnEndOfMedia(sfxPlayer::dispose);
 	    });
 	}
 	
@@ -68,7 +68,7 @@ public class AudioPlayer {
            currentPlayer.stop();
        }
 	}
-  
+    @SuppressWarnings("unused")
 	public void pauseSound() {
        if (currentPlayer != null) {
            currentPlayer.pause();
@@ -87,7 +87,7 @@ public class AudioPlayer {
 	public void setSFXVolume(float volume) {
 	    this.sfxVolume = volume;
 	}
-  
+    @SuppressWarnings("unused")
 	public long getFramePos(String folder, String name) {
    	if (currentPlayer != null) {
            return (long) currentPlayer.getCurrentTime().toMillis();
@@ -96,6 +96,7 @@ public class AudioPlayer {
    }
   
    // Helper method to find frame length
+   @SuppressWarnings("unused")
    public long getFullFrameLength(String folder, String name) {
    	if (currentPlayer != null) {
            return (long) currentPlayer.getTotalDuration().toMillis();
@@ -105,7 +106,7 @@ public class AudioPlayer {
   
    public void setFramePos(long num) {
    	if (currentPlayer != null) {
-           currentPlayer.seek(Duration.millis(num / 1000));
+           currentPlayer.seek(Duration.millis(num / 1000d));
        }
    }
 }

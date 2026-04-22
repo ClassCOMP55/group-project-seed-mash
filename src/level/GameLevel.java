@@ -123,7 +123,8 @@ public class GameLevel {
     };
 
 
-    
+
+    @SuppressWarnings("unused")
     public static final GameLevel TEST_LEVEL = new GameLevel(
             "Test Level 1",
             "Pursuing_My_True_Self",
@@ -139,6 +140,7 @@ public class GameLevel {
             "Samuel"
     );
 
+    @SuppressWarnings("unused")
     public static final GameLevel TEST_LEVEL_2 = new GameLevel(
             "Test Level 2",
             "",
@@ -159,17 +161,20 @@ public class GameLevel {
         return difficulty;
     }
 
+    @SuppressWarnings("unused")
     public int getStars() {
         return stars;
     }
 
+    @SuppressWarnings("unused")
     public boolean isCompleted() {
         return completed;
     }
+    @SuppressWarnings("unused")
     public void setCompleted() {
         this.completed = true;
     }
-    
+    @SuppressWarnings("unused")
     public void printGeom() {
     	for(int i = geometry.length-1; i >= 0; i--) {
 			for(int j = 0; j < geometry[0].length; j++) {
@@ -266,17 +271,17 @@ public class GameLevel {
     );
     
     public static final String[] GREAT_FAIRY_FOUNTAIN_GEOM = {
-		    "                                                                                                                                                                                                                                                                                                                                ",
-		    "                                                                                                                                                                                                                                                                                                                                ",
-		    "                                                                                                                                                                                                                                                                                                                                ",
-		    "   B B                                                                                                                                                                                                                                                                                                                          ",
-		    "   BBB                                                                                                                                                                                                                                                                                                                          ",
-		    "   B B                  B             B        B                          B              B         B                    B                   B              B         B                    B                   B                            ",
-		    "                        B        B    B   B    B                    B     B        B     B   B     B              B     B        B     B    B   B          B   B     B              B     B        B     B                                 ",
-		    "                   B    B        B    B   B    B                    B     B  ---   B     B   B     B         B    B     B   B    B     B    B   B     B    B   B     B         B    B     B   B    B     B                                 ",
-		    "                   B    B  --    B    B   B    B v v      v    B ^  B ^   B        B ^   B ^ B ^   B v v v   B ^  B v   B   B    B     B    B   B     B ^  B ^ B ^   B ^ ^ ^   B ^  B ^   B   B ^  B ^   B                                 ",
-		    "              B    B^^^^B        B    B   B                    B          B        B          B              B          B        B          B         B        B               B          B        B                                       ",
-		    "BBBBBBBBBBBBBBBBBBBBBBBBB        B    B   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB        BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+		    "                                               BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB     BBBBBB     BBBBBBBBBBBBBBB     BBBBBBBBBBBBBBBBBB                                                                                                                                                                          ",
+		    "                                               BBBBBBBBBBBBBBBBBBBBBBBB                                                                                                                                                                                                                                                ",
+		    "                                               BBBBBBBBBBBBBBBBBBBB                                                                                                      ^                                      ^                                                  ^                                                   ",
+		    "   B B                                         BBBBBBBBBBBBBBBB                                                                                                          v                 B------------B                                -                                             B---------B                     ",
+		    "   BBB                                         BBBBBBBBBBBBBBBB                                                                                                                       ^B--BB            B         ^                                ^                        B----B               B         ---         ",
+		    "   B B                  B             B        BBBBBBBBBBBB               B              B          B                   B                   B   B------B   B    ----  B----B          BB   B            B    B----B   B                 B-B                B--B             B    B               B    ^B---B B         ",
+		    "                        B        B    B   B    BBBBBBBBBBBB         B     B        B     B    B     B             B     B        B     B    B   B      B   B          B    B    B----BB    B            B    B    B   B     B    ----   B B    B------B    BB  B       B    B    B               B    BB   B B   ---   ",
+		    "                   B    B        B    B   B    BBBBBBBBBBBB         B     B  ---   B     B    B     B        B    B         B    B     B    B   B      B   B    ^     B    B         B     B            B    B    B   B ^   B           B B    B      B    BB  B       B    B    B    ^          B    BB   B B         ",
+		    "                   B    B  --    B    B   B    B v v      v    B ^  B ^   B        B ^   B ^  B ^   B v v v  B ^  B v   B   B    B     B    B   B      B   B ^  B ^   B ^  B ^   ^   B ^   B ^    ^     B ^  B ^  B   B B ^ B ^   ^ ^   B B ^  B ^    B ^  BB  B  ---  B ^  B ^  B ^  B ^   ^    B ^  BB   B B ^   ^   ",
+		    "              B    B^^^^B        B    B   B                    B          B        B          B     B        B          B        B          B              B          B              B                       B        B        B        B B    B           BB          B  B        B             B    BB               ",
+		    "BBBBBBBBBBBBBBBBBBBBBBBBB        B    B   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB        BBBBBBBBBBBBBBBBBB        BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
  	};
     
     public static final GameLevel GREAT_FAIRY_FOUNTAIN = new GameLevel(

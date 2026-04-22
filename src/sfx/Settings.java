@@ -8,9 +8,10 @@ import panes.MainApplication;
 import java.awt.*;
 import java.awt.event.*;
 
+@SuppressWarnings("unused")
 public class Settings extends GraphicsProgram {
-    private panes.MainApplication mainApp;
-    ArrayList<GObject> settingsMenu = new ArrayList<GObject>();
+    private final panes.MainApplication mainApp;
+    ArrayList<GObject> settingsMenu = new ArrayList<>();
     GImage closeButton;
     public static final int ScaleWidth = 500;
 
@@ -33,7 +34,6 @@ public class Settings extends GraphicsProgram {
     GLabel sfxPct;
 
     private GObject toDrag;
-    private int centerX, centerY;
 
     public Settings() { mainApp = new MainApplication(); }
     public Settings(MainApplication mainApp) { this.mainApp = mainApp; }
@@ -50,8 +50,8 @@ public class Settings extends GraphicsProgram {
     }
 
     public void openSettingsMenu() {
-        centerX = (int) (mainApp.getWidth() / 2);
-        centerY = (int) (mainApp.getHeight() / 2);
+        int centerX = (int) (mainApp.getWidth() / 2);
+        int centerY = (int) (mainApp.getHeight() / 2);
         int panelW = 750;
         int panelH = 550;
         int left = centerX - panelW / 2;
