@@ -188,17 +188,17 @@ public class GameLevel {
 		}
     }
     public static final String[] RED_SUN_GEOM = {
-            "                                                                                                                                              ",
-            "                                                                                                                                              ",
-            "                                                                          BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-            "         ^                                                                BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-            "       -BBB-                                                              B                                                                   ",
-            "        v v                                                               v                                                                   ",
-            "                                ^B----B                                                                                                       ",
-            "                           ^B----B    B  -                                                                                                    ",
-            "                      ^B----B    B    B     -         -B     B-           ^            ^                                                      ",
-            "               ^B------B    B    B    B        -       B     B            BBBBBBBBBBBBBBBBBBBBBBBBB-     -B-     -B-     -B-     -BBBBBBBBBBBB",
-            "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB     BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB       B       B       B       BBBBBBBBBBBB",
+            "                                                                          BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                                                                                                                                       ",
+            "                                                                          BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                                                                                                                                       ",
+            "                                                                          BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                                          -----                                                                                        ",
+            "                                                                          BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                                                                                                                                       ",
+            "                                                                          v                                                                                                         --                                                            ^              ^       ------------",
+            "B-- B-- B-B B-B                                                                                                                                                                                                                        v     v-----  ------------------              ",
+            "--B B-- B-B B B                 ^B----B                                                                                                                                         --                                             -----                                                 ",
+            "--- --- - - - -            ^B----B    B  -                                                                                             BBBBBBB------   vvv   vvv                                                        -----             ^                                          ",
+            "                      ^B----B    B    B     -         -B     B-           ^            ^                                              ^BBBBBBB                              --                 -----    -----    -----                                                               ",
+            "               B-------B    B    B    B        -       B     B            BBBBBBBBBBBBBBBBBBBBBBBBB-     -B-     -B-     -B-     -BBBBBBBBBBBB                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       ",
+            "               B       B    B    B    B        BBBBBBBBB     BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB       B       B       B       BBBBBBBBBBBB                      ------                  BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB       "
     };
     public static final GameLevel RED_SUN = new GameLevel(
             "Red Sun In The Sky",
