@@ -33,12 +33,13 @@ public class Character {
     private static final double JUMP_BUFFER_TIME = 0.15; // seconds
 
     // --- Spike hitbox dimensions (as a fraction of a 1x1 cell) ---
-    // The spike sprite is a triangle that narrows toward its tip, so a full-cell
-    // AABB hitbox feels unfair — players die when merely brushing the tip.
-    // A narrower, shorter AABB aligned to the spike's WIDE BASE matches the
-    // visible geometry much better (and is what Geometry Dash itself does).
-    private static final double SPIKE_HITBOX_WIDTH  = 0.30; // narrow horizontally
-    private static final double SPIKE_HITBOX_HEIGHT = 0.70; // short vertically (base-aligned)
+    // Only the SHARP TIP of each spike is lethal. The flat base and the sides
+    // of the triangle are safe to brush against. UP and DOWN spikes have their
+    // own heights because we want the V-spike to be even more forgiving — only
+    // the very point should kill, not the upper portion of the triangle.
+    private static final double SPIKE_HITBOX_WIDTH         = 0.25; // narrow horizontally (just the tip width)
+    private static final double UP_SPIKE_HITBOX_HEIGHT     = 0.35; // '^' — tip at top of cell
+    private static final double DOWN_SPIKE_HITBOX_HEIGHT   = 0.20; // 'V' — tip at bottom of cell (smaller: just the point)
 
     private final GImage sprite;
     private ObstacleType[][] geometry;
@@ -143,23 +144,31 @@ public class Character {
     }
 
     /**
-     * Blocks (and platforms) act as landable surfaces / walls / ceilings.
-     * Spikes do NOT — they are handled separately by hitsSpike().
+     * Surfaces the character can stand on / walk along.
+     *   - BLOCK and PLATFORM: full floor surfaces.
+     *   - DOWN_SPIKE: the flat BASE at the top of a 'V' spike cell acts as a
+     *     platform. The lethal zone is only the point at the bottom of the
+     *     cell (see hitsSpike), so landing on top from above is safe.
+     *   - UP_SPIKE: NOT landable — the tip is at the top, so landing on a
+     *     '^' from above impales the character, which is handled by the spike
+     *     collision check at the end of tick().
      */
     private static boolean isLandableSurface(ObstacleType t) {
-        return t == ObstacleType.BLOCK || t == ObstacleType.PLATFORM;
+        return t == ObstacleType.BLOCK
+            || t == ObstacleType.PLATFORM
+            || t == ObstacleType.DOWN_SPIKE;
     }
 
     /**
      * Does the character's 1x1 AABB overlap the shrunken hitbox of the spike
      * at the given grid cell?
      *
-     * Geometry:
+     * Geometry (tip-aligned, so only the sharp point is lethal):
      *   Character AABB  : (xPos, yPos) .. (xPos+1, yPos+1)
-     *   UP_SPIKE   hitbox: centered horizontally, anchored to BOTTOM of cell
-     *                      (wide base is at the bottom, tip points up)
-     *   DOWN_SPIKE hitbox: centered horizontally, anchored to TOP of cell
-     *                      (wide base is at the top, tip points down)
+     *   UP_SPIKE   hitbox: centered horizontally, anchored to the TOP of the
+     *                      cell (the sharp tip points up)
+     *   DOWN_SPIKE hitbox: centered horizontally, anchored to the BOTTOM of
+     *                      the cell (the sharp tip points down)
      */
     private boolean hitsSpike(ObstacleType spike, int spikeCol, int spikeRow) {
         double charLeft   = xPos;
@@ -173,13 +182,14 @@ public class Character {
         double spikeTop;
 
         if (spike == ObstacleType.UP_SPIKE) {
-            // base sits on cell floor, hitbox extends upward by SPIKE_HITBOX_HEIGHT
-            spikeBottom = spikeRow;
-            spikeTop    = spikeRow + SPIKE_HITBOX_HEIGHT;
-        } else { // DOWN_SPIKE
-            // base sits on cell ceiling, hitbox extends downward by SPIKE_HITBOX_HEIGHT
-            spikeBottom = spikeRow + (1.0 - SPIKE_HITBOX_HEIGHT);
+            // tip sits at the cell ceiling, hitbox extends downward from the tip
             spikeTop    = spikeRow + 1.0;
+            spikeBottom = spikeTop - UP_SPIKE_HITBOX_HEIGHT;
+        } else { // DOWN_SPIKE
+            // tip sits at the cell floor, hitbox extends upward from the tip.
+            // The top of the V (flat base and upper sides) stays safe.
+            spikeBottom = spikeRow;
+            spikeTop    = spikeBottom + DOWN_SPIKE_HITBOX_HEIGHT;
         }
 
         return charRight  > spikeLeft
