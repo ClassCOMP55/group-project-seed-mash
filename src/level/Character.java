@@ -32,6 +32,15 @@ public class Character {
     // Jump input forgiveness (Geometry Dash style)
     private static final double JUMP_BUFFER_TIME = 0.15; // seconds
 
+    // --- Spike hitbox dimensions (as a fraction of a 1x1 cell) ---
+    // Only the SHARP TIP of each spike is lethal. The flat base and the sides
+    // of the triangle are safe to brush against. UP and DOWN spikes have their
+    // own heights because we want the V-spike to be even more forgiving — only
+    // the very point should kill, not the upper portion of the triangle.
+    private static final double SPIKE_HITBOX_WIDTH         = 0.25; // narrow horizontally (just the tip width)
+    private static final double UP_SPIKE_HITBOX_HEIGHT     = 0.35; // '^' — tip at top of cell
+    private static final double DOWN_SPIKE_HITBOX_HEIGHT   = 0.20; // 'V' — tip at bottom of cell (smaller: just the point)
+
     private final GImage sprite;
     private ObstacleType[][] geometry;
     
@@ -135,7 +144,88 @@ public class Character {
     }
 
     /**
-//     * Main update method, called each frame.
+     * Surfaces the character can stand on / walk along.
+     *   - BLOCK and PLATFORM: full floor surfaces.
+     *   - DOWN_SPIKE: the flat BASE at the top of a 'V' spike cell acts as a
+     *     platform. The lethal zone is only the point at the bottom of the
+     *     cell (see hitsSpike), so landing on top from above is safe.
+     *   - UP_SPIKE: NOT landable — the tip is at the top, so landing on a
+     *     '^' from above impales the character, which is handled by the spike
+     *     collision check at the end of tick().
+     */
+    private static boolean isLandableSurface(ObstacleType t) {
+        return t == ObstacleType.BLOCK
+            || t == ObstacleType.PLATFORM
+            || t == ObstacleType.DOWN_SPIKE;
+    }
+
+    /**
+     * Does the character's 1x1 AABB overlap the shrunken hitbox of the spike
+     * at the given grid cell?
+     *
+     * Geometry (tip-aligned, so only the sharp point is lethal):
+     *   Character AABB  : (xPos, yPos) .. (xPos+1, yPos+1)
+     *   UP_SPIKE   hitbox: centered horizontally, anchored to the TOP of the
+     *                      cell (the sharp tip points up)
+     *   DOWN_SPIKE hitbox: centered horizontally, anchored to the BOTTOM of
+     *                      the cell (the sharp tip points down)
+     */
+    private boolean hitsSpike(ObstacleType spike, int spikeCol, int spikeRow) {
+        double charLeft   = xPos;
+        double charRight  = xPos + 1;
+        double charBottom = yPos;
+        double charTop    = yPos + 1;
+
+        double spikeLeft  = spikeCol + (1.0 - SPIKE_HITBOX_WIDTH) / 2.0;
+        double spikeRight = spikeLeft + SPIKE_HITBOX_WIDTH;
+        double spikeBottom;
+        double spikeTop;
+
+        if (spike == ObstacleType.UP_SPIKE) {
+            // tip sits at the cell ceiling, hitbox extends downward from the tip
+            spikeTop    = spikeRow + 1.0;
+            spikeBottom = spikeTop - UP_SPIKE_HITBOX_HEIGHT;
+        } else { // DOWN_SPIKE
+            // tip sits at the cell floor, hitbox extends upward from the tip.
+            // The top of the V (flat base and upper sides) stays safe.
+            spikeBottom = spikeRow;
+            spikeTop    = spikeBottom + DOWN_SPIKE_HITBOX_HEIGHT;
+        }
+
+        return charRight  > spikeLeft
+            && charLeft   < spikeRight
+            && charTop    > spikeBottom
+            && charBottom < spikeTop;
+    }
+
+    /**
+     * Check every grid cell the character's AABB might overlap for a deadly
+     * spike intersection. Returns true at the first hit.
+     */
+    private boolean isHittingAnySpike() {
+        if (geometry == null) return false;
+
+        int minCol = (int) Math.floor(xPos);
+        int maxCol = (int) Math.floor(xPos + 1 - 1e-9);
+        int minRow = (int) Math.floor(yPos);
+        int maxRow = (int) Math.floor(yPos + 1 - 1e-9);
+
+        for (int col = minCol; col <= maxCol; col++) {
+            if (col < 0 || col >= geometry[0].length) continue;
+            for (int row = minRow; row <= maxRow; row++) {
+                if (row < 0 || row >= geometry.length) continue;
+
+                ObstacleType obs = geometry[row][col];
+                if (obs == ObstacleType.UP_SPIKE || obs == ObstacleType.DOWN_SPIKE) {
+                    if (hitsSpike(obs, col, row)) return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Main update method, called each frame.
      * @param deltaSeconds time elapsed since last tick, in seconds
      */
     public void tick(double deltaSeconds) {
@@ -159,57 +249,20 @@ public class Character {
         double newX = xPos + xVel * deltaSeconds;
         double newY = yPos + yVel * deltaSeconds;
 
-        // --- Horizontal collision ---
+        // --- Horizontal collision (walls only; spikes handled at end of tick) ---
         int cellX = (int) Math.floor(newX + 0.999999999f); // leading edge (right side of character)
         int cellYBottom = (int) Math.floor(yPos);
-        // Check the cell the character's right edge is moving into at current height
         if (cellX >= 0 && cellX < geometry[0].length && cellYBottom >= 0 && cellYBottom < geometry.length) {
             ObstacleType obstacle = geometry[cellYBottom][cellX];
-            if (obstacle != null) {
-                if (obstacle == ObstacleType.UP_SPIKE) {
-                    double deltaX = xPos - cellX;
-                    double deltaY = yPos - cellYBottom;
-                    if (deltaY >= 0) {
-                        if (deltaX > (0.5*deltaY) - 1 && deltaX < (-0.5*deltaY) + 1) {
-//                            System.out.println("death via horizontal collision (Uspike)");
-//                            System.out.println("dx = " + deltaX + ", dy = " + deltaY);
-                            die();
-                            return;
-                        }
-                    } else {
-//                        System.out.println("death via horizontal collision (Uspike)");
-//                        System.out.println("dx = " + deltaX + ", dy = " + deltaY);
-                        die();
-                        return;
-                    }
-                } else if (obstacle == ObstacleType.DOWN_SPIKE) {
-                    double deltaX = xPos - cellX;
-                    double deltaY = yPos - cellYBottom;
-                    if (deltaY <= 0) {
-                        if (deltaX > (-0.5*deltaY) - 1 && deltaX < (0.5*deltaY) + 1) {
-//                            System.out.println("death via horizontal collision (Dspike)");
-//                            System.out.println("dx = " + deltaX + ", dy = " + deltaY);
-                            die();
-                            return;
-                        }
-                    } else {
-//                        System.out.println("death via horizontal collision (Dspike)");
-//                        System.out.println("dx = " + deltaX + ", dy = " + deltaY);
-                        die();
-                        return;
-                    }
-                }
-                else if (obstacle == ObstacleType.BLOCK) {
-                    // Hit a wall — die (Geometry Dash style)
-//                    System.out.println("death via horizontal collision (block)");
-                    die();
-                    return;
-                }
+            if (obstacle == ObstacleType.BLOCK) {
+                // Hit a wall — die (Geometry Dash style)
+                die();
+                return;
             }
         }
         xPos = newX;
 
-        // --- Vertical collision ---
+        // --- Vertical collision (blocks/platforms only; spikes handled at end of tick) ---
         if (yVel <= 0) {
             // Falling or on ground — check below
             int groundCheckY = (int) Math.floor(newY);
@@ -217,88 +270,55 @@ public class Character {
 
             if (groundCheckY < 0) {
                 // Fell off the bottom of the level
-//                System.out.println("death via fall off");
                 die();
                 return;
             }
 
-            if (charCol >= 0 && charCol < geometry[0].length && groundCheckY < geometry.length) {
-                ObstacleType below = geometry[groundCheckY][charCol];
-                if (below != null) {
-                    if (below == ObstacleType.UP_SPIKE) {
-                        double deltaX = xPos - cellX;
-                        double deltaY = yPos - cellYBottom;
-                        if (deltaY >= 0 && deltaX > (0.5*deltaY) - 1 && deltaX < (-0.5*deltaY) + 1) {
-//                            System.out.println("death via horizontal collision (Uspike)");
-//                            System.out.println("dx = " + deltaX + ", dy = " + deltaY);
-                            die();
-                            return;
-                        }
-                    }
-                    // Land on top of the block
-                    yPos = groundCheckY + 1;
-                    yVel = 0;
-                    onGround = true;
-                } else {
-                    yPos = newY;
-                    onGround = false;
+            // Is there a landable surface under the character's footprint?
+            // (check both the column the character's left edge is in and the one to the right,
+            // since the character's 1-unit-wide AABB usually straddles two columns)
+            boolean landed = false;
+            if (groundCheckY < geometry.length) {
+                if (charCol >= 0 && charCol < geometry[0].length
+                        && isLandableSurface(geometry[groundCheckY][charCol])) {
+                    landed = true;
                 }
+                if (!landed && (charCol + 1) >= 0 && (charCol + 1) < geometry[0].length
+                        && isLandableSurface(geometry[groundCheckY][charCol + 1])) {
+                    landed = true;
+                }
+            }
+
+            if (landed) {
+                yPos = groundCheckY + 1;
+                yVel = 0;
+                onGround = true;
             } else {
                 yPos = newY;
                 onGround = false;
             }
-
-            if (charCol + 1 >= 0 && charCol + 1 < geometry[0].length && groundCheckY < geometry.length) {
-                ObstacleType belowRight = geometry[groundCheckY][charCol+1];
-                if (belowRight != null && belowRight != ObstacleType.UP_SPIKE) {
-                    // Land on top of the block
-                    yPos = groundCheckY + 1;
-                    yVel = 0;
-                    onGround = true;
-                }
-//                else {
-//                    yPos = newY;
-//                    onGround = false;
-//                }
-//            } else {
-//                yPos = newY;
-//                onGround = false;
-            }
         } else {
-            // Moving upward — check above
+            // Moving upward — ceiling check against solid blocks
             int headCheckY = (int) Math.floor(newY + 0.9);
             int charCol = (int) Math.floor(xPos);
 
-            if (charCol >= 0 && charCol < geometry[0].length && headCheckY >= 0 && headCheckY < geometry.length) {
+            if (charCol >= 0 && charCol < geometry[0].length
+                    && headCheckY >= 0 && headCheckY < geometry.length) {
                 ObstacleType above = geometry[headCheckY][charCol];
-                if (above != null) {
-                    if (above == ObstacleType.DOWN_SPIKE) {
-                        double deltaX = xPos - cellX;
-                        double deltaY = yPos - cellYBottom;
-//                        System.out.println("dx = " + deltaX + ", dy = " + deltaY);
-                        if (deltaY <= 0) {
-                            if (deltaX > (-0.5 * deltaY) - 1 && deltaX < (0.5 * deltaY) + 1) {
-//                                System.out.println("death via head collision (Dspike)");
-//                                System.out.println("dx = " + deltaX + ", dy = " + deltaY);
-                                die();
-                                return;
-                            }
-                        } else {
-                            die();
-                            return;
-                        }
-                    } else {
-//                        System.out.println("death via head collision");
-                        die();
-                        return;
-                    }
-                } else {
-                    yPos = newY;
+                if (above == ObstacleType.BLOCK) {
+                    // Smack head on a ceiling — die (Geometry Dash style)
+                    die();
+                    return;
                 }
-            } else {
-                yPos = newY;
             }
+            yPos = newY;
             onGround = false;
+        }
+
+        // --- Spike collision (centralized, uses narrow base-aligned hitbox) ---
+        if (isHittingAnySpike()) {
+            die();
+            return;
         }
 
         // --- Rotation ---
