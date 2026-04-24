@@ -209,7 +209,7 @@ public class GameLevel {
                     new Color(238/3, 28/3, 37/3)),
             112,
             geomFromString(RED_SUN_GEOM),
-            2,
+            1,
             0,
             "Sean Yap"
     );
@@ -236,7 +236,7 @@ public class GameLevel {
                     new Color(0, 0, 0)),
             80,
             geomFromString(TUMBLING_DICE_GEOM),
-            3,
+            2,
             0,
             "Maxwell Palacios"
     );
@@ -265,7 +265,7 @@ public class GameLevel {
             ),
             60,
             geomFromString(OPHELIA_GEOM),
-            1,
+            4,
             1,
             "Anh Pham"
     );
@@ -294,7 +294,7 @@ public class GameLevel {
             ),
     	    69,
     	    geomFromString(GREAT_FAIRY_FOUNTAIN_GEOM),
-    	    4,
+    	    3,
     	    0,
     	    "Hayden Khant"
     	);
