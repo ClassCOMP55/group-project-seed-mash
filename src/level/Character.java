@@ -17,7 +17,7 @@ import java.io.IOException;
 
 
 /**
- * Player character that auto-runs forward (Geometry Dash style) and
+ * Player character that auto-runs forward and
  * supports gravity-based arc jumping.
  */
 public class Character {
@@ -123,7 +123,7 @@ public class Character {
     /**
      * Attempt to jump. If on the ground, jump immediately.
      * If airborne, buffer the input so if we land within JUMP_BUFFER_TIME,
-     * we'll auto-jump on landing (Geometry Dash style).
+     * we'll auto-jump on landing 
      */
     public void jump() {
         if (dead) return;
@@ -137,7 +137,7 @@ public class Character {
 
     /**
      * Set whether the jump button is being held. When held and the character
-     * is on the ground, it will auto-jump (Geometry Dash style).
+     * is on the ground, it will auto-jump 
      */
     public void setJumpHeld(boolean held) {
         this.jumpHeld = held;
