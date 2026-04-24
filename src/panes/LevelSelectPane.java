@@ -44,10 +44,10 @@ public class LevelSelectPane extends GraphicsPane {
     private static final double CARD_HEIGHT = 420;
 
     public static final GameLevel[] levels = {
-            GameLevel.OPHELIA,
             GameLevel.RED_SUN,
             GameLevel.TUMBLING_DICE,
-            GameLevel.GREAT_FAIRY_FOUNTAIN
+            GameLevel.GREAT_FAIRY_FOUNTAIN,
+            GameLevel.OPHELIA
     };
     private GImage backButton;
     private GImage leftArrow;

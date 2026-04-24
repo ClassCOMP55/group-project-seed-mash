@@ -209,7 +209,7 @@ public class GameLevel {
                     new Color(238/3, 28/3, 37/3)),
             34,
             geomFromString(RED_SUN_GEOM),
-            2,
+            1,
             0,
             "Sean Yap"
     );
@@ -224,7 +224,7 @@ public class GameLevel {
             "                  v                         v                                          B-------B            B-----------B               ---                      v  BBBBBBBBBBBBBBB       BBBBBBBBBBBBBBBBBB       BBBBBB          vv             B                 B             B                                     B                     B-B B B-B B B-B       B                           B                                                                 B-------B                         BBBBBBBBBB                          BBBBBBBBB     BBBB                       BB         BB  BB BB    BB      BB BB                        BB------",
             "              ^              ^          ^             ^                 ^              B       B        ^B--B           B       ^                          ---      BBBBBBBBBBBBBBB                                           ^^        ^^        B             B-B B B           B                     B B       B     B               B     B B B B B B B B B     B             B       B     B-B                              ^                   ^            B       B                                        BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                  BBB         BB BB      BB  BB BB ^^ BB B-B  BB BB B-B ^^         BB      BB      ",
             "              B          ^   v    B-------B     ^     B--B  ^           v   ^     B--B B       B  ----  BB  B           B  B----B     ^               B-B       --                     BBBBBBBBBBBBBBBBBB        BBBBBBBB-----------------------B B-B     B     B B B B-B-B B B-B B B-B             B-B B B-B-B   B-B-B B B     B B-B B B B-B B B B B B B B B B B-B B-B     B-B   B-B     B-B-B B B-B             B       B------B      ^^       B-B B        B---B       B       ^             BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB           vvv     BB  BB BB B-B  BB  BB BB BB BB B B  BB BB B B BB BB      BB B-B  BB      ",
-            "          B---B^        ^B      ^^B       B     B-----B  B  B     ^^BB      B-----B  B B       B        BB  B           B  B    B   ---              ^B B         --BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB     BBBBBBBB                       B B B     B-B   B B B B B B B B B B B B B       B-B B B B B B B B B B B B B B-B B B B B B B B B B B B B B B B B B B B B B-B B B B B B B-B B B B B B B B       B-B B      ^B      B  B------B     B B B^^      B   B       B       B    ^^      ^BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB      ^^         ^^BB  BB BB B B  BB  BB BB BB BB B B  BB BB B B BB BB B-B  BB B B  BB      ",
+            "          B---B^        ^B      ^^B       B     B-----B  B  B     ^^        B-----B  B B       B        BB  B           B  B    B   ---              ^B B         --BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB     BBBBBBBB                       B B B     B-B   B B B B B B B B B B B B B       B-B B B B B B B B B B B B B B-B B B B B B B B B B B B B B B B B B B B B B-B B B B B B B-B B B B B B B B       B-B B      ^B      B  B------B     B B B^^      B   B       B       B    ^^      ^BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB      ^^         ^^BB  BB BB B B  BB  BB BB BB BB B B  BB BB B B BB BB B-B  BB B B  BB      ",
             "BBBBBBBBBBB   BBBBBBBBBBBBBBBBBBBBB       BBBBBBB     B  B  BBBBBBBBBBBBBBBBB     B  BBB       B        BB  B           BBBB    B              BBBBBBBB B           BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB                       B B B B-B B B-B B B B B B B B B B B B B B B-B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B-B B B B BBBBBBBBB      BBBB      BBBBBBB BBBBBBBBBBBB   B       BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB  BB BB B B  BB  BB BB BB BB B B  BB BB B B BB BB B B  BB B B  BB      ",
     };
     public static final GameLevel TUMBLING_DICE = new GameLevel(
@@ -236,7 +236,7 @@ public class GameLevel {
                     new Color(0, 0, 0)),
             80,
             geomFromString(TUMBLING_DICE_GEOM),
-            3,
+            2,
             0,
             "Maxwell Palacios"
     );
@@ -265,7 +265,7 @@ public class GameLevel {
             ),
             60,
             geomFromString(OPHELIA_GEOM),
-            1,
+            4,
             1,
             "Anh Pham"
     );
@@ -294,7 +294,7 @@ public class GameLevel {
             ),
     	    69,
     	    geomFromString(GREAT_FAIRY_FOUNTAIN_GEOM),
-    	    4,
+    	    3,
     	    0,
     	    "Hayden Khant"
     	);
