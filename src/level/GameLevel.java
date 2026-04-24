@@ -241,7 +241,7 @@ public class GameLevel {
             "Maxwell Palacios"
     );
     
-    public static final String[] FINAL_DESTI = {
+    public static final String[] OPHELIA_GEOM = {
             "                                                                                                                                                                                                                                                                                   ",
             "                                                                                                                                                                                   V                                    B                                                          ",
             "                                                                                                                                                                                                                        V                         ^                                ",
@@ -255,16 +255,16 @@ public class GameLevel {
             "BBBBBBBBBBBBBBB                                                                                                                                                                                                                                                                    ",
     };
 
-    public static final GameLevel FINAL_DESTINATION = new GameLevel(
-            "Final Destination",
-            "final_destination",
+    public static final GameLevel OPHELIA = new GameLevel(
+            "Ophelia",
+            "Waltz_For_Ophelia",
             new LevelStitcher.ColorScheme(
                     new Color(30, 15, 80),
                     new Color(90, 70, 200),
                     new Color(8, 4, 25)
             ),
             60,
-            geomFromString(FINAL_DESTI),
+            geomFromString(OPHELIA_GEOM),
             1,
             1,
             "Anh Pham"
